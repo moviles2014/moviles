@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Producto {
 	
-	public static final String[] ARREGLO_CATEGORIAS = {"Abarrotes67", "Aseo Hogar", "Aseo Personal", "Carnes", "Lacteos"};
+	public static final String[] ARREGLO_CATEGORIAS = {"Abarrotes", "Aseo Hogar", "Aseo Personal", "Carnes", "Lacteos"};
 	
 	private String marca;
 	private String nombre;	

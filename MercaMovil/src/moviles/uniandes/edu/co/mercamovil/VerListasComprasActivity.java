@@ -30,8 +30,18 @@ public class VerListasComprasActivity extends Activity
 		String[ ] listas = instancia.darListas( );
 		ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1,listas);
 		listasCompras.setAdapter(adapter);
-		
-		//TODO Mostrar el detalle de la lista de compras seleccionada
+		listasCompras.setOnItemClickListener(new OnItemClickListener() {
+			@SuppressWarnings("rawtypes")
+			public void onItemClick(AdapterView parent, View view,
+					int position, long id) {
+				String nombreLista = ((TextView) view).getText().toString();
+				Intent intent = new Intent(getApplicationContext(), DetalleListaActivity.class);
+				intent.putExtra("nombreLista", nombreLista);
+				startActivity(intent);
+			}
+
+		});
+		//ToReview
 
 	}
 

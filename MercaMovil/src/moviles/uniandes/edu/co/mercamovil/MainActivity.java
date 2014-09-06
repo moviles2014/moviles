@@ -45,7 +45,9 @@ public class MainActivity extends Activity {
 	{
 		ListaCompras generada = instancia.generarListadeCompras();
 		Intent intent = new Intent(getApplicationContext(), DetalleListaActivity.class);
-		//TODO Iniciar DetalleListaActivity para mostrar la información de la lista generada
+		intent.putExtra("nombreLista", generada.getNombre());
+		startActivity(intent);
+		//ToReview
 	}
 	
 	public void registrarConsumoProducto(View v)

@@ -1,7 +1,9 @@
 package moviles.uniandes.edu.co.mercamovil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
+import moviles.uniandes.edu.co.mundo.CompraPrevista;
 import moviles.uniandes.edu.co.mundo.ListaCompras;
 import moviles.uniandes.edu.co.mundo.MercaMovil;
 import classattendance.mundo.R;
@@ -17,9 +19,11 @@ import android.provider.ContactsContract;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class DetalleListaActivity extends Activity 
 {
@@ -27,7 +31,7 @@ public class DetalleListaActivity extends Activity
 	 * Constante que permite identificar la acción de seleccionar un contacto
 	 */
 	private final static int ESCOGER_CONTACTO = 1;
-	
+
 	/**
 	 * Constante para crear un dialogo de error
 	 */
@@ -72,44 +76,72 @@ public class DetalleListaActivity extends Activity
 	 * Arreglo con los items de la lista de compras
 	 */
 	private String[ ] items;
-	
+
 	/**
 	 * List view con los items de compra
 	 */
 	private ListView listaItems;
-	
+
 	/**
 	 * Lista de compras de la que se muestra el detalle
 	 */
 	private ListaCompras listaCompras;
-	
+
 	/**
 	 * TextView con el costo de la lista
 	 */
 	private TextView costo;
-	
+
 	//TODO Cree un atributo para cada elemento gráfico que compone el layout
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		
-		//TODO Inicializar el atributo instancia para obtener la información del mundo
-		
-		//TODO Recuperar la información enviada por medio del intent (Ayuda: Revise cómo se inicia el Intent desde VerListasComprasActivity) 
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_detalle_lista);
+		instancia = MercaMovil.darInstancia(getApplicationContext());
 
-		//TODO Inicializar el atributo listaCompras (Ayuda: Utilice el método darListaPorNombre de la clase MercaMovil)
+		Intent intent = getIntent();
+		nombreLista = intent.getStringExtra("nombreLista");
+		listaCompras = instancia.darListaPorNombre(nombreLista);
+
+		TextView nombre = (TextView) findViewById(R.id.txtNombreLista);
+		nombre.setText(listaCompras.getNombre());
+
+		costo = (TextView) findViewById(R.id.txtCosto);
+		costo.setText(listaCompras.calcularCostoLista()+"");
+
+		TextView estado = (TextView) findViewById(R.id.txtEstado);
+		if (listaCompras.isCompraRealizada())
+			estado.setText("Comprado");
+		else
+			estado.setText("Pendiente por comprar");
+
+		TextView fechaprev = (TextView) findViewById(R.id.txtFechaPrevistaCompra);
+		fechaprev.setText(listaCompras.getFechaPrevistaProximaCompra().toString());
+
+		compartidaCon = (TextView) findViewById(R.id.txtCompartidaCon);
+		compartidaCon.setText("Test");
+
+		listaItems = (ListView)findViewById(R.id.lstProductosLista);		
+		items = instancia.darItemsEnLista(listaCompras);
+		ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1,items);
+		listaItems.setAdapter(adapter);	
 		
-		//TODO Inicializar los TextView con la información de la lista de compras
-		
-		//TODO Inicializar el atributo items con la información de los productos de la lista (Ayuda: Utilice el método darItemsEnLista de la clase MercaMovil)
-		
-		//TODO Inicializar el ListView y llenar el adapter con la información de los items
-		
-		compartidaCon = (TextView)findViewById(R.id.txtCompartidaCon);
+		listaItems.setOnItemClickListener(new OnItemClickListener() {
+			@SuppressWarnings("rawtypes")
+			public void onItemClick(AdapterView parent, View view,
+					int position, long id) {
+				String presentacion = ((TextView) view).getText().toString();
+				Intent intent = new Intent(getApplicationContext(), DetalleProductoActivity.class);
+				intent.putExtra("nombreProducto", listaCompras.getCantidades().get(position).getProducto().getNombre());
+				startActivity(intent);
+			}
+		});
+
 
 	}
-	
+
 	@Override
 	protected void onResume( )
 	{
@@ -223,20 +255,20 @@ public class DetalleListaActivity extends Activity
 		dialog.show();
 
 	}
-	
+
 	protected Dialog onCreateDialog(int id) {
-    	switch (id) {
+		switch (id) {
 		case DIALOGO_ERROR:
 			return crearDialogo("No fue posible recuperar la información del contacto.");
 		case DIALOGO_ENVIO_OK:
 			return crearDialogo("Se ha enviado el mensaje a " + nombreContacto);
 		case DIALOGO_ERROR_DATOS:
 			return crearDialogo("No ha seleccionado un contacto o este no tiene un número telefónico.");
-    	}
-		 
+		}
+
 		return null;
-    }
-	
+	}
+
 	/**
 	 * Crea un dialogo con el mensaje que llega por parámetro
 	 * @param mensaje el mensaje que se desea desplegar
@@ -247,11 +279,11 @@ public class DetalleListaActivity extends Activity
 		builder.setMessage(mensaje);
 		builder.setCancelable(false);
 		builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		                dialog.cancel();
-		                finish();
-		           }
-		       });
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.cancel();
+				finish();
+			}
+		});
 		AlertDialog alert = builder.create();
 		return alert;
 	}
