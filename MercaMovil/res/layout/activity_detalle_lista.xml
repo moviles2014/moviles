@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="150"
+        android:orientation="vertical" >
+
+        <!-- Completar el layout para ver la información de la lista. Ayuda: Utilice un ListView para mostrar los items que componen la lista de compras -->
+
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_compartida_con"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/txtCompartidaCon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSeleccionarContacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="seleccionarContacto"
+        android:text="@string/btn_seleccionar_contacto" />
+
+    <Button
+        android:id="@+id/btnCompartirLista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="compartirLista"
+        android:text="@string/btn_compartir_lista" />
+
+    <Button
+        android:id="@+id/btnAgregarProductoALista"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="agregarProducto"
+        android:text="@string/btn_agregar_producto" />
+
+</LinearLayout>

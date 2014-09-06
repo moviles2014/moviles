@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MercaMovil</string>
+    <string name="btn_ver_listas_compras">Ver listas de compras</string>
+    <string name="btn_ver_productos_veteranos">Ver productos veteranos</string>
+    <string name="btn_ver_productos">Ver todos los productos</string>
+    <string name="btn_agregar_producto">Agregar producto</string>
+    <string name="btn_generar_lista_compras">Generar lista de compras</string>
+    <string name="btn_registrar_consumo">Registrar consumo de producto</string>
+    <string name="btn_compartir_lista">Compartir lista</string>
+    <string name="btn_seleccionar_contacto">Seleccionar contacto</string>
+    <string name="lbl_nombre">Nombre: </string>
+    <string name="lbl_categoria">Categoría: </string>
+    <string name="lbl_marca">Marca: </string>
+    <string name="lbl_fecha_compra">Fecha última compra: </string>
+    <string name="lbl_presentaciones">Presentaciones disponibles: </string>
+    <string name="lbl_costo">Costo: </string>
+    <string name="lbl_estado">Estado: </string>
+    <string name="lbl_fecha_prevista_compra">Fecha prevista compra: </string>
+    <string name="lbl_seleccion_producto">Seleccione el producto: </string>
+    <string name="lbl_seleccion_presentacion">Seleccione la presentación: </string>
+    <string name="lbl_cantidad_producto">Cantidad a comprar: </string>
+    <string name="lbl_items_lista">Productos en la lista: </string>
+	<string name="lbl_compartida_con">Compartida con: </string>
+   	<string name="lbl_tamanio_presentacion">Tamaño: </string>
+   	<string name="lbl_unidad">Unidad: </string>
+	<string name="lbl_cantidad_minima">Cantidad Mínima: </string>
+	<string name="lbl_num_despensa">Número actual en despensa: </string>
+	<string name="lbl_precio_compra">Último precio de compra: </string>
+	<string name="lbl_titulo_registro">Registro de consumo</string>
+</resources>
