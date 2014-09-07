@@ -1,0 +1,10 @@
+package modelos;
+
+public class Info {
+	public Info() {
+		// TODO Auto-generated constructor stub
+	}
+	public int getNum ( ) { 
+		return 3 ; 
+	}
+}

@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 		int num = inf.getNum();
 		String message = " dbug " + num ; 
 		Toast msg = Toast.makeText (this, message , 3 ) ; 
-		msg.show() 	 ; 
+		
 		
 //		Toast msg = Toast.makeText(this	, "hello covas", 3)  ; 
 //		msg.show() ; 

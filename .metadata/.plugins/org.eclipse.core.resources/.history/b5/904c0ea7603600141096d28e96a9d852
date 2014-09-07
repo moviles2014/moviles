@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import modelos.Info; 
+import Info ;
 
 public class MainActivity extends Activity {
 
@@ -31,14 +31,8 @@ public class MainActivity extends Activity {
 			button.setText("otro s" + i  ) ; 
 			layout.addView(button) ;
 		}
-		Info inf =  new Info() ; 
-		int num = inf.getNum();
-		String message = " dbug " + num ; 
-		Toast msg = Toast.makeText (this, message , 3 ) ; 
-		msg.show() 	 ; 
-		
-//		Toast msg = Toast.makeText(this	, "hello covas", 3)  ; 
-//		msg.show() ; 
+		Toast msg = Toast.makeText(this	, "hello covas", 3)  ; 
+		msg.show() ; 
 	}
 
 	@Override
