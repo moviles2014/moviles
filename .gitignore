@@ -17,7 +17,9 @@ R.java
 /log/*.log
 /tmp
 
-
+*.snap
+*.index
+*.resources
 .idea/
 *.mid
 *.class
