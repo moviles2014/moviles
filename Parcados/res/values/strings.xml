@@ -9,6 +9,10 @@
     <string name="andy">andy the android</string>
     <string name="textview">TextView</string>
     <string name="ImplicitViewURL">ImplicitViewURL</string>
+    <string name="testText">testTExt</string>
+    <string name="otraAct">otraAct</string>
+    <string name="otraACt">otraAct</string>
+    
     
 
 </resources>

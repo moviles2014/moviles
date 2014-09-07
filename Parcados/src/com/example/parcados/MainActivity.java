@@ -2,6 +2,7 @@ package com.example.parcados;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +46,16 @@ public class MainActivity extends Activity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		else if ( id == R.id.otraActivityMenu) {
+			Intent intent = new Intent(this, OtraActivity.class) ;
+			 startActivity(intent) ;
+		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void AbrirOtraActivity ( View v ) { 
+		 Intent intent = new Intent(this, OtraActivity.class) ;
+		 startActivity(intent) ;
 	}
 	
 	public void irATestActivity ( View  v) 	{ 
@@ -53,6 +63,17 @@ public class MainActivity extends Activity {
 		 startActivity(intent) ;
 	}
 	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		
+		if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+			Toast.makeText(this, "landscape"  , 3).show() ;
+		}
+		else { 
+			Toast.makeText(this, "portrait"  , 3).show() ;
+		}
+	}
 	
 	
 }

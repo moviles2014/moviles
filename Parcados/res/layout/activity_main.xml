@@ -10,7 +10,7 @@
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10" android:inputType="text"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -42,6 +42,13 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/otraACt"
+        android:onClick="AbrirOtraActivity" />
 
     <Button
         android:id="@+id/button1"
