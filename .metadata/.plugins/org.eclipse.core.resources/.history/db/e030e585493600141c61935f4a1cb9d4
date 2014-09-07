@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Parcados</string>
+    <string name="hello_world">Testiando</string>
+    <string name="action_settings">Settings</string>
+    <string name="button_name1">Ingresar</string>
+    <string name="text">sample text1</string>
+    <string name="andy">andy the android</string>
+    
+
+</resources>

@@ -9,9 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
+	
+	
+	private static final int REQUEST_CODE  = 100 ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,18 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if ( requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+			System.out.println( " entro colo ");
+			String respuesta = data.getStringExtra("respuesta") ;
+			TextView tv = (TextView) findViewById(R.id.textView2) ;
+			tv.setText(respuesta ) ;
+		}
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
@@ -55,12 +72,21 @@ public class MainActivity extends Activity {
 	
 	public void AbrirOtraActivity ( View v ) { 
 		 Intent intent = new Intent(this, OtraActivity.class) ;
-		 startActivity(intent) ;
+		 intent.putExtra("text", "texto de main" ) ; 
+		 startActivityForResult(intent, REQUEST_CODE) ;
 	}
 	
 	public void irATestActivity ( View  v) 	{ 
 		 Intent intent = new Intent(this, TestActivity.class) ;
-		 startActivity(intent) ;
+		 intent.putExtra("valor", "valor 1" ) ;
+		 intent.putExtra("valor4", "valor 4" ) ;
+		 intent.putExtra("meque", 100 ) ; 
+		 startActivity ( intent) ; 
+		 
+	}
+	
+	public void mostrarOtraActivity ( MenuItem item) { 
+		Toast.makeText( this ,  " hello covas " , 2 ).show() ;
 	}
 	
 	@Override

@@ -1,0 +1,24 @@
+package com.example.parcados;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+public class TestActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_test);
+		getActionBar().setDisplayHomeAsUpEnabled(true) ;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
+	}
+	
+}

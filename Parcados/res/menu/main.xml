@@ -11,7 +11,8 @@
         android:id="@+id/otraActivityMenu"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="@string/otraACt"/>
+        android:title="@string/otraACt"
+        android:onClick="mostrarOtraActivity"/>
 	
 	<item
         android:id="@+id/otraActivityMenu2"
