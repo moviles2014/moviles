@@ -1,19 +1,23 @@
 package com.example.parcados;
 
-import android.app.Activity;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OtraActivity extends Activity {
+public class OtraActivity extends ListActivity {
 	
 	public OtraActivity yo ;
 	private String respuesta ;
-	
+	List<String> lista = new ArrayList<String>() ; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -29,6 +33,15 @@ public class OtraActivity extends Activity {
 		
 		TextView tv = (TextView) findViewById(R.id.textView2) ; 
 		tv.setText(msg) ;
+		
+		
+		lista.add("colo") ; 
+		lista.add("coletieri" ) ; 
+		lista.add("otra vaina" ) ;
+		
+		// se puede usar cualquier objeto y lo que se muestra seria el toString
+		ArrayAdapter<String> adapter = new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1 , lista) ; 
+		setListAdapter(adapter) ; 
 	}
 	
 	@Override
