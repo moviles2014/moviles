@@ -31,4 +31,5 @@
 	<string name="lbl_titulo_registro">Registro de consumo</string>
 	<string name="lbl_presentacion_lista">Presentación: </string>
 	<string name="lbl_cantidad_lista">Cantidad: </string>
+	<string name="btn_consultar_bateria">Consultar nivel de batería</string>
 </resources>

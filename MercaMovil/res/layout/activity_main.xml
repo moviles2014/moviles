@@ -40,5 +40,12 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_registrar_consumo"
         android:onClick="registrarConsumoProducto" />
+    
+        <Button
+        android:id="@+id/btnConsultarNivelBateria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_consultar_bateria"
+        android:onClick="consultarPorcentajeBateria" />
 
 </LinearLayout>
