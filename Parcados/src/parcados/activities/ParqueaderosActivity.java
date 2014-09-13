@@ -7,11 +7,6 @@ import com.example.parcados.R;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
-import parcados.mundo.Zona;
-
-
-import android.R.integer;
-import android.R.integer;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;

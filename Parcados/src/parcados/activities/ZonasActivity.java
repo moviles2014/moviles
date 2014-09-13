@@ -2,23 +2,16 @@ package parcados.activities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.parcados.R;
-
 import parcados.mundo.Parcados;
 import parcados.mundo.Zona;
-
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class ZonasActivity extends ListActivity {
 
