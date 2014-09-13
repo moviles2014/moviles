@@ -1,7 +1,11 @@
 package parcados.mundo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import parcados.sqlite.DAO;
 import android.content.Context;
 
 public class Parcados {
@@ -19,6 +23,11 @@ public class Parcados {
 	 * ArrayList con las zonas donde se encuentran ubicados los parqueaderos
 	 */
 	private ArrayList <Zona> zonas ; 
+	
+	/**
+	 * Manejador de base de datos
+	 */
+	private DAO dao;
 
 	//--------------------------------------------------------------------------------------
 	// Constructores
@@ -43,7 +52,10 @@ public class Parcados {
 	 * @param context - contexto global de la aplicación
 	 */
 	public Parcados( Context context ) {
-		zonas = new ArrayList<Zona>() ;  
+		dao = new DAO(context);
+		dao.open();
+		System.out.println(dao.getAllZonas());
+		zonas = dao.getAllZonas();  		
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -68,4 +80,20 @@ public class Parcados {
 	}
 
 
+	public void loadZonas (InputStream in) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String line;
+        while ((line = reader.readLine()) != null) {
+        	Zona zona = new Zona(line);
+            zonas.add(zona);
+            dao.crearZona(zona);
+        }
+        reader.close();
+	}
+	
+	public void loadParq (InputStream in)
+	{
+		
+	}
 }

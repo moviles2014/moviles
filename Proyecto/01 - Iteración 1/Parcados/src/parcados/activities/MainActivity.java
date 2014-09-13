@@ -1,5 +1,11 @@
 package parcados.activities;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import parcados.mundo.Parcados;
+import parcados.sqlite.DAO;
+
 import com.example.parcados.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +26,19 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		try {
+			Parcados actual = Parcados.darInstancia(getApplicationContext());
+			if ( actual.darZonas().isEmpty()){
+				InputStream inputStream = getResources().getAssets().open("zonas");			
+				actual.loadZonas(inputStream);
+				inputStream = getResources().getAssets().open("parqueaderos");			
+				actual.loadParq(inputStream);
+				inputStream.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -67,17 +86,17 @@ public class MainActivity extends Activity {
 
 	}
 
-//	@Override
-//	public void onConfigurationChanged(Configuration newConfig) {
-//		super.onConfigurationChanged(newConfig);
-//
-//		if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-//			Toast.makeText(this, "Landscape"  , Toast.LENGTH_SHORT).show() ;
-//		}
-//		else { 
-//			Toast.makeText(this, "Portrait"  , Toast.LENGTH_SHORT).show() ;
-//		}
-//	}
+	//	@Override
+	//	public void onConfigurationChanged(Configuration newConfig) {
+	//		super.onConfigurationChanged(newConfig);
+	//
+	//		if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+	//			Toast.makeText(this, "Landscape"  , Toast.LENGTH_SHORT).show() ;
+	//		}
+	//		else { 
+	//			Toast.makeText(this, "Portrait"  , Toast.LENGTH_SHORT).show() ;
+	//		}
+	//	}
 
 
 }

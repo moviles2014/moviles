@@ -49,7 +49,7 @@ public class ParqueaderosActivity extends ListActivity {
 			lista.add(parqueaderos.get(i).darNombre()) ;
 		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1 , lista) ; 
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
 		setListAdapter(adapter) ; 
 	}
 

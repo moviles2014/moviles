@@ -11,6 +11,7 @@ public class Parqueadero {
 	private String caracteristicas ; 
 	private String direccion ; 
 	private String nombre ; 
+	private String ultimaact;
 
 
 	//--------------------------------------------------------------------------------------
@@ -77,7 +78,16 @@ public class Parqueadero {
 	{
 		return precio;
 	}
-	
+
+	/**
+	 * Da la última actualización
+	 * @return la última actualización
+	 */
+	public String darUltimaAct()
+	{
+		return ultimaact;
+	}
+
 	/**
 	 * Actualiza los cupos del parqueadero dado el parámetro
 	 * @param _cupos cupos del parqueadero
@@ -86,7 +96,7 @@ public class Parqueadero {
 	{
 		cupos = _cupos;
 	}
-	
+
 	/**
 	 * Actualiza el precio del parqueadero dado el parámetro
 	 * @param _precio - precio del parqueadero
@@ -94,5 +104,14 @@ public class Parqueadero {
 	public void actualizarPrecio( int _precio )
 	{
 		precio = _precio;
+	}
+
+	/**
+	 * Pone la fecha de última actualización
+	 * @param _ultimaact - fecha de última actualización
+	 */
+	public void setUltimaAct( String _ultimaact )
+	{
+		ultimaact = _ultimaact;
 	}
 }

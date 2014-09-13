@@ -52,4 +52,13 @@ public class Zona {
 		return nombre;
 	}
 	
+	/**
+	 * Asigna los parqueaderos dado un arreglo
+	 * @param _parqs el arreglo de parqueaderos
+	 */
+	public void setParqueaderos( ArrayList<Parqueadero> _parqs)
+	{
+		parqueaderos = _parqs;
+	}
+	
 }
