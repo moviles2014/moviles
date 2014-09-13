@@ -14,6 +14,17 @@ public class Parcados {
 	// Atributos
 	//--------------------------------------------------------------------------------------
 
+	
+	/*
+	 * indica el estado de la calculadora
+	 * si es 1 significa que esta calculando un precio 
+	 * si es 0 significa que esta esperando a que el usuario 
+	 * ingrese un precio e inicie la calculadora
+	 */
+	private boolean  inicioCalculadora  ;
+	
+
+
 	/**
 	 * Instancia de la clase
 	 */
@@ -64,6 +75,7 @@ public class Parcados {
 		dao.open();
 		zonas = dao.getAllZonas();
 		precioParqueadero = -1 ; 
+		inicioCalculadora = false ; 
 		System.out.println(zonas);
 		System.out.println(zonas.size());
 	}
@@ -80,6 +92,30 @@ public class Parcados {
 		return precioParqueadero;
 	}
 
+	/*
+	 * Da el estado de la calculadora
+	 */
+	public boolean isInicioCalculadora() {
+		return inicioCalculadora;
+	}
+	
+	/*
+	 * cambia el estado de la calculadora 
+	 */
+	public void toggleEstadoCalculadora(){
+		if ( inicioCalculadora ){
+			inicioCalculadora = false ;
+			return ;
+		}
+		inicioCalculadora = true ; 
+	}
+	/*
+	 * cambia el estado de la calculadora
+	 * @param inicioCalculadora - estado de la calculadora
+	 */
+	public void setInicioCalculadora(boolean inicioCalculadora) {
+		this.inicioCalculadora = inicioCalculadora;
+	}
 	/**
 	 * guarda el precio del parqueadero seleccionado por el usuario
 	 * @param precioParqueadero - precio del parqueadero

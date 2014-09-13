@@ -24,5 +24,7 @@
     <string name="precioActual">Precio Actual:</string>
     <string name="inciarTiempo">Iniciar</string>
     <string name="finalizarTiempo">Finalizar</string>
+    <string name="ingresarHoraInicio">Ingresar hora de inicio</string>
+    <string name="ingresarPrecio">Ingresar Precio</string>
 
 </resources>

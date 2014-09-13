@@ -11,7 +11,7 @@
         android:gravity="center_horizontal"  
         android:text="@string/precioActual"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="10dp" />
 
     <TextView
@@ -19,24 +19,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"  
-        android:text="medium"
+        android:text="@string/ingresarPrecio"
         android:layout_marginBottom="50dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="fill_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:text="@string/inciarTiempo" 
-        android:onClick="iniciarCalculadora"/>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_gravity="center_horizontal" 
         android:layout_height="wrap_content"
-        android:text="@string/finalizarTiempo" 
-        android:onClick="finalizarCalculadora"/>
+        android:text="@string/inciarTiempo" 
+        android:onClick="cambiarEstadoCalculadora"/>
 
 </LinearLayout>
