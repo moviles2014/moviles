@@ -26,13 +26,11 @@ public final class R {
         public static final int parcados=0x7f020001;
     }
     public static final class id {
-        public static final int action_settings=0x7f080010;
+        public static final int action_about=0x7f080010;
         public static final int button1=0x7f08000b;
         public static final int button2=0x7f08000e;
         public static final int imageView1=0x7f08000d;
         public static final int layout=0x7f08000c;
-        public static final int otraActivityMenu=0x7f080011;
-        public static final int otraActivityMenu2=0x7f080012;
         public static final int scrollView1=0x7f08000f;
         public static final int textView1=0x7f080000;
         public static final int textView10=0x7f080003;
@@ -57,27 +55,26 @@ public final class R {
         public static final int main=0x7f070000;
     }
     public static final class string {
-        public static final int BParqueadero=0x7f05000b;
-        public static final int ImplicitViewURL=0x7f050007;
-        public static final int action_settings=0x7f050002;
-        public static final int andy=0x7f050005;
+        public static final int BParqueadero=0x7f05000a;
+        public static final int ImplicitViewURL=0x7f050005;
+        public static final int action_about=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int button_name1=0x7f050003;
-        public static final int calcularPrecio=0x7f05000c;
-        public static final int consultarCupos=0x7f05000d;
-        public static final int hello_world=0x7f050001;
-        public static final int otraACt=0x7f05000a;
-        public static final int otraAct=0x7f050009;
-        public static final int parqueadero_caracteristicas=0x7f050013;
-        public static final int parqueadero_cupos=0x7f050010;
-        public static final int parqueadero_direccion=0x7f050014;
-        public static final int parqueadero_horario=0x7f050012;
-        public static final int parqueadero_precio=0x7f050011;
+        public static final int button_name1=0x7f050002;
+        public static final int calcularPrecio=0x7f05000b;
+        public static final int consultarCupos=0x7f05000c;
+        public static final int logo=0x7f050009;
+        public static final int otraACt=0x7f050008;
+        public static final int otraAct=0x7f050007;
+        public static final int parqueadero_caracteristicas=0x7f050012;
+        public static final int parqueadero_cupos=0x7f05000f;
+        public static final int parqueadero_direccion=0x7f050013;
+        public static final int parqueadero_horario=0x7f050011;
+        public static final int parqueadero_precio=0x7f050010;
         public static final int parqueaderos=0x7f05000e;
-        public static final int testText=0x7f050008;
-        public static final int text=0x7f050004;
-        public static final int textview=0x7f050006;
-        public static final int zonas=0x7f05000f;
+        public static final int testText=0x7f050006;
+        public static final int text=0x7f050003;
+        public static final int textview=0x7f050004;
+        public static final int zonas=0x7f05000d;
     }
     public static final class style {
         /** 
