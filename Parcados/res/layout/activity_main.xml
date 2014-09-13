@@ -3,62 +3,28 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-<!--
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10" android:inputType="text"/>-->
-<!--
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="prueba"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginBottom="20dp" /> -->
+    android:layout_centerInParent="true"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="25dp" >
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/andy"
-        android:layout_marginBottom="30dp" 
-        android:layout_marginLeft="20dp"
-        />
-    
-
-   <!-- <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text" />-->
-
-    <!--<EditText
-        android:id="@+id/editText1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10" android:inputType="text">
-
-        <requestFocus />
-    </EditText>-->
+        android:src="@drawable/parcados" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"        
         android:onClick="buscarParqueadero"
-        android:text="@string/BParqueadero" />
+        android:text="@string/BParqueadero"/>
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="185dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
         android:onClick="irATestActivity"
         android:text="@string/calcularPrecio" />
 
