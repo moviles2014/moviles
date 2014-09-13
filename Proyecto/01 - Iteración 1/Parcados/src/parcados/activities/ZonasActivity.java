@@ -28,7 +28,7 @@ public class ZonasActivity extends ListActivity {
 
 		setContentView(R.layout.activity_zonas) ; 
 		ArrayList<Zona> zonas = Parcados.darInstancia(getApplicationContext()).darZonas() ; 
-
+		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		List<String> lista = new ArrayList<String>() ; 
 		for ( int i = 0 ;i < zonas.size() ; i ++ ){
 			lista.add(zonas.get(i).darNombre()) ;
@@ -53,6 +53,9 @@ public class ZonasActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

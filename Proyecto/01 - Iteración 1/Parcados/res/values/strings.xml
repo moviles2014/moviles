@@ -26,5 +26,7 @@
     <string name="finalizarTiempo">Finalizar</string>
     <string name="ingresarHoraInicio">Ingresar hora de inicio</string>
     <string name="ingresarPrecio">Ingresar Precio</string>
+    <string name="consultarPrecio">Consultar Precio</string>
+    <string name="seleccionarParqueadero">Seleccionar Parqueadero</string>
 
 </resources>

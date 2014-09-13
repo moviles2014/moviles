@@ -29,6 +29,7 @@ public class CalculadoraActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculadora);
+		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		btn = (Button) findViewById(R.id.button2) ; 
 		btn.setText( R.string.inciarTiempo ) ; 
 		if ( Parcados.darInstancia(getApplicationContext()).isInicioCalculadora() ) 
@@ -53,6 +54,9 @@ public class CalculadoraActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
 		int id = item.getItemId();
 		if (id == R.id.ingresar_precio) {
 			System.out.println( " ingresar precio");
