@@ -14,8 +14,13 @@
     <string name="otraACt">otraAct</string>
     <string name="BParqueadero">Buscar Parqueadero</string>
     <string name="calcularPrecio">Calculadora</string>
+    <string name="consultarCupos">Consultar Cupos</string>
+    <string name="zonas">Zonas</string>
     <string name="parqueaderos">Parqueaderos</string>
-    
-    
+    <string name="parqueadero_cupos">Cupos:</string>
+    <string name="parqueadero_precio">Precio:</string>
+    <string name="parqueadero_horario">Horario:</string>
+    <string name="parqueadero_caracteristicas">Características:</string>
+    <string name="parqueadero_direccion">Dirección:</string>
 
 </resources>

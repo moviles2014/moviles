@@ -2,34 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding = "20dp" >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+       android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Zonas"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-android:padding="15dp"
-android:layout_marginLeft="130dp"/>
+        android:gravity="center"
+        android:text="@string/zonas"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginBottom="10dp" />
 
-    <!--  <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back" 
-        android:onClick="goBack"/>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" /> -->
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
-	
+
 </LinearLayout>
