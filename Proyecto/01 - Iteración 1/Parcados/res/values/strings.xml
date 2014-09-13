@@ -13,7 +13,7 @@
     <string name="logo">Logo Parcados</string>
     <string name="BParqueadero">Buscar Parqueadero</string>
     <string name="calcularPrecio">Calculadora</string>
-    <string name="consultarCupos">Consultar Cupos</string>
+    <string name="consultarCupos">Consultar vía SMS</string>
     <string name="zonas">Zonas</string>
     <string name="parqueaderos">Parqueaderos</string>
     <string name="parqueadero_cupos">Cupos:</string>
