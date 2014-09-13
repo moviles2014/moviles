@@ -28,10 +28,18 @@ public class Parcados {
 	 * Manejador de base de datos
 	 */
 	private DAO dao;
+	
+	/**
+	 * Guarda el precio del parqueadero seleccionado por el usuario para
+	 * luego calcular el precio del parqueadero segun el tiempo transcurrido
+	 */
+	private int precioParqueadero ; 
 
 	//--------------------------------------------------------------------------------------
 	// Constructores
 	//--------------------------------------------------------------------------------------
+
+	
 
 	/**
 	 * Patrón singleton, da la instancia del mundo
@@ -54,7 +62,8 @@ public class Parcados {
 	public Parcados( Context context ) {
 		dao = new DAO(context);
 		dao.open();
-		zonas = dao.getAllZonas();  
+		zonas = dao.getAllZonas();
+		precioParqueadero = -1 ; 
 		System.out.println(zonas);
 		System.out.println(zonas.size());
 	}
@@ -63,6 +72,22 @@ public class Parcados {
 	// Métodos
 	//--------------------------------------------------------------------------------------
 
+	/**
+	 * Da el precio del parqueadero seleccionado por el usuario
+	 * @return precio del parqueadero
+	 */
+	public int getPrecioParqueadero() {
+		return precioParqueadero;
+	}
+
+	/**
+	 * guarda el precio del parqueadero seleccionado por el usuario
+	 * @param precioParqueadero - precio del parqueadero
+	 */
+	public void setPrecioParqueadero(int precioParqueadero) {
+		this.precioParqueadero = precioParqueadero;
+	}
+	
 	/**
 	 * Da los parqueaderos dada una zona
 	 * @param i - el id de la zona

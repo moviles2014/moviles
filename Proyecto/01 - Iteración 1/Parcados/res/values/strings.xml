@@ -21,5 +21,8 @@
     <string name="parqueadero_horario">Horario:</string>
     <string name="parqueadero_caracteristicas">Características:</string>
     <string name="parqueadero_direccion">Dirección:</string>
+    <string name="precioActual">Precio Actual:</string>
+    <string name="inciarTiempo">Iniciar</string>
+    <string name="finalizarTiempo">Finalizar</string>
 
 </resources>
