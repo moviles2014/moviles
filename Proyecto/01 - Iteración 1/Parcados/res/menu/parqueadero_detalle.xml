@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/ingresar_precio"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/ingresarPrecio"/>
+    
+        <item
+        android:id="@+id/consultar_cupos"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/consultarCupos"/>
+            <item
+        android:id="@+id/consultar_precio"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/consultarPrecio"/>
+</menu>

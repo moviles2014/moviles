@@ -77,6 +77,15 @@ public class MainActivity extends Activity {
 		startActivity(intent) ;
 	}
 
+	/**
+	 * Lanza la activity para calcular el precio del parqueadero seleccionado
+	 * @param v - el view
+	 */
+	public void abrirCalculadora ( View v ) { 
+		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		startActivity(intent) ;
+	}
+	
 	public void irATestActivity ( View  v) 	{ 
 		Intent intent = new Intent(this, TestActivity.class) ;
 		intent.putExtra("valor", "valor 1" ) ;

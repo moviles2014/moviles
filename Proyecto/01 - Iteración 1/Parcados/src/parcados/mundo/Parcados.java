@@ -14,6 +14,17 @@ public class Parcados {
 	// Atributos
 	//--------------------------------------------------------------------------------------
 
+	
+	/*
+	 * indica el estado de la calculadora
+	 * si es 1 significa que esta calculando un precio 
+	 * si es 0 significa que esta esperando a que el usuario 
+	 * ingrese un precio e inicie la calculadora
+	 */
+	private boolean  inicioCalculadora  ;
+	
+
+
 	/**
 	 * Instancia de la clase
 	 */
@@ -28,10 +39,18 @@ public class Parcados {
 	 * Manejador de base de datos
 	 */
 	private DAO dao;
+	
+	/**
+	 * Guarda el precio del parqueadero seleccionado por el usuario para
+	 * luego calcular el precio del parqueadero segun el tiempo transcurrido
+	 */
+	private int precioParqueadero ; 
 
 	//--------------------------------------------------------------------------------------
 	// Constructores
 	//--------------------------------------------------------------------------------------
+
+	
 
 	/**
 	 * Patrón singleton, da la instancia del mundo
@@ -54,13 +73,57 @@ public class Parcados {
 	public Parcados( Context context ) {
 		dao = new DAO(context);
 		dao.open();
-		zonas = dao.getAllZonas();  
+		zonas = dao.getAllZonas();
+		precioParqueadero = -1 ; 
+		inicioCalculadora = false ; 
+		System.out.println(zonas);
+		System.out.println(zonas.size());
 	}
 
 	//--------------------------------------------------------------------------------------
 	// Métodos
 	//--------------------------------------------------------------------------------------
 
+	/**
+	 * Da el precio del parqueadero seleccionado por el usuario
+	 * @return precio del parqueadero
+	 */
+	public int getPrecioParqueadero() {
+		return precioParqueadero;
+	}
+
+	/*
+	 * Da el estado de la calculadora
+	 */
+	public boolean isInicioCalculadora() {
+		return inicioCalculadora;
+	}
+	
+	/*
+	 * cambia el estado de la calculadora 
+	 */
+	public void toggleEstadoCalculadora(){
+		if ( inicioCalculadora ){
+			inicioCalculadora = false ;
+			return ;
+		}
+		inicioCalculadora = true ; 
+	}
+	/*
+	 * cambia el estado de la calculadora
+	 * @param inicioCalculadora - estado de la calculadora
+	 */
+	public void setInicioCalculadora(boolean inicioCalculadora) {
+		this.inicioCalculadora = inicioCalculadora;
+	}
+	/**
+	 * guarda el precio del parqueadero seleccionado por el usuario
+	 * @param precioParqueadero - precio del parqueadero
+	 */
+	public void setPrecioParqueadero(int precioParqueadero) {
+		this.precioParqueadero = precioParqueadero;
+	}
+	
 	/**
 	 * Da los parqueaderos dada una zona
 	 * @param i - el id de la zona
@@ -99,6 +162,7 @@ public class Parcados {
 			String[] datos = line.split(",");
 			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3]);
 			Zona zona = zonas.get(Integer.parseInt(datos[4]));
+			System.out.println(zona);
 			zona.agregarParqueadero(parq);			
 			dao.crearParqueadero(parq, zona);
 		}

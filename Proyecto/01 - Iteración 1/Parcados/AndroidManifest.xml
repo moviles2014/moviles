@@ -29,6 +29,7 @@
         <activity android:name="parcados.activities.ZonasActivity" />
         <activity android:name="parcados.activities.ParqueaderosActivity" />
         <activity android:name="parcados.activities.DetalleParqueaderoActivity" />
+        <activity android:name="parcados.activities.CalculadoraActivity" />
 
         <receiver android:name="parcados.activities.PhoneReceiver" >
             <intent-filter>
