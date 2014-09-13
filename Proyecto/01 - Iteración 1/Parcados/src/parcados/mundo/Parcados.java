@@ -23,7 +23,7 @@ public class Parcados {
 	 * ArrayList con las zonas donde se encuentran ubicados los parqueaderos
 	 */
 	private ArrayList <Zona> zonas ; 
-	
+
 	/**
 	 * Manejador de base de datos
 	 */
@@ -54,8 +54,9 @@ public class Parcados {
 	public Parcados( Context context ) {
 		dao = new DAO(context);
 		dao.open();
-		System.out.println(dao.getAllZonas());
-		zonas = dao.getAllZonas();  		
+		zonas = dao.getAllZonas();  
+		System.out.println(zonas);
+		System.out.println(zonas.size());
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -84,16 +85,26 @@ public class Parcados {
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line;
-        while ((line = reader.readLine()) != null) {
-        	Zona zona = new Zona(line);
-            zonas.add(zona);
-            dao.crearZona(zona);
-        }
-        reader.close();
+		while ((line = reader.readLine()) != null) {
+			Zona zona = new Zona(line);
+			zonas.add(zona);
+			dao.crearZona(zona);
+		}
+		reader.close();
 	}
-	
-	public void loadParq (InputStream in)
+
+	public void loadParq (InputStream in) throws IOException
 	{
-		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			String[] datos = line.split(",");
+			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3]);
+			Zona zona = zonas.get(Integer.parseInt(datos[4]));
+			System.out.println(zona);
+			zona.agregarParqueadero(parq);			
+			dao.crearParqueadero(parq, zona);
+		}
+		reader.close();
 	}
 }

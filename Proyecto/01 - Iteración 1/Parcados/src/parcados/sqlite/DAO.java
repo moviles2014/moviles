@@ -81,7 +81,7 @@ public class DAO {
 		values.put(SqliteHelper.COLUMN_ZONA_ID, darIdZona(zona));
 		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);		
 	}
-	
+
 	public void crearZona( Zona zona )
 	{
 		ContentValues values = new ContentValues();
@@ -92,7 +92,8 @@ public class DAO {
 
 	public long darIdZona(Zona zona)
 	{
-		Cursor cursor = db.query(SqliteHelper.TABLE_ZONAS, allColumnsZona, SqliteHelper.COLUMN_NOMBRE + " = " + zona.darNombre(), null, null, null, null);
+		Cursor cursor = db.query(SqliteHelper.TABLE_ZONAS, allColumnsZona, SqliteHelper.COLUMN_NOMBRE + " = '" + zona.darNombre() + "'", null, null, null, null);
+		cursor.moveToFirst();
 		long res = cursor.getLong(0);
 		cursor.close();
 		return res;
@@ -112,9 +113,9 @@ public class DAO {
 		cursor.close();
 		return parqueaderos;
 	}
-	
-	
-	
+
+
+
 	public ArrayList<Zona> getAllZonas() {
 		ArrayList<Zona> zonas = new ArrayList<Zona> ();
 
@@ -131,12 +132,12 @@ public class DAO {
 		cursor.close();
 		return zonas;
 	}
-	
+
 	public Zona cursorToZona(Cursor cursor)
 	{
 		return (new Zona(cursor.getString(1)));
 	}
-	
+
 	public Parqueadero cursorToParqueadero(Cursor cursor)
 	{
 		return (new Parqueadero(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));

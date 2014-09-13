@@ -31,8 +31,8 @@ public class SqliteHelper extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table "+ TABLE_PARQUEADEROS + "( "+ COLUMN_PARQ_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text not null, "+ COLUMN_DIRECCION +" text not null, "+ COLUMN_HORARIO +" text not null, "+ COLUMN_CARACTERISTICAS +" text not null, "+ COLUMN_CUPOS +" int, "+ COLUMN_PRECIO +" int, " + COLUMN_ZONA_ID + " integer not null, "+ COLUMN_ULTIMA_ACT  +" text);");
-		db.execSQL("create table "+ TABLE_ZONAS + " ( "+ COLUMN_ZONA_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text not null);");
+		db.execSQL("create table "+ TABLE_PARQUEADEROS + "( "+ COLUMN_PARQ_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null, "+ COLUMN_DIRECCION +" text not null, "+ COLUMN_HORARIO +" text not null, "+ COLUMN_CARACTERISTICAS +" text not null, "+ COLUMN_CUPOS +" int, "+ COLUMN_PRECIO +" int, " + COLUMN_ZONA_ID + " integer not null, "+ COLUMN_ULTIMA_ACT  +" text);");
+		db.execSQL("create table "+ TABLE_ZONAS + " ( "+ COLUMN_ZONA_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null);");
 	}
 
 	@Override

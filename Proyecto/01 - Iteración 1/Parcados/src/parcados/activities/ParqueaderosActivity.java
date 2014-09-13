@@ -41,9 +41,9 @@ public class ParqueaderosActivity extends ListActivity {
 		setContentView(R.layout.activity_parqueaderos) ;
 
 		Intent intent = getIntent() ; 
-		int id  = Integer.parseInt(intent.getStringExtra("id"))  ; 
+		idzona  = Integer.parseInt(intent.getStringExtra("id"))  ; 
 
-		ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(id) ; 
+		ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(idzona) ; 
 		List<String> lista = new ArrayList<String>() ;
 		for ( int i = 0 ;i < parqueaderos.size() ; i ++ ){
 			lista.add(parqueaderos.get(i).darNombre()) ;
@@ -61,8 +61,8 @@ public class ParqueaderosActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
-		intent.putExtra("idparq", position ) ;
-		intent.putExtra("idzona", idzona ) ;
+		intent.putExtra("idparq", Long.toString(position) ) ;
+		intent.putExtra("idzona", Integer.toString(idzona) ) ;
 		startActivity(intent) ;
 	}
 }

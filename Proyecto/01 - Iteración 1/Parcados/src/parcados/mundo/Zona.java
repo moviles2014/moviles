@@ -61,4 +61,13 @@ public class Zona {
 		parqueaderos = _parqs;
 	}
 	
+	/**
+	 * Agrega un parqueadero al arraylist de parqueaderos
+	 * @param _parq - el parqueadero
+	 */
+	public void agregarParqueadero(Parqueadero _parq)
+	{
+		parqueaderos.add(_parq);
+	}
+	
 }

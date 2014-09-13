@@ -21,15 +21,16 @@ public class DetalleParqueaderoActivity extends Activity {
 		setContentView(R.layout.activity_detalle_parqueadero) ; 		
 		Intent intent = getIntent(); 		
 		String idparq = intent.getStringExtra("idparq");
-		String idzona = intent.getStringExtra("idzona");		
+		String idzona = intent.getStringExtra("idzona");	
+		System.out.println(idzona);
 		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(Integer.parseInt(idzona)).get(Integer.parseInt(idparq));
 
 		TextView tx1 = (TextView) findViewById(R.id.textView1) ;
 		tx1.setText(actual.darNombre()) ; 
 		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
-		tx2.setText(actual.darCupos()) ; 
+		tx2.setText(Integer.toString(actual.darCupos())) ; 
 		TextView tx3 = (TextView) findViewById(R.id.textView3) ;
-		tx3.setText(actual.darPrecio()) ; 
+		tx3.setText(Integer.toString(actual.darPrecio())) ; 
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
 		tx4.setText(actual.darHorario()) ; 
 		TextView tx5 = (TextView) findViewById(R.id.textView5) ; 
