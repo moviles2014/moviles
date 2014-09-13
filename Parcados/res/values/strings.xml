@@ -12,6 +12,9 @@
     <string name="testText">testTExt</string>
     <string name="otraAct">otraAct</string>
     <string name="otraACt">otraAct</string>
+    <string name="BParqueadero">Buscar Parqueadero</string>
+    <string name="calcularPrecio">Calculadora</string>
+    <string name="parqueaderos">Parqueaderos</string>
     
     
 

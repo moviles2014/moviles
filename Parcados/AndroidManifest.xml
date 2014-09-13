@@ -32,7 +32,9 @@
         </activity>
         
         <activity android:name=".TestActivity" />
-        <activity android:name=".OtraActivity" />
+        <activity android:name=".ZonasActivity" />
+        <activity android:name=".ParqueaderosActivity" />
+        <activity android:name=".DetalleParqueaderoActivity" />
         
         <receiver android:name=".PhoneReceiver">
             <intent-filter >

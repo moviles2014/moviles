@@ -3,37 +3,40 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    >
+    android:orientation="vertical" >
 
+<!--
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10" android:inputType="text"/>
-
+        android:ems="10" android:inputType="text"/>-->
+<!--
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="prueba"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp" /> -->
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/andy"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="30dp" 
+        android:layout_marginLeft="20dp"
+        />
+    
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text" />
+        android:text="@string/text" />-->
 
-    <EditText
+    <!--<EditText
         android:id="@+id/editText1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -41,21 +44,22 @@
         android:ems="10" android:inputType="text">
 
         <requestFocus />
-    </EditText>
+    </EditText>-->
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/otraACt"
-        android:onClick="AbrirOtraActivity" />
+        android:layout_marginLeft="80dp"
+        android:onClick="buscarParqueadero"
+        android:text="@string/BParqueadero" />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:text="@string/button_name1"
-        android:onClick="irATestActivity" />
+        android:layout_marginLeft="80dp"
+        android:onClick="irATestActivity"
+        android:text="@string/calcularPrecio" />
 
 </LinearLayout>

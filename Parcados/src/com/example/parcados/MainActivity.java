@@ -8,14 +8,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import modelos.Info; 
+import modelos.Data; 
+
 
 public class MainActivity extends Activity {
 
-	
+	private Data instancia;
 	
 	private static final int REQUEST_CODE  = 100 ;
 
@@ -23,6 +26,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+	
 		
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layout) ;
 		
@@ -31,7 +35,7 @@ public class MainActivity extends Activity {
 			button.setText("otro s" + i  ) ; 
 			layout.addView(button) ;
 		}
-		Info inf =  new Info() ; 
+		Data inf =  Data.darInstancia(getApplicationContext() ) ; 
 		int num = inf.getNum();
 		String message = " dbug " + num ; 
 		Toast msg = Toast.makeText (this, message , 3 ) ; 
@@ -71,14 +75,21 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		else if ( id == R.id.otraActivityMenu) {
-			Intent intent = new Intent(this, OtraActivity.class) ;
+			Intent intent = new Intent(this, ZonasActivity.class) ;
 			 startActivity(intent) ;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void buscarParqueadero ( View v ) { 
+		 Intent intent = new Intent(this, ZonasActivity.class) ;
+//		 intent.putExtra("text", "texto de main" ) ; 
+//		 startActivityForResult(intent, REQUEST_CODE) ;
+		 startActivity(intent) ;
+	}
+	
 	public void AbrirOtraActivity ( View v ) { 
-		 Intent intent = new Intent(this, OtraActivity.class) ;
+		 Intent intent = new Intent(this, ZonasActivity.class) ;
 		 intent.putExtra("text", "texto de main" ) ; 
 		 startActivityForResult(intent, REQUEST_CODE) ;
 	}
