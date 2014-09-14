@@ -167,7 +167,7 @@ public class CalculadoraActivity extends Activity {
 	 * el tiempo que transcurre
 	 */
 	public void cambiarEstadoCalculadora ( View v ) { 
-		
+		Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero("algo" , 43) ; 
 //		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
 		
 		if ( !UpdaterServiceManager.isRunning() ) {

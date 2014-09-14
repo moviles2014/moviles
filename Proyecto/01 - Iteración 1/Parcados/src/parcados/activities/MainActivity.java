@@ -44,6 +44,12 @@ public class MainActivity extends Activity {
 		
 //		startService(new Intent(this, UpdaterServiceManager.class));
 	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		System.out.println(" resumio ");
+	}
 
 	/**
 	 * Método que agrega items al action bar si se encuentran

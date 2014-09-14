@@ -98,6 +98,7 @@ public class DetalleParqueaderoActivity extends Activity {
 	public void seleccionarParqueadero ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
+//		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
 	} 
 

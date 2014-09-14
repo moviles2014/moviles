@@ -79,7 +79,21 @@ public class DAO {
 		values.put(SqliteHelper.COLUMN_PRECIO, parq.darPrecio());
 		values.put(SqliteHelper.COLUMN_CUPOS, parq.darCupos());
 		values.put(SqliteHelper.COLUMN_ZONA_ID, darIdZona(zona));
-		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);		
+		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);	
+	}
+	
+	public void actualizarPrecioParqueadero ( String nombre ,  int precio ){
+		System.out.println(" llego ");
+		ContentValues values = new ContentValues();
+	 	values.put(SqliteHelper.COLUMN_NOMBRE,"z" );
+		values.put(SqliteHelper.COLUMN_DIRECCION, "por ahi " );
+		values.put(SqliteHelper.COLUMN_HORARIO, "full temprano" );
+		values.put(SqliteHelper.COLUMN_CARACTERISTICAS, "mefir" );
+		values.put(SqliteHelper.COLUMN_PRECIO, 434);
+		values.put(SqliteHelper.COLUMN_CUPOS,34);
+		values.put(SqliteHelper.COLUMN_ZONA_ID, "G" );
+		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='Parqueolito 213'" , null ) ;
+		System.out.println( " salio ");
 	}
 
 	public void crearZona( Zona zona )
