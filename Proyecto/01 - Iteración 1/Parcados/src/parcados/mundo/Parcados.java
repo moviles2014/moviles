@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import parcados.sqlite.DAO;
+import android.content.ContentValues;
 import android.content.Context;
 
 public class Parcados {
@@ -15,16 +16,6 @@ public class Parcados {
 	//--------------------------------------------------------------------------------------
 
 	
-	/*
-	 * indica el estado de la calculadora
-	 * si es 1 significa que esta calculando un precio 
-	 * si es 0 significa que esta esperando a que el usuario 
-	 * ingrese un precio e inicie la calculadora
-	 */
-	private boolean  inicioCalculadora  ;
-	
-
-
 	/**
 	 * Instancia de la clase
 	 */
@@ -39,12 +30,7 @@ public class Parcados {
 	 * Manejador de base de datos
 	 */
 	private DAO dao;
-	
-	/**
-	 * Guarda el precio del parqueadero seleccionado por el usuario para
-	 * luego calcular el precio del parqueadero segun el tiempo transcurrido
-	 */
-	private int precioParqueadero ; 
+
 
 	//--------------------------------------------------------------------------------------
 	// Constructores
@@ -74,8 +60,6 @@ public class Parcados {
 		dao = new DAO(context);
 		dao.open();
 		zonas = dao.getAllZonas();
-		precioParqueadero = -1 ; 
-		inicioCalculadora = false ; 
 		System.out.println(zonas);
 		System.out.println(zonas.size());
 	}
@@ -85,46 +69,6 @@ public class Parcados {
 	//--------------------------------------------------------------------------------------
 
 	/**
-	 * Da el precio del parqueadero seleccionado por el usuario
-	 * @return precio del parqueadero
-	 */
-	public int getPrecioParqueadero() {
-		return precioParqueadero;
-	}
-
-	/*
-	 * Da el estado de la calculadora
-	 */
-	public boolean isInicioCalculadora() {
-		return inicioCalculadora;
-	}
-	
-	/*
-	 * cambia el estado de la calculadora 
-	 */
-	public void toggleEstadoCalculadora(){
-		if ( inicioCalculadora ){
-			inicioCalculadora = false ;
-			return ;
-		}
-		inicioCalculadora = true ; 
-	}
-	/*
-	 * cambia el estado de la calculadora
-	 * @param inicioCalculadora - estado de la calculadora
-	 */
-	public void setInicioCalculadora(boolean inicioCalculadora) {
-		this.inicioCalculadora = inicioCalculadora;
-	}
-	/**
-	 * guarda el precio del parqueadero seleccionado por el usuario
-	 * @param precioParqueadero - precio del parqueadero
-	 */
-	public void setPrecioParqueadero(int precioParqueadero) {
-		this.precioParqueadero = precioParqueadero;
-	}
-	
-	/**
 	 * Da los parqueaderos dada una zona
 	 * @param i - el id de la zona
 	 * @return array con los parqueaderos buscados
@@ -133,12 +77,20 @@ public class Parcados {
 		return zonas.get(i).darParqueaderos() ; 
 	}
 
+	
+	public void actualizarPrecioParqueadero ( String nombre , int precio ){ 
+		dao.actualizarPrecioParqueadero(nombre	, precio) ; 
+	}
 	/**
 	 * Retorna todas las zonas
 	 * @return las zonas
 	 */
 	public ArrayList<Zona> darZonas ( ){ 
 		return zonas ; 
+	}
+	
+	public int  darPrecioParqueaderoDadoNombre ( String nombre ) { 
+		return dao.darPrecioParqueaderoPorNombre("algo" ) ; 
 	}
 
 
@@ -153,6 +105,11 @@ public class Parcados {
 		}
 		reader.close();
 	}
+	
+	public ArrayList<Zona> getAllZonas ()  {
+		return dao.getAllZonas(); 
+	}
+	
 
 	public void loadParq (InputStream in) throws IOException
 	{
@@ -160,12 +117,17 @@ public class Parcados {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String[] datos = line.split(",");
-			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3]);
+			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3] , -1 , -1  );
 			Zona zona = zonas.get(Integer.parseInt(datos[4]));
 			System.out.println(zona);
 			zona.agregarParqueadero(parq);			
 			dao.crearParqueadero(parq, zona);
 		}
 		reader.close();
+	}
+
+	public void update() {
+		zonas =getAllZonas() ; 
+		
 	}
 }

@@ -76,6 +76,7 @@ public class ParqueaderosActivity extends ListActivity {
 		intent.putExtra("idparq", Long.toString(position) ) ;
 		intent.putExtra("idzona", Integer.toString(idzona) ) ;
 		startActivity(intent) ;
+		finish() ; 
 	}
 	
 

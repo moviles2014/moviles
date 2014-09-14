@@ -79,7 +79,28 @@ public class DAO {
 		values.put(SqliteHelper.COLUMN_PRECIO, parq.darPrecio());
 		values.put(SqliteHelper.COLUMN_CUPOS, parq.darCupos());
 		values.put(SqliteHelper.COLUMN_ZONA_ID, darIdZona(zona));
-		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);		
+		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);	
+	}
+	
+	public void actualizarPrecioParqueadero ( String nombre ,  int precio ){
+		ContentValues values = new ContentValues();
+		values.put(SqliteHelper.COLUMN_PRECIO, precio );
+		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='"+nombre+"'" , null ) ;
+	}
+	
+	public int  darPrecioParqueaderoPorNombre ( String nombre ) {
+		final Cursor cursor = db.rawQuery("SELECT PRECIO FROM PARQUEADEROS where NOMBRE = '"+nombre+"';", null);
+		int precio = -2 ;  
+		if (cursor != null) {
+		    try {
+		        if (cursor.moveToFirst()) {
+		            precio = cursor.getInt(0);
+		        }
+		    } finally {
+		        cursor.close();
+		    }
+		}
+		return precio ; 
 	}
 
 	public void crearZona( Zona zona )
@@ -140,7 +161,7 @@ public class DAO {
 
 	public Parqueadero cursorToParqueadero(Cursor cursor)
 	{
-		return (new Parqueadero(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+		return (new Parqueadero(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4) , cursor.getInt(5) , cursor.getInt(6) ));
 	}
 
 

@@ -2,8 +2,10 @@ package parcados.activities;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import parcados.mundo.Parcados;
+import parcados.mundo.Zona;
 import parcados.sqlite.DAO;
 
 import com.example.parcados.R;
@@ -39,6 +41,19 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(" inicio ");
+		
+//		startService(new Intent(this, UpdaterServiceManager.class));
+	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		
+		Parcados parcados = Parcados.darInstancia(getApplicationContext()) ; 
+		parcados.update () ; 
 	}
 
 	/**

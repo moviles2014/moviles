@@ -48,6 +48,7 @@ public class ZonasActivity extends ListActivity {
 		Intent intent = new Intent(this, ParqueaderosActivity.class) ;
 		intent.putExtra("id", Long.toString(id) ) ; 
 		startActivity(intent) ;
+		finish() ; 
 	}
 
 	@Override

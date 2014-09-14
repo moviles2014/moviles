@@ -17,9 +17,14 @@ public class DetalleParqueaderoActivity extends Activity {
 
 	private Parqueadero actual;
 	
+	
+	private TextView tx3 ; 
 	/**
 	 * Cuando se crea la aplicación
 	 */
+	
+	TextView tx1 ;
+	String nombreParqueadero ; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -32,11 +37,12 @@ public class DetalleParqueaderoActivity extends Activity {
 		System.out.println(idzona);
 		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(Integer.parseInt(idzona)).get(Integer.parseInt(idparq));
 
-		TextView tx1 = (TextView) findViewById(R.id.textView1) ;
-		tx1.setText(actual.darNombre()) ; 
+		tx1 = (TextView) findViewById(R.id.textView1) ;
+		tx1.setText(actual.darNombre()) ;
+		nombreParqueadero = actual.darNombre() ;
 		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
 		tx2.setText(Integer.toString(actual.darCupos())) ; 
-		TextView tx3 = (TextView) findViewById(R.id.textView3) ;
+		tx3 = (TextView) findViewById(R.id.textView3) ;
 		tx3.setText(Integer.toString(actual.darPrecio())) ; 
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
 		tx4.setText(actual.darHorario()) ; 
@@ -72,6 +78,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		}
 		
 		int id = item.getItemId();
+		System.out.println( ""+ id );
 		if (id == R.id.consultar_cupos) {
 			//FALTA
 			System.out.println( " consultar cupos ");
@@ -82,9 +89,10 @@ public class DetalleParqueaderoActivity extends Activity {
 			System.out.println( " consultar precio ");
 			return true;
 		}
-		if (id == R.id.ingresar_precio) {
-			//FALTA
-			System.out.println( " ingresar precio ");
+		if (id == R.id.reiniciar_precio) {
+//			System.out.println(" entro ");
+			Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, -1) ; 
+			finish() ; 
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -95,7 +103,12 @@ public class DetalleParqueaderoActivity extends Activity {
 	 */
 	public void seleccionarParqueadero ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
+		intent.putExtra("NombreParqueadero", nombreParqueadero ) ;
+		
+//		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
+		finish() ; 
 	} 
 
 }
