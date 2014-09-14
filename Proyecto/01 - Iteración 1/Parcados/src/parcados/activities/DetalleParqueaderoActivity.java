@@ -17,6 +17,8 @@ public class DetalleParqueaderoActivity extends Activity {
 
 	private Parqueadero actual;
 	
+	
+	private TextView tx3 ; 
 	/**
 	 * Cuando se crea la aplicación
 	 */
@@ -36,7 +38,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		tx1.setText(actual.darNombre()) ; 
 		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
 		tx2.setText(Integer.toString(actual.darCupos())) ; 
-		TextView tx3 = (TextView) findViewById(R.id.textView3) ;
+		tx3 = (TextView) findViewById(R.id.textView3) ;
 		tx3.setText(Integer.toString(actual.darPrecio())) ; 
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
 		tx4.setText(actual.darHorario()) ; 
@@ -95,6 +97,7 @@ public class DetalleParqueaderoActivity extends Activity {
 	 */
 	public void seleccionarParqueadero ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
 	} 
 

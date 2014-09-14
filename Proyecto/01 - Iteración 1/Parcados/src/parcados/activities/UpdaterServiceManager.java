@@ -21,9 +21,9 @@ public class UpdaterServiceManager extends Service {
     private static NotificationManager notificationManager;
 
     private UpdaterServiceManager yo  ;
-    private  static double precio  ; 
+    private  static int precio  ; 
 
-	private static double precioActual ; 
+	private static int precioActual ; 
     
     private static boolean running  ;
 
@@ -102,7 +102,7 @@ public class UpdaterServiceManager extends Service {
 
 
 
-	public static void setPrecio(double precio) {
+	public static void setPrecio(int precio) {
 		UpdaterServiceManager.precio = precio;
 	}
     
@@ -110,7 +110,7 @@ public class UpdaterServiceManager extends Service {
 //    	System.out.println( " entro coleto ");p
 //    	stopForeground(true);
     	running = false ;
-    	precio =0.0 ;
+    	precio =0 ;
     	precioActual  =0 ; 
     	notificationManager.cancel(NOTIFICATION_EX) ; 
 //        if (timer != null) timer.cancel();
@@ -136,7 +136,7 @@ public class UpdaterServiceManager extends Service {
 
 
 
-	public static double getPrecioActual() {
+	public static int getPrecioActual() {
 		return precioActual;
 	}
 }
