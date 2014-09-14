@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class UpdaterServiceManager extends Service {
 
-    private final int UPDATE_INTERVAL = 60000;
+    private final int UPDATE_INTERVAL = 1000;
     private  Timer timer = new Timer();
     private static final int NOTIFICATION_EX = 1;
     private static NotificationManager notificationManager;
@@ -28,7 +28,8 @@ public class UpdaterServiceManager extends Service {
     private static boolean running  ;
 
 	public UpdaterServiceManager() {}
-
+	private static int count = 0  ; 
+	private static int notificationCount = 60 ; 
 
 
     @Override
@@ -37,6 +38,7 @@ public class UpdaterServiceManager extends Service {
     	System.out.println( "created service");
     	running = true ;
     	precioActual = 0 ; 
+    	count = 0 ; 
     	yo = this ; 
     }
 
@@ -60,35 +62,41 @@ public class UpdaterServiceManager extends Service {
             @Override
             public void run() {
             	
-            	
+            	count%= notificationCount ; 
             	if ( running ) {
-	                // Check if there are updates here and notify if true
-//	            	System.out.println( precio );
-            		 precioActual +=precio ; 
-	            	 int icon = R.drawable.ic_menu_info_details ;
-	                 
-	                 CharSequence tickerText = "El precio actual es: $" + precioActual ;
-	                 long when = System.currentTimeMillis();
-	                Notification notification = new Notification(icon, tickerText, when);
-	                Context context = getApplicationContext();
-	                CharSequence contentTitle = "El precio actual es:";
-	               
-	                CharSequence contentText = "$" + precioActual;
-	                Intent notificationIntent = new Intent( yo , CalculadoraActivity.class);
-	                PendingIntent contentIntent = PendingIntent.getActivity(yo, 0,
-	                        notificationIntent, 0);
-	                notification.setLatestEventInfo(context, contentTitle, contentText,
-	                        contentIntent);
-	               
-//	                notificationManager.notify(NOTIFICATION_EX, notification);
-//	                notification.flags|=Notification.FLAG_NO_CLEAR;
-	                startForeground(NOTIFICATION_EX, notification);
+            	
+            		//notificacion cada minuto
+            		if ( count == 0 ) { 
+            			
+		                // Check if there are updates here and notify if true
+	//	            	System.out.println( precio );
+	            		 precioActual +=precio ; 
+		            	 int icon = R.drawable.ic_menu_info_details ;
+		                 
+		                 CharSequence tickerText = "El precio actual es: $" + precioActual ;
+		                 long when = System.currentTimeMillis();
+		                Notification notification = new Notification(icon, tickerText, when);
+		                Context context = getApplicationContext();
+		                CharSequence contentTitle = "El precio actual es:";
+		               
+		                CharSequence contentText = "$" + precioActual;
+		                Intent notificationIntent = new Intent( yo , CalculadoraActivity.class);
+		                PendingIntent contentIntent = PendingIntent.getActivity(yo, 0,
+		                        notificationIntent, 0);
+		                notification.setLatestEventInfo(context, contentTitle, contentText,
+		                        contentIntent);
+		               
+	//	                notificationManager.notify(NOTIFICATION_EX, notification);
+	//	                notification.flags|=Notification.FLAG_NO_CLEAR;
+		                startForeground(NOTIFICATION_EX, notification);
+	                }
 	                
             	}
             	else {
             		stopForeground(true ) ;
             		stopSelf() ; 
             	}
+            	count ++ ; 
             }
         }, 0, UPDATE_INTERVAL);
         
@@ -112,6 +120,7 @@ public class UpdaterServiceManager extends Service {
     	running = false ;
     	precio =0 ;
     	precioActual  =0 ; 
+    	count = 0 ; 
     	notificationManager.cancel(NOTIFICATION_EX) ; 
 //        if (timer != null) timer.cancel();
     }
