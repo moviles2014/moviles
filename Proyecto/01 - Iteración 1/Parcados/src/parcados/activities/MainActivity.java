@@ -3,7 +3,7 @@ package parcados.activities;
 import java.io.IOException;
 import java.io.InputStream;
 import parcados.mundo.Parcados;
-import com.example.parcados.R;
+import com.parcados.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,16 +37,11 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		System.out.println(" inicio ");
-		
-//		startService(new Intent(this, UpdaterServiceManager.class));
 	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
-		
 		Parcados parcados = Parcados.darInstancia(getApplicationContext()) ; 
 		parcados.update () ; 
 	}
@@ -94,14 +89,6 @@ public class MainActivity extends Activity {
 	public void abrirCalculadora ( View v ) { 
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		startActivity(intent) ;
-	}
-	
-	public void irATestActivity ( View  v) 	{ 
-		Intent intent = new Intent(this, TestActivity.class) ;
-		intent.putExtra("valor", "valor 1" ) ;
-		intent.putExtra("valor4", "valor 4" ) ;
-		intent.putExtra("meque", 100 ) ; 
-		startActivity ( intent) ; 
 
 	}
 

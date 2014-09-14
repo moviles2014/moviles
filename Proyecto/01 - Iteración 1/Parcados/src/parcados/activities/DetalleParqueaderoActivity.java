@@ -3,7 +3,7 @@ package parcados.activities;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 
-import com.example.parcados.R;
+import com.parcados.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -99,7 +99,6 @@ public class DetalleParqueaderoActivity extends Activity {
 		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		intent.putExtra("NombreParqueadero", nombreParqueadero ) ;
 		startActivity(intent) ; 
-		finish() ; 
 	} 
 
 }

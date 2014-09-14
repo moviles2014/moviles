@@ -59,8 +59,6 @@ public class Parcados {
 		dao = new DAO(context);
 		dao.open();
 		zonas = dao.getAllZonas();
-		System.out.println(zonas);
-		System.out.println(zonas.size());
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -118,7 +116,6 @@ public class Parcados {
 			String[] datos = line.split(",");
 			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3] , -1 , -1  );
 			Zona zona = zonas.get(Integer.parseInt(datos[4]));
-			System.out.println(zona);
 			zona.agregarParqueadero(parq);			
 			dao.crearParqueadero(parq, zona);
 		}
@@ -126,7 +123,7 @@ public class Parcados {
 	}
 
 	public void update() {
-		zonas =getAllZonas() ; 
+		zonas = getAllZonas() ; 
 		
 	}
 }

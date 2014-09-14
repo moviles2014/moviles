@@ -3,7 +3,7 @@ package parcados.activities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.parcados.R;
+import com.parcados.R;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
@@ -76,7 +76,6 @@ public class ParqueaderosActivity extends ListActivity {
 		intent.putExtra("idparq", Long.toString(position) ) ;
 		intent.putExtra("idzona", Integer.toString(idzona) ) ;
 		startActivity(intent) ;
-		finish() ; 
 	}
 	
 

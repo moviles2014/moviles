@@ -2,7 +2,7 @@ package parcados.activities;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.parcados.R;
+import com.parcados.R;
 import parcados.mundo.Parcados;
 import parcados.mundo.Zona;
 import android.app.ListActivity;
@@ -48,7 +48,6 @@ public class ZonasActivity extends ListActivity {
 		Intent intent = new Intent(this, ParqueaderosActivity.class) ;
 		intent.putExtra("id", Long.toString(id) ) ; 
 		startActivity(intent) ;
-		finish() ; 
 	}
 
 	@Override
