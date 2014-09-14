@@ -39,6 +39,10 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(" inicio ");
+		
+//		startService(new Intent(this, UpdaterServiceManager.class));
 	}
 
 	/**

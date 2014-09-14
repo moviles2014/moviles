@@ -34,6 +34,10 @@ public class TestActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void closeMe ( View v ) { 
+		System.out.println("entro colo ");
+	}
+	
 	public void implicitViewURL (View v ) { 
 //		String wbpage = "http://www.google.com" ; 
 //		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wbpage)) ;
