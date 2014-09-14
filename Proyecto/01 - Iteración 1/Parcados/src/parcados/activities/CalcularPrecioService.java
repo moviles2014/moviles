@@ -16,13 +16,11 @@ public class CalcularPrecioService extends Service {
 	public void onStart(Intent intent, int startId) {
 		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
-		System.out.println( " inicio ");
 	}
 	
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		System.out.println( " salio ");
 	}
 }

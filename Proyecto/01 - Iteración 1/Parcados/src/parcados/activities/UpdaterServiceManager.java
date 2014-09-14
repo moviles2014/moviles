@@ -11,7 +11,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.widget.Toast;
 
 public class UpdaterServiceManager extends Service {
 
@@ -45,7 +44,6 @@ public class UpdaterServiceManager extends Service {
     @Override
     public void onDestroy() {
         if (timer != null) {
-        	System.out.println( " entro ");
             timer.cancel();
         }
     }
@@ -59,7 +57,8 @@ public class UpdaterServiceManager extends Service {
         
         timer.scheduleAtFixedRate(new TimerTask() {
 
-            @Override
+            @SuppressWarnings("deprecation")
+			@Override
             public void run() {
             	
             	count%= notificationCount ; 
@@ -67,33 +66,27 @@ public class UpdaterServiceManager extends Service {
             	
             		//notificacion cada minuto
             		if ( count == 0 ) { 
-            			
-		                // Check if there are updates here and notify if true
-	//	            	System.out.println( precio );
 	            		 precioActual +=precio ; 
 		            	 int icon = R.drawable.ic_menu_info_details ;
 		                 
-		                 CharSequence tickerText = "El precio actual es: $" + precioActual ;
+		                 CharSequence tickerText = "Parcados - Precio parqueadero: $" + precioActual ;
 		                 long when = System.currentTimeMillis();
 		                Notification notification = new Notification(icon, tickerText, when);
 		                Context context = getApplicationContext();
-		                CharSequence contentTitle = "El precio actual es:";
+		                CharSequence contentTitle = "Parcados";
 		               
-		                CharSequence contentText = "$" + precioActual;
+		                CharSequence contentText = "Precio parqueadero: $" + precioActual;
 		                Intent notificationIntent = new Intent( yo , CalculadoraActivity.class);
 		                PendingIntent contentIntent = PendingIntent.getActivity(yo, 0,
 		                        notificationIntent, 0);
 		                notification.setLatestEventInfo(context, contentTitle, contentText,
-		                        contentIntent);
-		               
-	//	                notificationManager.notify(NOTIFICATION_EX, notification);
-	//	                notification.flags|=Notification.FLAG_NO_CLEAR;
+		                        contentIntent);		           
 		                startForeground(NOTIFICATION_EX, notification);
 	                }
 	                
             	}
             	else {
-            		stopForeground(true ) ;
+            		stopForeground(true) ;
             		stopSelf() ; 
             	}
             	count ++ ; 
@@ -115,14 +108,11 @@ public class UpdaterServiceManager extends Service {
 	}
     
     public static  void stopService() {
-//    	System.out.println( " entro coleto ");p
-//    	stopForeground(true);
     	running = false ;
     	precio =0 ;
     	precioActual  =0 ; 
     	count = 0 ; 
     	notificationManager.cancel(NOTIFICATION_EX) ; 
-//        if (timer != null) timer.cancel();
     }
     
     public static boolean isRunning() {
@@ -139,7 +129,6 @@ public class UpdaterServiceManager extends Service {
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
-//		System.out.println(  " entro en binder ");
 		return null;
 	}
 

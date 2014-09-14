@@ -81,16 +81,9 @@ public class DetalleParqueaderoActivity extends Activity {
 		System.out.println( ""+ id );
 		if (id == R.id.consultar_cupos) {
 			//FALTA
-			System.out.println( " consultar cupos ");
 			return true;
 		}
-		if (id == R.id.consultar_precio) {
-			//FALTA
-			System.out.println( " consultar precio ");
-			return true;
-		}
-		if (id == R.id.reiniciar_precio) {
-//			System.out.println(" entro ");
+		else if (id == R.id.reiniciar_precio) {
 			Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, -1) ; 
 			finish() ; 
 			return true;
@@ -105,8 +98,6 @@ public class DetalleParqueaderoActivity extends Activity {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		intent.putExtra("NombreParqueadero", nombreParqueadero ) ;
-		
-//		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
 		finish() ; 
 	} 

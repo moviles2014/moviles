@@ -2,12 +2,7 @@ package parcados.activities;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-
 import parcados.mundo.Parcados;
-import parcados.mundo.Zona;
-import parcados.sqlite.DAO;
-
 import com.example.parcados.R;
 import android.app.Activity;
 import android.content.Intent;

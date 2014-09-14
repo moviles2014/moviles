@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import parcados.sqlite.DAO;
-import android.content.ContentValues;
 import android.content.Context;
 
 public class Parcados {
