@@ -54,7 +54,6 @@ public class CalculadoraActivity extends Activity {
 	/*
 	 * Maneja la creación de la activity 
 	 */
-	static boolean runningService  = false ;   
 	
 	private Timer myTimer;
 	
@@ -70,7 +69,7 @@ public class CalculadoraActivity extends Activity {
 		precioActual = 0.0 ; 
 		btn = (Button) findViewById(R.id.button2) ; 
 		
-		if ( !UpdaterServiceManager.running )
+		if ( !UpdaterServiceManager.isRunning() )
 			btn.setText( R.string.inciarTiempo ) ;
 		else 
 			btn.setText(R.string.finalizarTiempo) ; 
@@ -88,7 +87,6 @@ public class CalculadoraActivity extends Activity {
 	        }
 
 	    }, 0, 1000);
-		runningService = UpdaterServiceManager.running ; 
 //		handler = new Handler();
 //		handler.postDelayed(updateData , 10000) ;
 	}
@@ -112,10 +110,10 @@ public class CalculadoraActivity extends Activity {
 
 	    //Do something to the UI thread here
 	    	System.out.println( "entro coleto 4");
-	    	if ( runningService ) { 
+	    	if ( UpdaterServiceManager.isRunning() ) { 
 	    		System.out.println( "entro coleto 3");
 //	    		precioActual = ThreadCalculadora.getPrecio() ;
-	    		precioActual = UpdaterServiceManager.precio ; 
+	    		precioActual = UpdaterServiceManager.getPrecioActual () ; 
 	    		precioActual_txt.setText("$"+ Double.toString(precioActual)) ;
 	    	}
 	    	else {
@@ -160,9 +158,9 @@ public class CalculadoraActivity extends Activity {
 	 */
 	public void cambiarEstadoCalculadora ( View v ) { 
 		
-		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
+//		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
 		
-		if ( !UpdaterServiceManager.running ) {
+		if ( !UpdaterServiceManager.isRunning() ) {
 			btn.setText(R.string.finalizarTiempo) ;
 			iniciarCalculadora() ; 
 		}
@@ -178,24 +176,16 @@ public class CalculadoraActivity extends Activity {
 	 * inicia registro del precio actual considerando el tiempo trasncurrido en parqueadero
 	 */
 	public void iniciarCalculadora (){
-		 runningService =  false;
-		 UpdaterServiceManager.precio=0.0 ; 
-	    
-	    ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-	    runningService = false ;
-        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (UpdaterServiceManager.class.getName().equals(service.service.getClassName())) {
-                runningService = true ; 
-            }
-        }
-	    System.out.println( runningService);
-	    if ( !runningService ) { 
-	    	
-	    	startService(new Intent ( this , UpdaterServiceManager.class));  
-	    	runningService=true ; 
-	    }
-//		UpdaterServiceManager.running=true ; 
-//		UpdaterServiceManager.precio=0.0 ; 
+		  
+//	    ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+//	    boolean runningService = false ;
+//        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+//            if (UpdaterServiceManager.class.getName().equals(service.service.getClassName())) {
+//                runningService = true ; 
+//            }
+//        }
+        UpdaterServiceManager.setPrecio(1) ; 
+        startService(new Intent ( this , UpdaterServiceManager.class));  
 	}
 	
 	
@@ -204,17 +194,9 @@ public class CalculadoraActivity extends Activity {
 	 * calculos en otros parqueaderos
 	 */
 	public void finalizarCalculadora(){
-		runningService=false ;
-//		UpdaterServiceManager.stopService() ;
 		
-//		UpdaterServiceManager.stopService() ; 
-		
-//		stopService(new Intent(getApplicationContext(), UpdaterServiceManager.class) ) ;
-
 		UpdaterServiceManager.stopService() ; 
 //		stopService(new Intent(this ,UpdaterServiceManager.class));
-		
-//		handler.removeCallbacks(updateData) ; 
 	}
 
 	/*
