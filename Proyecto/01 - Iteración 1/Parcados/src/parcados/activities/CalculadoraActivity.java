@@ -120,6 +120,14 @@ public class CalculadoraActivity extends Activity {
 	    
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	private Runnable Timer_Tick = new Runnable() {
 	    public void run() {
@@ -205,12 +213,12 @@ public class CalculadoraActivity extends Activity {
 		
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Title");
+			builder.setTitle("Precio por minuto del parqueadero:");
 	
 			// Set up the input
 			final EditText input = new EditText(this);
 			// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-			input.setInputType(InputType.TYPE_CLASS_TEXT );
+			input.setInputType(InputType.TYPE_CLASS_NUMBER );
 			builder.setView(input);
 	
 			// Set up the buttons
@@ -218,13 +226,13 @@ public class CalculadoraActivity extends Activity {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {
 			        m_Text = input.getText().toString();
-			        int precio = Integer.parseInt(m_Text) ; 
+			        precio = Integer.parseInt(m_Text) ; 
 			        	Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, precio) ; 
 			        UpdaterServiceManager.setPrecio(precio) ; 
 			        startService(new Intent ( yo , UpdaterServiceManager.class));  
 			    }
 			});
-			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {
 			    	precioActual_txt.setText("$"+ "0.0") ;

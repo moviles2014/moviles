@@ -78,6 +78,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		}
 		
 		int id = item.getItemId();
+		System.out.println( ""+ id );
 		if (id == R.id.consultar_cupos) {
 			//FALTA
 			System.out.println( " consultar cupos ");
@@ -88,9 +89,10 @@ public class DetalleParqueaderoActivity extends Activity {
 			System.out.println( " consultar precio ");
 			return true;
 		}
-		if (id == R.id.ingresar_precio) {
-			//FALTA
-			System.out.println( " ingresar precio ");
+		if (id == R.id.reiniciar_precio) {
+//			System.out.println(" entro ");
+			Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, -1) ; 
+			finish() ; 
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -106,6 +108,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		
 //		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
+		finish() ; 
 	} 
 
 }

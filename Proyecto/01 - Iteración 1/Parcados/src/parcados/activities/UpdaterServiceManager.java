@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class UpdaterServiceManager extends Service {
 
-    private final int UPDATE_INTERVAL = 1000;
+    private final int UPDATE_INTERVAL = 60000;
     private  Timer timer = new Timer();
     private static final int NOTIFICATION_EX = 1;
     private static NotificationManager notificationManager;
