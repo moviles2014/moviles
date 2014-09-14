@@ -83,17 +83,27 @@ public class DAO {
 	}
 	
 	public void actualizarPrecioParqueadero ( String nombre ,  int precio ){
-		System.out.println(" llego ");
 		ContentValues values = new ContentValues();
-	 	values.put(SqliteHelper.COLUMN_NOMBRE,"z" );
-		values.put(SqliteHelper.COLUMN_DIRECCION, "por ahi " );
-		values.put(SqliteHelper.COLUMN_HORARIO, "full temprano" );
-		values.put(SqliteHelper.COLUMN_CARACTERISTICAS, "mefir" );
-		values.put(SqliteHelper.COLUMN_PRECIO, 434);
-		values.put(SqliteHelper.COLUMN_CUPOS,34);
-		values.put(SqliteHelper.COLUMN_ZONA_ID, "G" );
-		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='Parqueolito 213'" , null ) ;
-		System.out.println( " salio ");
+		
+		values.put(SqliteHelper.COLUMN_PRECIO, 34 );
+		values.put(SqliteHelper.COLUMN_ZONA_ID, 1 );
+		values.put(SqliteHelper.COLUMN_CARACTERISTICAS, "monkey" );
+		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='z'" , null ) ;
+	}
+	
+	public int  darPrecioParqueaderoPorNombre ( String nombre ) {
+		final Cursor cursor = db.rawQuery("SELECT PRECIO FROM PARQUEADEROS where NOMBRE = '"+nombre+"';", null);
+		int precio = -2 ;  
+		if (cursor != null) {
+		    try {
+		        if (cursor.moveToFirst()) {
+		            precio = cursor.getInt(0);
+		        }
+		    } finally {
+		        cursor.close();
+		    }
+		}
+		return precio ; 
 	}
 
 	public void crearZona( Zona zona )
@@ -154,7 +164,7 @@ public class DAO {
 
 	public Parqueadero cursorToParqueadero(Cursor cursor)
 	{
-		return (new Parqueadero(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+		return (new Parqueadero(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4) , cursor.getInt(5) , cursor.getInt(6) ));
 	}
 
 

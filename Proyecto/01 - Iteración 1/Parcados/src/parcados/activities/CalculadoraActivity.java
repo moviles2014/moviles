@@ -48,7 +48,7 @@ public class CalculadoraActivity extends Activity {
 	 */
 	private TextView precioActual_txt ; 
 	
-	/*
+	/*o
 	 * permite actualizar la vista despues de cada 30 segundos
 	 */
 	Handler handler ; 
@@ -194,6 +194,8 @@ public class CalculadoraActivity extends Activity {
 //                runningService = true ; 
 //            }
 //        }
+		Parcados parcado = Parcados.darInstancia(getApplicationContext()) ; 
+		parcado.actualizarPrecioParqueadero("fdas", 34) ; 
 		
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -217,6 +219,8 @@ public class CalculadoraActivity extends Activity {
 			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {
+			    	precioActual_txt.setText("$"+ "0.0") ;
+					btn.setText( R.string.inciarTiempo ) ; 
 			        dialog.cancel();
 			    }
 			});

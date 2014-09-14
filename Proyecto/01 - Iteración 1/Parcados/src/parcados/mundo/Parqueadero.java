@@ -17,9 +17,9 @@ public class Parqueadero {
 	//--------------------------------------------------------------------------------------
 	// Constructor
 	//--------------------------------------------------------------------------------------
-	public Parqueadero( String _nombre , String _horario , String _caracteristicas , String _direccion ) {
-		precio = -1 ; 
-		cupos = -1 ;
+	public Parqueadero( String _nombre , String _horario , String _caracteristicas , String _direccion , int _precio , int _cupos ) {
+		precio = _precio  ; 
+		cupos = _cupos ;
 		nombre = _nombre ; 
 		horario = _horario ; 
 		caracteristicas = _caracteristicas ; 

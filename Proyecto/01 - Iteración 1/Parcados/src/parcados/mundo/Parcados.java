@@ -89,6 +89,9 @@ public class Parcados {
 		return zonas ; 
 	}
 	
+	public int  darPrecioParqueaderoDadoNombre ( String nombre ) { 
+		return dao.darPrecioParqueaderoPorNombre("algo" ) ; 
+	}
 
 
 	public void loadZonas (InputStream in) throws IOException
@@ -103,7 +106,9 @@ public class Parcados {
 		reader.close();
 	}
 	
-
+	public ArrayList<Zona> getAllZonas ()  {
+		return dao.getAllZonas(); 
+	}
 	
 
 	public void loadParq (InputStream in) throws IOException
@@ -112,12 +117,17 @@ public class Parcados {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String[] datos = line.split(",");
-			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3]);
+			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3] , -1 , -1  );
 			Zona zona = zonas.get(Integer.parseInt(datos[4]));
 			System.out.println(zona);
 			zona.agregarParqueadero(parq);			
 			dao.crearParqueadero(parq, zona);
 		}
 		reader.close();
+	}
+
+	public void update() {
+		zonas =getAllZonas() ; 
+		
 	}
 }
