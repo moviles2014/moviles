@@ -66,6 +66,7 @@ public class CalculadoraActivity extends Activity {
 	private int precio ; 
 	
 	private String m_Text = "";
+	private String nombreParqueadero ;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,15 @@ public class CalculadoraActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculadora);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
-		
+		 
 		Intent intent = getIntent() ;
 		precio = intent.getIntExtra("precio" , -1 ) ;
+		nombreParqueadero = intent.getStringExtra("NombreParqueadero" ) ;
+		
+		
+		
 		System.out.println( " el precio es " + precio );
+		System.out.println( " el nombre el parqueadero es "  + nombreParqueadero);
 		
 		precioActual_txt = (TextView) findViewById(R.id.textView2) ;
 		precioActual_txt.setText("$0.0" ) ;
@@ -212,7 +218,9 @@ public class CalculadoraActivity extends Activity {
 			    @Override
 			    public void onClick(DialogInterface dialog, int which) {
 			        m_Text = input.getText().toString();
-			        UpdaterServiceManager.setPrecio(Integer.parseInt(m_Text)) ; 
+			        int precio = Integer.parseInt(m_Text) ; 
+			        	Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, precio) ; 
+			        UpdaterServiceManager.setPrecio(precio) ; 
 			        startService(new Intent ( yo , UpdaterServiceManager.class));  
 			    }
 			});

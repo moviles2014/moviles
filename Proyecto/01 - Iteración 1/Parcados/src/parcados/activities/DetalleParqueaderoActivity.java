@@ -22,6 +22,9 @@ public class DetalleParqueaderoActivity extends Activity {
 	/**
 	 * Cuando se crea la aplicación
 	 */
+	
+	TextView tx1 ;
+	String nombreParqueadero ; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -34,8 +37,9 @@ public class DetalleParqueaderoActivity extends Activity {
 		System.out.println(idzona);
 		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(Integer.parseInt(idzona)).get(Integer.parseInt(idparq));
 
-		TextView tx1 = (TextView) findViewById(R.id.textView1) ;
-		tx1.setText(actual.darNombre()) ; 
+		tx1 = (TextView) findViewById(R.id.textView1) ;
+		tx1.setText(actual.darNombre()) ;
+		nombreParqueadero = actual.darNombre() ;
 		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
 		tx2.setText(Integer.toString(actual.darCupos())) ; 
 		tx3 = (TextView) findViewById(R.id.textView3) ;
@@ -98,6 +102,8 @@ public class DetalleParqueaderoActivity extends Activity {
 	public void seleccionarParqueadero ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
+		intent.putExtra("NombreParqueadero", nombreParqueadero ) ;
+		
 //		intent.putExtra("precio", Integer.parseInt( tx3.getText().toString())) ;
 		startActivity(intent) ; 
 	} 

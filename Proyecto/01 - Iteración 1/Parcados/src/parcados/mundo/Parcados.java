@@ -79,7 +79,7 @@ public class Parcados {
 
 	
 	public void actualizarPrecioParqueadero ( String nombre , int precio ){ 
-		dao.actualizarPrecioParqueadero("algo", 343) ; 
+		dao.actualizarPrecioParqueadero(nombre	, precio) ; 
 	}
 	/**
 	 * Retorna todas las zonas

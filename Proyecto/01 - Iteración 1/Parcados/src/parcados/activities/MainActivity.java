@@ -54,9 +54,6 @@ public class MainActivity extends Activity {
 		
 		Parcados parcados = Parcados.darInstancia(getApplicationContext()) ; 
 		parcados.update () ; 
-		System.out.println(" el precio es : " +   parcados.darPrecioParqueaderoDadoNombre("fdasl" ));
-		
-		System.out.println(" resumio ");
 	}
 
 	/**

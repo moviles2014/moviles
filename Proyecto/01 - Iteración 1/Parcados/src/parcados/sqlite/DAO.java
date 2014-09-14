@@ -84,11 +84,8 @@ public class DAO {
 	
 	public void actualizarPrecioParqueadero ( String nombre ,  int precio ){
 		ContentValues values = new ContentValues();
-		
-		values.put(SqliteHelper.COLUMN_PRECIO, 34 );
-		values.put(SqliteHelper.COLUMN_ZONA_ID, 1 );
-		values.put(SqliteHelper.COLUMN_CARACTERISTICAS, "monkey" );
-		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='z'" , null ) ;
+		values.put(SqliteHelper.COLUMN_PRECIO, precio );
+		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='"+nombre+"'" , null ) ;
 	}
 	
 	public int  darPrecioParqueaderoPorNombre ( String nombre ) {
