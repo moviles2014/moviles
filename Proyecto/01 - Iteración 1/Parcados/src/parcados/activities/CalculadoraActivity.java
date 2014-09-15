@@ -203,9 +203,11 @@ public class CalculadoraActivity extends Activity {
 			    public void onClick(DialogInterface dialog, int which) {
 			        m_Text = input.getText().toString();
 			        precio = Integer.parseInt(m_Text) ; 
-			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , -1) ; 
+			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , -1) ;
+			        	Parcados.darInstancia(getApplicationContext()).setActualizando(true) ; 
 			        UpdaterServiceManager.setPrecio(precio) ; 
 			        startService(new Intent ( yo , UpdaterServiceManager.class));  
+			        
 			    }
 			});
 			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

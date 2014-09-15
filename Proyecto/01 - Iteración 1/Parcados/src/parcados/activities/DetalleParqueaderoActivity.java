@@ -123,7 +123,8 @@ public class DetalleParqueaderoActivity extends Activity {
 			consultarCupos() ; 
 		}
 		else if (id == R.id.reiniciar_precio) {
-			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, -1 , cupos ) ; 
+			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, -1 , cupos ) ;
+			Parcados.darInstancia(getApplicationContext()).setActualizando(true) ; 
 			finish() ; 
 			return true;
 		}
