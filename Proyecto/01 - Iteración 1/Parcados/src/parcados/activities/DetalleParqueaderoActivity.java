@@ -25,7 +25,7 @@ public class DetalleParqueaderoActivity extends Activity {
 	/**
 	 * Cuando se crea la aplicación
 	 */
-	
+	private int cupos ; 
 	TextView tx1 ;
 	String nombreParqueadero ; 
 	@Override
@@ -44,7 +44,8 @@ public class DetalleParqueaderoActivity extends Activity {
 		tx1.setText(actual.darNombre()) ;
 		nombreParqueadero = actual.darNombre() ;
 		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
-		tx2.setText(Integer.toString(actual.darCupos())) ; 
+		tx2.setText(Integer.toString(actual.darCupos())) ;
+		cupos = actual.darCupos() ;
 		tx3 = (TextView) findViewById(R.id.textView3) ;
 		tx3.setText(Integer.toString(actual.darPrecio())) ; 
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
@@ -122,7 +123,7 @@ public class DetalleParqueaderoActivity extends Activity {
 			consultarCupos() ; 
 		}
 		else if (id == R.id.reiniciar_precio) {
-			Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, -1) ; 
+			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, -1 , cupos ) ; 
 			finish() ; 
 			return true;
 		}

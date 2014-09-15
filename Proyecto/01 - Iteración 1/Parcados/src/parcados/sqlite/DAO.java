@@ -82,11 +82,14 @@ public class DAO {
 		db.insert(SqliteHelper.TABLE_PARQUEADEROS, null, values);	
 	}
 	
-	public void actualizarPrecioParqueadero ( String nombre ,  int precio ){
+	public void actualizarParqueadero ( String nombre ,  int precio , int cupos ){
 		ContentValues values = new ContentValues();
 		values.put(SqliteHelper.COLUMN_PRECIO, precio );
+		values.put(SqliteHelper.COLUMN_CUPOS, cupos );
 		db.update(SqliteHelper.TABLE_PARQUEADEROS, values, "NOMBRE='"+nombre+"'" , null ) ;
 	}
+	
+	
 	
 	public int  darPrecioParqueaderoPorNombre ( String nombre ) {
 		final Cursor cursor = db.rawQuery("SELECT PRECIO FROM PARQUEADEROS where NOMBRE = '"+nombre+"';", null);

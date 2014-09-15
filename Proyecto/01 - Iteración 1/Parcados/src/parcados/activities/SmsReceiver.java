@@ -39,7 +39,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 int precio = Integer.parseInt(msg[1] ) ;
                 int cupos = Integer.parseInt(msg[2] ) ;
                 System.out.println( nombre  + " " + precio + " " + cupos );
-                Parcados.darInstancia(context).actualizarPrecioParqueadero(nombre, precio) ;
+                Parcados.darInstancia(context).actualizarParqueadero(nombre, precio,cupos) ;
                 Parcados parcados = Parcados.darInstancia(context) ; 
                 parcados.setEsperandoSms(false) ; 
         		parcados.update () ; 

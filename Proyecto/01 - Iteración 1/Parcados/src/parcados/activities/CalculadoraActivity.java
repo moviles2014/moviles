@@ -159,7 +159,6 @@ public class CalculadoraActivity extends Activity {
 	 * el tiempo que transcurre
 	 */
 	public void cambiarEstadoCalculadora ( View v ) { 
-		Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero("algo" , 43) ; 
 //		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
 		
 		if ( !UpdaterServiceManager.isRunning() ) {
@@ -187,7 +186,6 @@ public class CalculadoraActivity extends Activity {
 //            }
 //        }
 		Parcados parcado = Parcados.darInstancia(getApplicationContext()) ; 
-		parcado.actualizarPrecioParqueadero("fdas", 34) ; 
 		
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -205,7 +203,7 @@ public class CalculadoraActivity extends Activity {
 			    public void onClick(DialogInterface dialog, int which) {
 			        m_Text = input.getText().toString();
 			        precio = Integer.parseInt(m_Text) ; 
-			        	Parcados.darInstancia(getApplicationContext()).actualizarPrecioParqueadero(nombreParqueadero, precio) ; 
+			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , -1) ; 
 			        UpdaterServiceManager.setPrecio(precio) ; 
 			        startService(new Intent ( yo , UpdaterServiceManager.class));  
 			    }
