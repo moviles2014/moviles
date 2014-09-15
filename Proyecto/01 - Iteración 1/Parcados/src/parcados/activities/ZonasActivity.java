@@ -37,6 +37,14 @@ public class ZonasActivity extends ListActivity {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String >(this, android.R.layout.simple_list_item_1 , lista) ; 
 		setListAdapter(adapter) ; 
 	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if ( Parcados.darInstancia(getApplicationContext()).isActualizando() ) 
+			finish() ; 
+	}
 
 	/**
 	 * Maneja la selección de un elemento de la lista

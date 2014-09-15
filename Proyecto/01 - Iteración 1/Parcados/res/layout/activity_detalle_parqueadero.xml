@@ -90,7 +90,8 @@
         android:id="@+id/button2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consultarCupos" />
+        android:text="@string/consultarCupos"
+        android:onClick="consultarCupos" />
 
 
     <Button

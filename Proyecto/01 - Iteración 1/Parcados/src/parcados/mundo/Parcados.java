@@ -19,6 +19,26 @@ public class Parcados {
 	 * Instancia de la clase
 	 */
 	private static Parcados instancia;
+	
+	private static boolean esperandoSms ; 
+
+	public static boolean isEsperandoSms() {
+		return esperandoSms;
+	}
+
+	public static void setEsperandoSms(boolean esperandoSms) {
+		Parcados.esperandoSms = esperandoSms;
+	}
+
+	private static boolean actualizando;
+
+	public static boolean isActualizando() {
+		return actualizando;
+	}
+
+	public static void setActualizando(boolean actualizando) {
+		Parcados.actualizando = actualizando;
+	}
 
 	/**
 	 * ArrayList con las zonas donde se encuentran ubicados los parqueaderos
@@ -126,4 +146,5 @@ public class Parcados {
 		zonas = getAllZonas() ; 
 		
 	}
+
 }

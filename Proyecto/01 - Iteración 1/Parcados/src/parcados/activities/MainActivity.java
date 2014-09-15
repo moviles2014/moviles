@@ -44,6 +44,8 @@ public class MainActivity extends Activity {
 		super.onResume();
 		Parcados parcados = Parcados.darInstancia(getApplicationContext()) ; 
 		parcados.update () ; 
+		Parcados.darInstancia(getApplicationContext()).setActualizando(false) ;
+		
 	}
 
 	/**
@@ -78,6 +80,8 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void buscarParqueadero ( View v ) { 
+		if ( Parcados.isEsperandoSms() )
+			return ; 
 		Intent intent = new Intent(this, ZonasActivity.class) ;
 		startActivity(intent) ;
 	}
@@ -86,7 +90,9 @@ public class MainActivity extends Activity {
 	 * Lanza la activity para calcular el precio del parqueadero seleccionado
 	 * @param v - el view
 	 */
-	public void abrirCalculadora ( View v ) { 
+	public void abrirCalculadora ( View v ) {
+		if ( Parcados.isEsperandoSms() )
+			return ; 
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		startActivity(intent) ;
 

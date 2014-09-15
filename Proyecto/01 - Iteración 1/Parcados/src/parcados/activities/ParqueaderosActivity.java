@@ -16,7 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ParqueaderosActivity extends ListActivity {
-
+	
 
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -54,6 +54,14 @@ public class ParqueaderosActivity extends ListActivity {
 		setListAdapter(adapter) ; 
 	}
 
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if ( Parcados.darInstancia(getApplicationContext()).isActualizando() ) 
+			finish() ; 
+	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
