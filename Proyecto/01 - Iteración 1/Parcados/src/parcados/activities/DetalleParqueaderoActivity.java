@@ -18,8 +18,7 @@ public class DetalleParqueaderoActivity extends Activity {
 
 	
 	public final static String NUMEROSMS = "3017786524";
-	private Parqueadero actual;
-	
+	private Parqueadero actual;	
 	private String idparq;
 	private String idzona;
 
@@ -140,9 +139,7 @@ public class DetalleParqueaderoActivity extends Activity {
 								else
 								{
 									setCuposYPrecio();
-								}
-								
-								
+								}										
 							}
 						});
 					} catch (Exception e) {

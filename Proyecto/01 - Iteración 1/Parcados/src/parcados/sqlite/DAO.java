@@ -60,7 +60,6 @@ public class DAO {
 	 */
 	public void open() throws SQLException {
 		db = dbHelper.getWritableDatabase();
-		dbHelper.onUpgrade(db, 1, 1);
 	}
 
 	/**
