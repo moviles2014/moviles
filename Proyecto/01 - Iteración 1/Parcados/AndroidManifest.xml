@@ -6,9 +6,8 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
@@ -32,12 +31,6 @@
         <activity android:name="parcados.activities.ParqueaderosActivity" />
         <activity android:name="parcados.activities.DetalleParqueaderoActivity" />
         <activity android:name="parcados.activities.CalculadoraActivity" />
-
-        <receiver android:name="parcados.activities.PhoneReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
         
        <receiver android:name="parcados.activities.SmsReceiver" android:enabled="true">
             <intent-filter android:priority="2147483647">
