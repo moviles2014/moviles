@@ -19,17 +19,17 @@ import android.widget.TextView;
 
 
 public class CalculadoraActivity extends Activity {
-	
+
 	/*
 	 * precio actual luego de iniciar la calculadora  
 	 */
 	private int precioActual ;
-	
+
 	/*
 	 * texto que muestra el precioActual 
 	 */
 	private TextView precioActual_txt ; 
-	
+
 	/*o
 	 * permite actualizar la vista despues de cada 30 segundos
 	 */
@@ -41,15 +41,15 @@ public class CalculadoraActivity extends Activity {
 	/*
 	 * Maneja la creación de la activity 
 	 */
-	
+
 	private Timer myTimer;
-	
+
 	private CalculadoraActivity yo ; 
 	private int precio ; 
-	
+
 	private String m_Text = "";
 	private String nombreParqueadero ;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,45 +57,45 @@ public class CalculadoraActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculadora);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
-		 
+
 		Intent intent = getIntent() ;
 		precio = intent.getIntExtra("precio" , -1 ) ;
 		nombreParqueadero = intent.getStringExtra("NombreParqueadero" ) ;
-		
-		
+
+
 		precioActual_txt = (TextView) findViewById(R.id.textView2) ;
 		precioActual_txt.setText("$0.0" ) ;
 		precioActual = 0 ; 
 		btn = (Button) findViewById(R.id.button2) ; 
-		
+
 		if ( !UpdaterServiceManager.isRunning() )
 			btn.setText( R.string.inciarTiempo ) ;
 		else 
 			btn.setText(R.string.finalizarTiempo) ; 
-		
-	    myTimer = new Timer();
-	    
-	    
-    	myTimer.schedule(new TimerTask() {          
-	        @Override
-	        public void run() {
-	            TimerMethod();
-	        }
 
-	    }, 0, 1000);
-//		handler = new Handler();
-//		handler.postDelayed(updateData , 10000) ;
+		myTimer = new Timer();
+
+
+		myTimer.schedule(new TimerTask() {          
+			@Override
+			public void run() {
+				TimerMethod();
+			}
+
+		}, 0, 1000);
+		//		handler = new Handler();
+		//		handler.postDelayed(updateData , 10000) ;
 	}
-	
+
 	private void TimerMethod()
 	{
-	    //This method is called directly by the timer
-	    //and runs in the same thread as the timer.
+		//This method is called directly by the timer
+		//and runs in the same thread as the timer.
 
-	    //We call the method that will work with the UI
-	    //through the runOnUiThread method.
-	    this.runOnUiThread(Timer_Tick);
-	    
+		//We call the method that will work with the UI
+		//through the runOnUiThread method.
+		this.runOnUiThread(Timer_Tick);
+
 	}
 
 	@Override
@@ -108,59 +108,59 @@ public class CalculadoraActivity extends Activity {
 	}
 
 	private Runnable Timer_Tick = new Runnable() {
-	    public void run() {
+		public void run() {
 
-	    //This method runs in the same thread as the UI.               
+			//This method runs in the same thread as the UI.               
 
-	    //Do something to the UI thread here
-	    	if ( UpdaterServiceManager.isRunning() ) { 
-//	    		precioActual = ThreadCalculadora.getPrecio() ;
-	    		precioActual = UpdaterServiceManager.getPrecioActual () ; 
-	    		precioActual_txt.setText("$"+ Double.toString(precioActual)) ;
-	    	}
-	    	else {
-	    		precioActual_txt.setText("$"+ "0.0") ;
-	    	}
-//	         handler.postDelayed(updateData,1000);
-	    }
+			//Do something to the UI thread here
+			if ( UpdaterServiceManager.isRunning() ) { 
+				//	    		precioActual = ThreadCalculadora.getPrecio() ;
+				precioActual = UpdaterServiceManager.getPrecioActual () ; 
+				precioActual_txt.setText("$"+ Double.toString(precioActual)) ;
+			}
+			else {
+				precioActual_txt.setText("$"+ "0.0") ;
+			}
+			//	         handler.postDelayed(updateData,1000);
+		}
 	};
-	
-//	/**
-//	 * Método que agrega items al action bar si se encuentran
-//	 */
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.calculadora, menu);
-//		return true;
-//	}
-	
-//	/**
-//	 * Maneja el evento si de si selencciona un item en el action bar
-//	 */
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		// Handle action bar item clicks here. The action bar will
-//		// automatically handle clicks on the Home/Up button, so long
-//		// as you specify a parent activity in AndroidManifest.xml.
-//		if ( item.getItemId() == android.R.id.home ){
-//			finish() ; 
-//		}
-//		int id = item.getItemId();
-//		if (id == R.id.ingresar_precio) {
-//			System.out.println( " ingresar precio");
-//			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
-	
+
+	//	/**
+	//	 * Método que agrega items al action bar si se encuentran
+	//	 */
+	//	@Override
+	//	public boolean onCreateOptionsMenu(Menu menu) {
+	//		// Inflate the menu; this adds items to the action bar if it is present.
+	//		getMenuInflater().inflate(R.menu.calculadora, menu);
+	//		return true;
+	//	}
+
+	//	/**
+	//	 * Maneja el evento si de si selencciona un item en el action bar
+	//	 */
+	//	@Override
+	//	public boolean onOptionsItemSelected(MenuItem item) {
+	//		// Handle action bar item clicks here. The action bar will
+	//		// automatically handle clicks on the Home/Up button, so long
+	//		// as you specify a parent activity in AndroidManifest.xml.
+	//		if ( item.getItemId() == android.R.id.home ){
+	//			finish() ; 
+	//		}
+	//		int id = item.getItemId();
+	//		if (id == R.id.ingresar_precio) {
+	//			System.out.println( " ingresar precio");
+	//			return true;
+	//		}
+	//		return super.onOptionsItemSelected(item);
+	//	}
+
 	/*
 	 * empieza a calcular el precio del parqueadero seleccionado según
 	 * el tiempo que transcurre
 	 */
 	public void cambiarEstadoCalculadora ( View v ) { 
-//		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
-		
+		//		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
+
 		if ( !UpdaterServiceManager.isRunning() ) {
 			btn.setText(R.string.finalizarTiempo) ;
 			iniciarCalculadora() ; 
@@ -171,52 +171,64 @@ public class CalculadoraActivity extends Activity {
 			finalizarCalculadora() ; 
 		}
 	}
-		
-	
+
+
 	/*
 	 * inicia registro del precio actual considerando el tiempo trasncurrido en parqueadero
 	 */
 	public void iniciarCalculadora (){
-		  
-//	    ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-//	    boolean runningService = false ;
-//        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-//            if (UpdaterServiceManager.class.getName().equals(service.service.getClassName())) {
-//                runningService = true ; 
-//            }
-//        }
-		
+
+		//	    ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+		//	    boolean runningService = false ;
+		//        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+		//            if (UpdaterServiceManager.class.getName().equals(service.service.getClassName())) {
+		//                runningService = true ; 
+		//            }
+		//        }
+
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Precio por minuto del parqueadero:");
-	
+
 			// Set up the input
 			final EditText input = new EditText(this);
 			// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
 			input.setInputType(InputType.TYPE_CLASS_NUMBER );
 			builder.setView(input);
-	
+
 			// Set up the buttons
 			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
-			    @Override
-			    public void onClick(DialogInterface dialog, int which) {
-			        m_Text = input.getText().toString();
-			        precio = Integer.parseInt(m_Text) ; 
-			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueadero(nombreParqueadero).darCupos()) ;
-			        UpdaterServiceManager.setPrecio(precio) ; 
-			        startService(new Intent ( yo , UpdaterServiceManager.class));  
-			        
-			    }
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					m_Text = input.getText().toString();
+					try {
+						precio = Integer.parseInt(m_Text) ; 
+						if (nombreParqueadero != null )Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueadero(nombreParqueadero).darCupos()) ;
+						UpdaterServiceManager.setPrecio(precio) ; 
+						startService(new Intent ( yo , UpdaterServiceManager.class)); 					
+					}
+					catch (NumberFormatException e)
+					{
+						precioActual_txt.setText("$"+ "0.0") ;
+						btn.setText( R.string.inciarTiempo ) ; 
+						dialog.cancel();
+						new AlertDialog.Builder(CalculadoraActivity.this).setTitle("Parcados")
+						.setMessage("Ingrese un número válido") 
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.show();
+					}				
+					
+				}
 			});
 			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-			    @Override
-			    public void onClick(DialogInterface dialog, int which) {
-			    	precioActual_txt.setText("$"+ "0.0") ;
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					precioActual_txt.setText("$"+ "0.0") ;
 					btn.setText( R.string.inciarTiempo ) ; 
-			        dialog.cancel();
-			    }
+					dialog.cancel();
+				}
 			});
-	
+
 			builder.show();
 		}
 		else {
@@ -224,16 +236,16 @@ public class CalculadoraActivity extends Activity {
 			startService(new Intent ( this , UpdaterServiceManager.class));
 		}
 	}
-	
-	
+
+
 	/*
 	 * restablece el estado de la calculadora para que el usuario pueda iniciar 
 	 * calculos en otros parqueaderos
 	 */
 	public void finalizarCalculadora(){
-		
+
 		UpdaterServiceManager.stopService() ; 
-//		stopService(new Intent(this ,UpdaterServiceManager.class));
+		//		stopService(new Intent(this ,UpdaterServiceManager.class));
 	}
 
 	/*
@@ -251,19 +263,19 @@ public class CalculadoraActivity extends Activity {
 
 		// Set up the buttons
 		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-		        m_Text = input.getText().toString();
-		    }
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				m_Text = input.getText().toString();
+			}
 		});
 		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-		        dialog.cancel();
-		    }
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
 		});
 
 		builder.show();
-	
+
 	}
 }

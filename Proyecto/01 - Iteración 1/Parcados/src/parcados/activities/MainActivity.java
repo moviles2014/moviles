@@ -102,8 +102,6 @@ public class MainActivity extends Activity {
 	public void abrirCalculadora ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		startActivity(intent) ;
-		
-
 
 	}
 
