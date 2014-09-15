@@ -91,6 +91,11 @@ public class Parcados {
 	}
 
 
+	/**
+	 * Carga las zonas dado un archivo de entrada
+	 * @param in el archivo de entrada
+	 * @throws IOException si hubo problemas de lectura
+	 */
 	public void loadZonas (InputStream in) throws IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -103,11 +108,19 @@ public class Parcados {
 		reader.close();
 	}
 
+	/**
+	 * Retorna todas las zonas en la base de datos
+	 * @return las zonas
+	 */
 	public ArrayList<Zona> getAllZonas ()  {
 		return dao.getAllZonas(); 
 	}
 
-
+	/**
+	 * Carga los parqueaderos dado un archivo de entrada
+	 * @param in el archivo de entrada
+	 * @throws IOException si hubo problemas de lectura
+	 */
 	public void loadParq (InputStream in) throws IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -121,7 +134,12 @@ public class Parcados {
 		}
 		reader.close();
 	}
-	
+
+	/**
+	 * Da un parqueadero dado su nombre
+	 * @param nombre - el nombre del parqueadero
+	 * @return el parqueadero
+	 */
 	public Parqueadero darParqueadero(String nombre)
 	{
 		for (int i = 0; i < zonas.size(); i++ )

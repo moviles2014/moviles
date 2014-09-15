@@ -16,12 +16,30 @@ import android.widget.TextView;
 
 public class DetalleParqueaderoActivity extends Activity {
 
-	
+	//--------------------------------------------------------------------------------------
+	// Constantes
+	//--------------------------------------------------------------------------------------
 	public final static String NUMEROSMS = "3017786524";
-	private Parqueadero actual;	
+
+	//--------------------------------------------------------------------------------------
+	// Atributos
+	//--------------------------------------------------------------------------------------
+	/**
+	 * El parqueadero actual
+	 */
+	private Parqueadero actual;
+	/**
+	 * El id del parqueadero actual
+	 */
 	private String idparq;
+	/**
+	 * El id de la zona donde se encuentra el parqueadero
+	 */
 	private String idzona;
 
+	//--------------------------------------------------------------------------------------
+	// Métodos
+	//--------------------------------------------------------------------------------------
 
 
 	/**
@@ -29,7 +47,6 @@ public class DetalleParqueaderoActivity extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalle_parqueadero) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
@@ -61,19 +78,19 @@ public class DetalleParqueaderoActivity extends Activity {
 		return true;
 	}
 
-	public void consultarCupos( View v ) { 
-		consultarCupos() ; 
-	}
-
-
+	/**
+	 * Cuando se resume la aplicación
+	 */
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		setCuposYPrecio();
 	}
 
-	
+
+	/**
+	 * Actualiza el cupo y el precio
+	 */
 	public void setCuposYPrecio()
 	{
 		if(actual.darCupos() == -1)
@@ -99,16 +116,13 @@ public class DetalleParqueaderoActivity extends Activity {
 			tx3.setText(Integer.toString(actual.darPrecio())) ; 
 		}
 	}
+	
+	/**
+	 * Consulta los cupos por medio de SMS y actualiza el activity
+	 */
 	public void consultarCupos() { 
 		final SmsManager manejador = SmsManager.getDefault();
 		try {
-			//TODO
-
-			//			new AlertDialog.Builder(this)
-			//		    .setTitle("Parcados")
-			//		    .setMessage("Se envió el mensaje correctamente") 
-			//		    .setIcon(android.R.drawable.ic_dialog_alert)
-			//		     .show();
 
 			final ProgressDialog dialog = ProgressDialog.show(this, "Enviando SMS", "Por favor espere...", true);
 			new Thread(new Runnable() {
@@ -126,7 +140,7 @@ public class DetalleParqueaderoActivity extends Activity {
 						}			
 						dialog.dismiss();	
 						runOnUiThread(new Runnable() {
-							
+
 							@Override
 							public void run() {
 								if (SmsReceiver.recibiendo)
@@ -143,7 +157,6 @@ public class DetalleParqueaderoActivity extends Activity {
 							}
 						});
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}		
 
@@ -184,8 +197,9 @@ public class DetalleParqueaderoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/*
-	 * selecciona el parqueadero actual para considerarlo en la calculadora
+	/**
+	 * Selecciona al parqueadero y llama a la calculadora
+	 * @param v el view
 	 */
 	public void seleccionarParqueadero ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;

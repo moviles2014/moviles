@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,40 +19,59 @@ import android.widget.TextView;
 
 public class CalculadoraActivity extends Activity {
 
-	/*
-	 * precio actual luego de iniciar la calculadora  
+	//--------------------------------------------------------------------------------------
+	// Atributos
+	//--------------------------------------------------------------------------------------
+
+	/**
+	 * Precio después de iniciar la calculadora
 	 */
 	private int precioActual ;
 
-	/*
-	 * texto que muestra el precioActual 
+	/**
+	 * Texto que muestra el precio
 	 */
 	private TextView precioActual_txt ; 
 
-	/*o
-	 * permite actualizar la vista despues de cada 30 segundos
+	/**
+	 * Actualiza la vista
 	 */
 	Handler handler ; 
-	/*
-	 * boton para cambiar el estado de la calculadora
+	/**
+	 * Botón para cambiar el éstado de la calculadora
 	 */
 	private Button btn  ; 
-	/*
-	 * Maneja la creación de la activity 
-	 */
 
+	/**
+	 * Maneja la creación del activity
+	 */
 	private Timer myTimer;
 
-	private CalculadoraActivity yo ; 
+	/**
+	 * El precio
+	 */
 	private int precio ; 
 
+	/**
+	 * Texto mostrado
+	 */
 	private String m_Text = "";
+
+	/**
+	 * Nombre del parqueadero
+	 */
 	private String nombreParqueadero ;
 
+	//--------------------------------------------------------------------------------------
+	// Métodos
+	//--------------------------------------------------------------------------------------
+
+	/**
+	 * Creación de la activity
+	 * @param savedInstanceState el estado de la instancia
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		yo = this ; 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculadora);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
@@ -83,30 +101,18 @@ public class CalculadoraActivity extends Activity {
 			}
 
 		}, 0, 1000);
-		//		handler = new Handler();
-		//		handler.postDelayed(updateData , 10000) ;
 	}
 
 	private void TimerMethod()
 	{
-		//This method is called directly by the timer
-		//and runs in the same thread as the timer.
-
-		//We call the method that will work with the UI
-		//through the runOnUiThread method.
 		this.runOnUiThread(Timer_Tick);
 
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		if ( item.getItemId() == android.R.id.home ){
-			finish() ; 
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
+	/**
+	 * Runnable con el tick del timer
+	 */
 	private Runnable Timer_Tick = new Runnable() {
 		public void run() {
 
@@ -125,38 +131,10 @@ public class CalculadoraActivity extends Activity {
 		}
 	};
 
-	//	/**
-	//	 * Método que agrega items al action bar si se encuentran
-	//	 */
-	//	@Override
-	//	public boolean onCreateOptionsMenu(Menu menu) {
-	//		// Inflate the menu; this adds items to the action bar if it is present.
-	//		getMenuInflater().inflate(R.menu.calculadora, menu);
-	//		return true;
-	//	}
 
-	//	/**
-	//	 * Maneja el evento si de si selencciona un item en el action bar
-	//	 */
-	//	@Override
-	//	public boolean onOptionsItemSelected(MenuItem item) {
-	//		// Handle action bar item clicks here. The action bar will
-	//		// automatically handle clicks on the Home/Up button, so long
-	//		// as you specify a parent activity in AndroidManifest.xml.
-	//		if ( item.getItemId() == android.R.id.home ){
-	//			finish() ; 
-	//		}
-	//		int id = item.getItemId();
-	//		if (id == R.id.ingresar_precio) {
-	//			System.out.println( " ingresar precio");
-	//			return true;
-	//		}
-	//		return super.onOptionsItemSelected(item);
-	//	}
-
-	/*
-	 * empieza a calcular el precio del parqueadero seleccionado según
-	 * el tiempo que transcurre
+	/**
+	 * Empieza a calcular el precio del parqueadero seleccionado según el tiempo que transcurre
+	 * @param v la view
 	 */
 	public void cambiarEstadoCalculadora ( View v ) { 
 		//		Parcados.darInstancia(getApplicationContext()).toggleEstadoCalculadora() ; 
@@ -173,18 +151,11 @@ public class CalculadoraActivity extends Activity {
 	}
 
 
-	/*
-	 * inicia registro del precio actual considerando el tiempo trasncurrido en parqueadero
+	/**
+	 * El registro del precio actual considerando el tiempo transcurrido en el parqueadero
 	 */
-	public void iniciarCalculadora (){
 
-		//	    ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
-		//	    boolean runningService = false ;
-		//        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-		//            if (UpdaterServiceManager.class.getName().equals(service.service.getClassName())) {
-		//                runningService = true ; 
-		//            }
-		//        }
+	public void iniciarCalculadora (){
 
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -205,7 +176,7 @@ public class CalculadoraActivity extends Activity {
 						precio = Integer.parseInt(m_Text) ; 
 						if (nombreParqueadero != null )Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueadero(nombreParqueadero).darCupos()) ;
 						UpdaterServiceManager.setPrecio(precio) ; 
-						startService(new Intent ( yo , UpdaterServiceManager.class)); 					
+						startService(new Intent ( CalculadoraActivity.this , UpdaterServiceManager.class)); 					
 					}
 					catch (NumberFormatException e)
 					{
@@ -217,7 +188,7 @@ public class CalculadoraActivity extends Activity {
 						.setIcon(android.R.drawable.ic_dialog_alert)
 						.show();
 					}				
-					
+
 				}
 			});
 			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -238,9 +209,8 @@ public class CalculadoraActivity extends Activity {
 	}
 
 
-	/*
-	 * restablece el estado de la calculadora para que el usuario pueda iniciar 
-	 * calculos en otros parqueaderos
+	/**
+	 * Restablece el estado de la calculadora para que el usuario pueda iniciar calculos en otros parqueaderos
 	 */
 	public void finalizarCalculadora(){
 
@@ -248,15 +218,15 @@ public class CalculadoraActivity extends Activity {
 		//		stopService(new Intent(this ,UpdaterServiceManager.class));
 	}
 
-	/*
-	 * abre ventana modal para que el usuario ingrese la hora de inicio
+	/**
+	 * Abre ventana modal para que el usuario ingrese la hora de inicio
 	 */
 	public void ingresarPrecio (View v){
-		AlertDialog.Builder builder = new AlertDialog.Builder(yo);
+		AlertDialog.Builder builder = new AlertDialog.Builder(CalculadoraActivity.this);
 		builder.setTitle("Title");
 
 		// Set up the input
-		final EditText input = new EditText(yo);
+		final EditText input = new EditText(CalculadoraActivity.this);
 		// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
 		input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 		builder.setView(input);

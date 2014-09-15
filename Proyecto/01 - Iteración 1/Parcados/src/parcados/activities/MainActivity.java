@@ -28,7 +28,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 
 	}
@@ -38,7 +37,6 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -49,9 +47,6 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -61,12 +56,12 @@ public class MainActivity extends Activity {
 	 */
 	public void buscarParqueadero ( View v ) { 
 		final Intent intent = new Intent(this, ZonasActivity.class) ;
-		
-		
+
+
 		final ProgressDialog dialog = ProgressDialog.show(this, "Cargando Información", "Por favor espere...", true);
-		
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
@@ -81,13 +76,13 @@ public class MainActivity extends Activity {
 					dialog.dismiss();
 					startActivity(intent) ;
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}		
-				
+
 			}
 		}).start();
-		
+
 	}
 
 	/**
@@ -99,18 +94,6 @@ public class MainActivity extends Activity {
 		startActivity(intent) ;
 
 	}
-
-	//	@Override
-	//	public void onConfigurationChanged(Configuration newConfig) {
-	//		super.onConfigurationChanged(newConfig);
-	//
-	//		if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-	//			Toast.makeText(this, "Landscape"  , Toast.LENGTH_SHORT).show() ;
-	//		}
-	//		else { 
-	//			Toast.makeText(this, "Portrait"  , Toast.LENGTH_SHORT).show() ;
-	//		}
-	//	}
 
 
 }

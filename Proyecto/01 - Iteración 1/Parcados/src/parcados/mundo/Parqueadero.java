@@ -5,18 +5,56 @@ public class Parqueadero {
 	//--------------------------------------------------------------------------------------
 	// Atributos
 	//--------------------------------------------------------------------------------------
+
+	/**
+	 * Cupos del parqueadero
+	 */
 	private int cupos ; 
+
+	/**
+	 * Precio del parqueadero
+	 */
 	private int precio  ;
+	
+	/**
+	 * Horario del parqueadero
+	 */
 	private String horario ; 
+	
+	/**
+	 * Características del parqueadero
+	 */
 	private String caracteristicas ; 
+	
+	/**
+	 * Dirección del parqueadero
+	 */
 	private String direccion ; 
+	
+	/**
+	 * Nombre del parqueadero
+	 */
 	private String nombre ; 
+	
+	/**
+	 * Última actualización de los datos del parqueadero
+	 */
 	private String ultimaact;
 
 
 	//--------------------------------------------------------------------------------------
 	// Constructor
 	//--------------------------------------------------------------------------------------
+	
+	/**
+	 * Método constructor del parqueadero
+	 * @param _nombre el nombre
+	 * @param _horario elhorario
+	 * @param _caracteristicas las características
+	 * @param _direccion la dirección
+	 * @param _precio el precio
+	 * @param _cupos los cupos
+	 */
 	public Parqueadero( String _nombre , String _horario , String _caracteristicas , String _direccion , int _precio , int _cupos ) {
 		precio = _precio  ; 
 		cupos = _cupos ;

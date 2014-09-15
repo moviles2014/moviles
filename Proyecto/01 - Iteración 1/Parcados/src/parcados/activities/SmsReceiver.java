@@ -9,10 +9,25 @@ import android.telephony.SmsMessage;
 
 public class SmsReceiver extends BroadcastReceiver {
 	
+	//--------------------------------------------------------------------------------------
+	// Atributos estáticos
+	//--------------------------------------------------------------------------------------
+	/**
+	 * Indica si se encuentra recibiendo un mensaje
+	 */
 	public static boolean recibiendo = false;
 
+	/**
+	 * Modela el proveedor
+	 */
     private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
 
+	//--------------------------------------------------------------------------------------
+	// Métodos
+	//--------------------------------------------------------------------------------------
+    /**
+     * Maneja la recepción del mensaje
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(SMS_RECEIVED)) {

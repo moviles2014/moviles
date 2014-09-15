@@ -8,7 +8,6 @@ import parcados.mundo.Zona;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -40,7 +39,6 @@ public class ZonasActivity extends ListActivity {
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -49,20 +47,10 @@ public class ZonasActivity extends ListActivity {
 	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Intent intent = new Intent(this, ParqueaderosActivity.class) ;
 		intent.putExtra("id", Long.toString(id) ) ; 
 		startActivity(intent) ;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		if ( item.getItemId() == android.R.id.home ){
-			finish() ; 
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 }

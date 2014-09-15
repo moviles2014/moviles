@@ -6,21 +6,28 @@ import android.os.IBinder;
 
 public class CalcularPrecioService extends Service {
 
+	/**
+	 * Al hacer bind
+	 */
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**
+	 * Cuando se inicia
+	 */
 	@Override
 	@Deprecated
 	public void onStart(Intent intent, int startId) {
-		// TODO Auto-generated method stub
 		super.onStart(intent, startId);
 	}
-	
+
+	/**
+	 * Cuando se destruye
+	 */
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 }

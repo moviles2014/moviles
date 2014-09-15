@@ -8,7 +8,6 @@ import parcados.mundo.Parqueadero;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -35,8 +34,6 @@ public class ParqueaderosActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_parqueaderos) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
@@ -53,21 +50,12 @@ public class ParqueaderosActivity extends ListActivity {
 		setListAdapter(adapter) ; 
 	}
 
-	
+	/**
+	 * Cuando se resume la activity
+	 */
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		if ( item.getItemId() == android.R.id.home ){
-			finish() ; 
-		}
-		return super.onOptionsItemSelected(item);
-	
 	}
 	
 	/**
@@ -75,7 +63,6 @@ public class ParqueaderosActivity extends ListActivity {
 	 */
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
 		intent.putExtra("idparq", Long.toString(position) ) ;

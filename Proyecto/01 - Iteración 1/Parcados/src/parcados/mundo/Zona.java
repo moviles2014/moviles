@@ -70,6 +70,11 @@ public class Zona {
 		parqueaderos.add(_parq);
 	}
 	
+	/**
+	 * Da un parqueadero dado su nombre
+	 * @param nombre el nombre del parqueadero buscado
+	 * @return la posición del parqueadero
+	 */
 	public int darParqueadero(String nombre)
 	{
 		for (int i = 0; i < parqueaderos.size(); i++ )
