@@ -19,8 +19,8 @@ import android.widget.TextView;
 public class DetalleParqueaderoActivity extends Activity {
 
 	private Parqueadero actual;
-	
-	
+
+
 	private TextView tx3 ; 
 	/**
 	 * Cuando se crea la aplicación
@@ -43,11 +43,26 @@ public class DetalleParqueaderoActivity extends Activity {
 		tx1 = (TextView) findViewById(R.id.textView1) ;
 		tx1.setText(actual.darNombre()) ;
 		nombreParqueadero = actual.darNombre() ;
-		TextView tx2 = (TextView) findViewById(R.id.textView2) ;
-		tx2.setText(Integer.toString(actual.darCupos())) ;
+
+
+		if(actual.darCupos() == -1 && actual.darPrecio() == -1)
+		{
+			TextView tx2 = (TextView) findViewById(R.id.textView2) ;
+			tx2.setText("No hay información disponible") ;
+			tx3 = (TextView) findViewById(R.id.textView3) ;
+			tx3.setText("No hay información disponible") ; 
+		}
+		else
+		{
+			TextView tx2 = (TextView) findViewById(R.id.textView2) ;
+			tx2.setText(Integer.toString(actual.darCupos())) ;
+			tx3 = (TextView) findViewById(R.id.textView3) ;
+			tx3.setText(Integer.toString(actual.darPrecio())) ; 
+		}
+
+
 		cupos = actual.darCupos() ;
-		tx3 = (TextView) findViewById(R.id.textView3) ;
-		tx3.setText(Integer.toString(actual.darPrecio())) ; 
+
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
 		tx4.setText(actual.darHorario()) ; 
 		TextView tx5 = (TextView) findViewById(R.id.textView5) ; 
@@ -56,7 +71,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		tx6.setText(actual.darDireccion()) ; 
 
 	}
-	
+
 	/**
 	 * Método que agrega items al action bar si se encuentran
 	 */
@@ -66,11 +81,11 @@ public class DetalleParqueaderoActivity extends Activity {
 		getMenuInflater().inflate(R.menu.parqueadero_detalle, menu);
 		return true;
 	}
-	
+
 	public void consultarCupos( View v ) { 
 		consultarCupos() ; 
 	}
-	
+
 
 	@Override
 	protected void onResume() {
@@ -79,30 +94,30 @@ public class DetalleParqueaderoActivity extends Activity {
 		if ( Parcados.darInstancia(getApplicationContext()).isActualizando() ) 
 			finish() ; 
 	}
-	
+
 	public void consultarCupos() { 
 		SmsManager manejador = SmsManager.getDefault();
 		try {
-			manejador.sendTextMessage("3167443740", null, tx1.getText().toString()+",2500,20" , null, null);
-//			new AlertDialog.Builder(this)
-//		    .setTitle("Parcados")
-//		    .setMessage("Se envió el mensaje correctamente") 
-//		    .setIcon(android.R.drawable.ic_dialog_alert)
-//		     .show();
-			 Parcados.darInstancia(getApplicationContext()).setActualizando(true)  ;
-			 Parcados.darInstancia(getApplicationContext()).setEsperandoSms(true) ; 
+			manejador.sendTextMessage("3017786524", null, tx1.getText().toString()+","+ (int)(Math.random()*40+60)+","+ (int)(Math.random()*100)+"" , null, null);
+			//			new AlertDialog.Builder(this)
+			//		    .setTitle("Parcados")
+			//		    .setMessage("Se envió el mensaje correctamente") 
+			//		    .setIcon(android.R.drawable.ic_dialog_alert)
+			//		     .show();
+			Parcados.darInstancia(getApplicationContext()).setActualizando(true)  ;
+			Parcados.darInstancia(getApplicationContext()).setEsperandoSms(true) ; 
 			finish() ; 
-			
-			
+
+
 		} catch (Exception e) {
 			new AlertDialog.Builder(this)
-		    .setTitle("Parcados")
-		    .setMessage("No se pudo enviar el mensaje") 
-		    .setIcon(android.R.drawable.ic_dialog_alert)
-		     .show();
+			.setTitle("Parcados")
+			.setMessage("No se pudo enviar el mensaje") 
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.show();
 		}
 	}
-	
+
 	/**
 	 * Maneja el evento si de si selencciona un item en el action bar
 	 */
@@ -111,11 +126,11 @@ public class DetalleParqueaderoActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		
+
 		if ( item.getItemId() == android.R.id.home ){
 			finish() ; 
 		}
-		
+
 		int id = item.getItemId();
 		System.out.println( ""+ id );
 		if (id == R.id.consultar_cupos) {
@@ -130,7 +145,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	/*
 	 * selecciona el parqueadero actual para considerarlo en la calculadora
 	 */
