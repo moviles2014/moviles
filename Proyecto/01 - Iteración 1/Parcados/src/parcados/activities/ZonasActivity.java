@@ -42,8 +42,6 @@ public class ZonasActivity extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if ( Parcados.darInstancia(getApplicationContext()).isActualizando() ) 
-			finish() ; 
 	}
 
 	/**

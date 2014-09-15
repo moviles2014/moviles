@@ -70,4 +70,12 @@ public class Zona {
 		parqueaderos.add(_parq);
 	}
 	
+	public int darParqueadero(String nombre)
+	{
+		for (int i = 0; i < parqueaderos.size(); i++ )
+			if (parqueaderos.get(i).darNombre().equals(nombre))
+				return i;
+		return -1;
+	}
+	
 }

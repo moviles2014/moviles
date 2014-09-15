@@ -5,6 +5,7 @@ import java.io.InputStream;
 import parcados.mundo.Parcados;
 import com.parcados.R;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,29 +24,13 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		try {
-			Parcados actual = Parcados.darInstancia(getApplicationContext());
-			if ( actual.darZonas().isEmpty()){
-				InputStream inputStream = getResources().getAssets().open("zonas");			
-				actual.loadZonas(inputStream);
-				inputStream = getResources().getAssets().open("parqueaderos");			
-				actual.loadParq(inputStream);
-				inputStream.close();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 	}
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Parcados parcados = Parcados.darInstancia(getApplicationContext()) ; 
-		parcados.update () ; 
-		Parcados.darInstancia(getApplicationContext()).setActualizando(false) ;
-		
+
 	}
 
 	/**
@@ -80,10 +65,34 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void buscarParqueadero ( View v ) { 
-		if ( Parcados.isEsperandoSms() )
-			return ; 
-		Intent intent = new Intent(this, ZonasActivity.class) ;
-		startActivity(intent) ;
+		final Intent intent = new Intent(this, ZonasActivity.class) ;
+		
+		
+		final ProgressDialog dialog = ProgressDialog.show(this, "Cargando Información", "Por favor espere...", true);
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Parcados actual = Parcados.darInstancia(getApplicationContext());
+					if ( actual.darZonas().isEmpty()){
+						InputStream inputStream = getResources().getAssets().open("zonas");			
+						actual.loadZonas(inputStream);
+						inputStream = getResources().getAssets().open("parqueaderos");			
+						actual.loadParq(inputStream);
+						inputStream.close();						
+					}
+					dialog.dismiss();
+					startActivity(intent) ;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+				
+			}
+		}).start();
+		
 	}
 
 	/**
@@ -91,10 +100,10 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void abrirCalculadora ( View v ) {
-		if ( Parcados.isEsperandoSms() )
-			return ; 
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		startActivity(intent) ;
+		
+
 
 	}
 

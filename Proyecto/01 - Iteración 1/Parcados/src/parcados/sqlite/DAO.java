@@ -29,8 +29,8 @@ public class DAO {
 	/**
 	 * Columnas de la tabla parqueaderos
 	 */
-	private String[] allColumnsParq = { SqliteHelper.COLUMN_PARQ_ID, SqliteHelper.COLUMN_NOMBRE, SqliteHelper.COLUMN_DIRECCION, SqliteHelper.COLUMN_HORARIO,
-			SqliteHelper.COLUMN_CARACTERISTICAS, SqliteHelper.COLUMN_PRECIO, SqliteHelper.COLUMN_CUPOS, SqliteHelper.COLUMN_ZONA_ID, SqliteHelper.COLUMN_ULTIMA_ACT};
+	private String[] allColumnsParq = { SqliteHelper.COLUMN_PARQ_ID, SqliteHelper.COLUMN_NOMBRE, SqliteHelper.COLUMN_HORARIO, SqliteHelper.COLUMN_CARACTERISTICAS, SqliteHelper.COLUMN_DIRECCION, 
+			 SqliteHelper.COLUMN_PRECIO, SqliteHelper.COLUMN_CUPOS, SqliteHelper.COLUMN_ZONA_ID, SqliteHelper.COLUMN_ULTIMA_ACT};
 
 	/**
 	 * Columnas de la tabla zona
@@ -60,6 +60,7 @@ public class DAO {
 	 */
 	public void open() throws SQLException {
 		db = dbHelper.getWritableDatabase();
+		dbHelper.onUpgrade(db, 1, 1);
 	}
 
 	/**
@@ -73,9 +74,9 @@ public class DAO {
 	{
 		ContentValues values = new ContentValues();
 		values.put(SqliteHelper.COLUMN_NOMBRE, parq.darNombre());
-		values.put(SqliteHelper.COLUMN_DIRECCION, parq.darDireccion());
 		values.put(SqliteHelper.COLUMN_HORARIO, parq.darHorario());
 		values.put(SqliteHelper.COLUMN_CARACTERISTICAS, parq.darCaracteristicas());
+		values.put(SqliteHelper.COLUMN_DIRECCION, parq.darDireccion());
 		values.put(SqliteHelper.COLUMN_PRECIO, parq.darPrecio());
 		values.put(SqliteHelper.COLUMN_CUPOS, parq.darCupos());
 		values.put(SqliteHelper.COLUMN_ZONA_ID, darIdZona(zona));
@@ -152,7 +153,6 @@ public class DAO {
 			zonas.add(zona);
 			cursor.moveToNext();	
 		}
-		// make sure to close the cursor
 		cursor.close();
 		return zonas;
 	}

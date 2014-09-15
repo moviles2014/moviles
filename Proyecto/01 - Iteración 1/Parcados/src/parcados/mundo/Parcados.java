@@ -14,31 +14,11 @@ public class Parcados {
 	// Atributos
 	//--------------------------------------------------------------------------------------
 
-	
+
 	/**
 	 * Instancia de la clase
 	 */
 	private static Parcados instancia;
-	
-	private static boolean esperandoSms ; 
-
-	public static boolean isEsperandoSms() {
-		return esperandoSms;
-	}
-
-	public static void setEsperandoSms(boolean esperandoSms) {
-		Parcados.esperandoSms = esperandoSms;
-	}
-
-	private static boolean actualizando;
-
-	public static boolean isActualizando() {
-		return actualizando;
-	}
-
-	public static void setActualizando(boolean actualizando) {
-		Parcados.actualizando = actualizando;
-	}
 
 	/**
 	 * ArrayList con las zonas donde se encuentran ubicados los parqueaderos
@@ -55,7 +35,7 @@ public class Parcados {
 	// Constructores
 	//--------------------------------------------------------------------------------------
 
-	
+
 
 	/**
 	 * Patrón singleton, da la instancia del mundo
@@ -79,6 +59,7 @@ public class Parcados {
 		dao = new DAO(context);
 		dao.open();
 		zonas = dao.getAllZonas();
+
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -94,9 +75,12 @@ public class Parcados {
 		return zonas.get(i).darParqueaderos() ; 
 	}
 
-	
+
 	public void actualizarParqueadero ( String nombre , int precio , int cupos ){ 
-		dao.actualizarParqueadero(nombre	, precio, cupos ) ; 
+		Parqueadero parq = darParqueadero(nombre);
+		parq.actualizarCupos(cupos);
+		parq.actualizarPrecio(precio);
+		dao.actualizarParqueadero(nombre, precio, cupos ) ; 
 	}
 	/**
 	 * Retorna todas las zonas
@@ -104,10 +88,6 @@ public class Parcados {
 	 */
 	public ArrayList<Zona> darZonas ( ){ 
 		return zonas ; 
-	}
-	
-	public int  darPrecioParqueaderoDadoNombre ( String nombre ) { 
-		return dao.darPrecioParqueaderoPorNombre("algo" ) ; 
 	}
 
 
@@ -122,11 +102,11 @@ public class Parcados {
 		}
 		reader.close();
 	}
-	
+
 	public ArrayList<Zona> getAllZonas ()  {
 		return dao.getAllZonas(); 
 	}
-	
+
 
 	public void loadParq (InputStream in) throws IOException
 	{
@@ -140,11 +120,18 @@ public class Parcados {
 			dao.crearParqueadero(parq, zona);
 		}
 		reader.close();
+		zonas.get(0).darParqueaderos().get(0).actualizarCupos(10);
 	}
-
-	public void update() {
-		zonas = getAllZonas() ; 
-		
+	
+	public Parqueadero darParqueadero(String nombre)
+	{
+		for (int i = 0; i < zonas.size(); i++ )
+		{
+			int actual = zonas.get(i).darParqueadero(nombre);
+			if ( actual != -1)
+				return zonas.get(i).darParqueaderos().get(actual);
+		}
+		return null;
 	}
 
 }

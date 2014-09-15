@@ -2,9 +2,7 @@ package parcados.activities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.parcados.R;
-
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import android.app.ListActivity;
@@ -37,6 +35,7 @@ public class ParqueaderosActivity extends ListActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_parqueaderos) ;
@@ -59,8 +58,6 @@ public class ParqueaderosActivity extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		if ( Parcados.darInstancia(getApplicationContext()).isActualizando() ) 
-			finish() ; 
 	}
 	
 	@Override

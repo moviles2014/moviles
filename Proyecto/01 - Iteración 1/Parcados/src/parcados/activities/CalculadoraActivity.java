@@ -185,7 +185,6 @@ public class CalculadoraActivity extends Activity {
 //                runningService = true ; 
 //            }
 //        }
-		Parcados parcado = Parcados.darInstancia(getApplicationContext()) ; 
 		
 		if ( precio == -1 ){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -203,8 +202,7 @@ public class CalculadoraActivity extends Activity {
 			    public void onClick(DialogInterface dialog, int which) {
 			        m_Text = input.getText().toString();
 			        precio = Integer.parseInt(m_Text) ; 
-			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , -1) ;
-			        	Parcados.darInstancia(getApplicationContext()).setActualizando(true) ; 
+			        	Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueadero(nombreParqueadero).darCupos()) ;
 			        UpdaterServiceManager.setPrecio(precio) ; 
 			        startService(new Intent ( yo , UpdaterServiceManager.class));  
 			        
