@@ -120,7 +120,6 @@ public class Parcados {
 			dao.crearParqueadero(parq, zona);
 		}
 		reader.close();
-		zonas.get(0).darParqueaderos().get(0).actualizarCupos(10);
 	}
 	
 	public Parqueadero darParqueadero(String nombre)
