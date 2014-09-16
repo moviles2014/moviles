@@ -9,18 +9,18 @@
     android:padding="25dp" >
 
     <ImageView
-        android:contentDescription="@string/logo"
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/logo"
         android:src="@drawable/parcados" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:onClick="buscarParqueadero"
-        android:text="@string/BParqueadero"/>
+        android:text="@string/BParqueadero" />
 
     <Button
         android:id="@+id/button1"
