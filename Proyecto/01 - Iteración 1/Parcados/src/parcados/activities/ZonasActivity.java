@@ -8,6 +8,7 @@ import parcados.mundo.Zona;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -51,6 +52,20 @@ public class ZonasActivity extends ListActivity {
 		Intent intent = new Intent(this, ParqueaderosActivity.class) ;
 		intent.putExtra("id", Long.toString(id) ) ; 
 		startActivity(intent) ;
+	}
+	
+	/**
+	 * Maneja el evento si de si selencciona un item en el action bar
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

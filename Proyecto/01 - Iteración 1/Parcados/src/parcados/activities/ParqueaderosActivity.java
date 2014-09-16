@@ -8,12 +8,13 @@ import parcados.mundo.Parqueadero;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ParqueaderosActivity extends ListActivity {
-	
+
 
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -57,7 +58,7 @@ public class ParqueaderosActivity extends ListActivity {
 	protected void onResume() {
 		super.onResume();
 	}
-	
+
 	/**
 	 * Maneja la selección de un elemento de la lista
 	 */
@@ -69,6 +70,20 @@ public class ParqueaderosActivity extends ListActivity {
 		intent.putExtra("idzona", Integer.toString(idzona) ) ;
 		startActivity(intent) ;
 	}
-	
+
+
+	/**
+	 * Maneja el evento si de si selencciona un item en el action bar
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 }
