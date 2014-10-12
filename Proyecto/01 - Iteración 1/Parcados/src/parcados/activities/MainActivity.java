@@ -1,16 +1,34 @@
 package parcados.activities;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import parcados.mundo.Parcados;
 import com.parcados.R;
+
+import db_remote.HttpAsyncTask;
+import db_remote.HttpHandler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -84,15 +102,19 @@ public class MainActivity extends Activity {
 		}).start();
 
 	}
+	
+   
+	
 
 	/**
 	 * Lanza la activity para calcular el precio del parqueadero seleccionado
 	 * @param v - el view
 	 */
 	public void abrirCalculadora ( View v ) {
-		Intent intent = new Intent(this, CalculadoraActivity.class) ;
-		startActivity(intent) ;
-
+		//Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		//startActivity(intent) ;
+		new HttpAsyncTask().execute( "1")  ;
+		
 	}
 
 
