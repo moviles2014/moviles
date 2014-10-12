@@ -6,14 +6,19 @@ import java.util.Collections;
 import com.parcados.R;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -26,8 +31,11 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 	public final static String LOCALIZACION = "Localización";
 
 
+
+	private ArrayList<String> listaActual;
+
 	private Spinner spinner;
-	
+
 	private ProgressDialog dialogo;
 
 	//--------------------------------------------------------------------------------------
@@ -55,13 +63,35 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 		spinner.setOnItemSelectedListener(this);
 
 
+		((EditText)findViewById(R.id.textoBusqueda)).addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				updateList();
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+
 	}
-	
+
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		
+
 		if (spinner.getSelectedItem().toString().equals(LOCALIZACION))
 			dialogo.dismiss();
 	}
@@ -73,7 +103,8 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 		{
 			spinner.setSelection(0, true);
 			// Se puede usar cualquier objeto y lo que se muestra seria el toString
-			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , Parcados.darInstancia(getApplicationContext()).filtrarPorZonas()) ; 
+			listaActual = Parcados.darInstancia(getApplicationContext()).filtrarPorZonas();
+			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listaActual) ; 
 			setListAdapter(adapter2) ; 
 		}
 	}
@@ -128,13 +159,15 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 		if(parent.getItemAtPosition(position).toString().equals(ZONAS))
 		{
 			// Se puede usar cualquier objeto y lo que se muestra seria el toString
-			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , Parcados.darInstancia(getApplicationContext()).filtrarPorZonas()) ; 
+			listaActual = Parcados.darInstancia(getApplicationContext()).filtrarPorZonas();
+			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listaActual) ; 
 			setListAdapter(adapter2) ; 
 		}
 		else if(parent.getItemAtPosition(position).toString().equals(EMPRESA))
 		{
 			// Se puede usar cualquier objeto y lo que se muestra seria el toString
-			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , Parcados.darInstancia(getApplicationContext()).filtrarPorEmpresa()) ; 
+			listaActual = Parcados.darInstancia(getApplicationContext()).filtrarPorEmpresa();
+			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listaActual) ; 
 			setListAdapter(adapter2) ; 
 		}
 		else if(parent.getItemAtPosition(position).toString().equals(DIRECCION))
@@ -146,7 +179,8 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 			}
 			Collections.sort(lista);
 			// Se puede usar cualquier objeto y lo que se muestra seria el toString
-			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
+			listaActual = lista;
+			ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , listaActual) ; 
 			setListAdapter(adapter2) ; 
 		}
 		else if(parent.getItemAtPosition(position).toString().equals(LOCALIZACION))
@@ -159,10 +193,27 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 
 	}
 
+
+
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
 		// TODO Auto-generated method stub
 
 	}
+
+	@SuppressLint("DefaultLocale") public void updateList()
+	{
+		String edit = ((EditText) findViewById(R.id.textoBusqueda)).getText().toString();
+
+		ArrayList<String> nuevo = new ArrayList<String>();
+		for (int i = 0; i < listaActual.size(); i++) {
+			String array = listaActual.get(i).toString();
+			if (array.toLowerCase().contains(edit.toLowerCase()))
+				nuevo.add(array);
+		}		
+		ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , nuevo) ; 
+		setListAdapter(adapter2) ; 
+	}
+
 
 }
