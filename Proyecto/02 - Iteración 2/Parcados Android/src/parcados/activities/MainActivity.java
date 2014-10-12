@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void buscarParqueadero ( View v ) { 
-		final Intent intent = new Intent(this, ZonasActivity.class) ;
+		final Intent intent = new Intent(this, BusquedaParqueaderosActivity.class) ;
 
 
 		final ProgressDialog dialog = ProgressDialog.show(this, "Cargando Información", "Por favor espere...", true);
@@ -66,13 +66,15 @@ public class MainActivity extends Activity {
 			public void run() {
 				try {
 					Parcados actual = Parcados.darInstancia(getApplicationContext());
-					if ( actual.darZonas().isEmpty()){
-						InputStream inputStream = getResources().getAssets().open("zonas");			
-						actual.loadZonas(inputStream);
+					if ( actual.darEmpresas().isEmpty()){
+						InputStream inputStream = getResources().getAssets().open("empresas");			
+						actual.loadEmpresas(inputStream);
 						inputStream = getResources().getAssets().open("parqueaderos");			
 						actual.loadParq(inputStream);
-						inputStream.close();						
-					}
+						inputStream.close();	
+
+					}					
+
 					dialog.dismiss();
 					startActivity(intent) ;
 				} catch (IOException e) {

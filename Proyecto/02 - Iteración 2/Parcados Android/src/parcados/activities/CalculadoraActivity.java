@@ -175,7 +175,7 @@ public class CalculadoraActivity extends Activity {
 					m_Text = input.getText().toString();
 					try {
 						precio = Integer.parseInt(m_Text) ; 
-						if (nombreParqueadero != null )Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueadero(nombreParqueadero).darCupos()) ;
+						if (nombreParqueadero != null )Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(nombreParqueadero, precio , Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(nombreParqueadero).darCupos()) ;
 						UpdaterServiceManager.setPrecio(precio) ; 
 						startService(new Intent ( CalculadoraActivity.this , UpdaterServiceManager.class)); 					
 					}

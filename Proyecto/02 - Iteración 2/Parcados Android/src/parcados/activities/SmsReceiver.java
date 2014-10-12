@@ -45,12 +45,17 @@ public class SmsReceiver extends BroadcastReceiver {
                     messages[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
                     sb.append(messages[i].getMessageBody());
                 }
-                String message = sb.toString();
-                String msg[] = message.split(",") ; 
-                String nombre = msg[0] ; 
-                int precio = Integer.parseInt(msg[1] ) ;
-                int cupos = Integer.parseInt(msg[2] ) ;
-                Parcados.darInstancia(context).actualizarParqueadero(nombre, precio,cupos) ;
+                String rawmessage = sb.toString();
+                
+                if (rawmessage.split(":")[0].equals("Parcados"))
+                {
+                	String message = rawmessage.split(":")[1];
+                    String msg[] = message.split(",") ; 
+                    String nombre = msg[0] ; 
+                    int precio = Integer.parseInt(msg[1] ) ;
+                    int cupos = Integer.parseInt(msg[2] ) ;
+                    Parcados.darInstancia(context).actualizarParqueadero(nombre, precio,cupos) ;
+                }                
                 SmsReceiver.recibiendo = false;
             }
         }

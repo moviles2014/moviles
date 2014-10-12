@@ -32,10 +32,6 @@ public class DetalleParqueaderoActivity extends Activity {
 	 * El id del parqueadero actual
 	 */
 	private String idparq;
-	/**
-	 * El id de la zona donde se encuentra el parqueadero
-	 */
-	private String idzona;
 
 	//--------------------------------------------------------------------------------------
 	// Métodos
@@ -52,9 +48,8 @@ public class DetalleParqueaderoActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		Intent intent = getIntent(); 		
 		idparq = intent.getStringExtra("idparq");
-		idzona = intent.getStringExtra("idzona");
 
-		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(Integer.parseInt(idzona)).get(Integer.parseInt(idparq));
+		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(idparq);
 
 		TextView tx1 = (TextView) findViewById(R.id.textView1) ;
 		tx1.setText(actual.darNombre()) ;		
@@ -130,7 +125,7 @@ public class DetalleParqueaderoActivity extends Activity {
 				public void run() {
 					try
 					{
-						manejador.sendTextMessage(NUMEROSMS, null, actual.darNombre()+","+ (int)(Math.random()*40+60)+","+ (int)(Math.random()*100)+"" , null, null);
+						manejador.sendTextMessage(NUMEROSMS, null, "Parcados:"+actual.darNombre()+","+ (int)(Math.random()*40+60)+","+ (int)(Math.random()*100)+"" , null, null);
 						SmsReceiver.recibiendo = true;
 						int i = 0;
 						while ( i < 10 && SmsReceiver.recibiendo)

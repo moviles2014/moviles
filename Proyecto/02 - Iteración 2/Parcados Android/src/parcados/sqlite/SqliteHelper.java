@@ -14,24 +14,29 @@ public class SqliteHelper extends SQLiteOpenHelper{
 	 * Columnas de las tablas en común
 	 */
 	public static final String COLUMN_NOMBRE = "NOMBRE";
+	public static final String COLUMN_ZONA = "ZONA";
+	public static final String COLUMN_EMPRESA_ID = "ID_EMPRESA";
 	public static final String COLUMN_ZONA_ID = "ID_ZONA";
 	
 	/**
 	 * Nombres de las tablas
 	 */
-	public static final String TABLE_ZONAS = "ZONAS";
+	public static final String TABLE_EMPRESAS = "EMPRESAS";
 	public static final String TABLE_PARQUEADEROS = "PARQUEADEROS";
+	public static final String TABLE_ZONAS = "ZONAS";
 	
 	/**
 	 * Columnas de la tabla de parqueaderos
 	 */
 	public static final String COLUMN_PARQ_ID = "ID_PARQ";
 	public static final String COLUMN_DIRECCION = "DIRECCION";
-	public static final String COLUMN_HORARIO = "PARQUEADEROS";
+	public static final String COLUMN_HORARIO = "HORARIO";
 	public static final String COLUMN_CARACTERISTICAS = "CARACTERISTICAS";
 	public static final String COLUMN_CUPOS = "CUPOS";
 	public static final String COLUMN_PRECIO = "PRECIO";	
 	public static final String COLUMN_ULTIMA_ACT = "ULTIMAACT";	
+	public static final String COLUMN_LATITUD = "LATITUD";
+	public static final String COLUMN_LONGITUD = "LONGITUD";	
 
 	/**
 	 * Nombre y versión de la base de datos
@@ -60,8 +65,8 @@ public class SqliteHelper extends SQLiteOpenHelper{
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table "+ TABLE_PARQUEADEROS + "( "+ COLUMN_PARQ_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null, "+ COLUMN_HORARIO +" text not null, "+ COLUMN_CARACTERISTICAS +" text not null, "+ COLUMN_DIRECCION +" text not null, "+ COLUMN_PRECIO +" int, "+ COLUMN_CUPOS +" int, " + COLUMN_ZONA_ID + " integer not null, "+ COLUMN_ULTIMA_ACT  +" text);");
-		db.execSQL("create table "+ TABLE_ZONAS + " ( "+ COLUMN_ZONA_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null);");
+		db.execSQL("create table "+ TABLE_PARQUEADEROS + "( "+ COLUMN_PARQ_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null, "+ COLUMN_ZONA + " text not null, "+COLUMN_HORARIO +" text not null, "+ COLUMN_CARACTERISTICAS +" text not null, "+ COLUMN_DIRECCION +" text unique not null, "+ COLUMN_PRECIO +" int, "+ COLUMN_CUPOS +" int, " + COLUMN_EMPRESA_ID + " integer not null, " + COLUMN_LATITUD + " real not null, " + COLUMN_LONGITUD + " real not null, "+ COLUMN_ULTIMA_ACT  +" text);");
+		db.execSQL("create table "+ TABLE_EMPRESAS + " ( "+ COLUMN_EMPRESA_ID +" integer primary key autoincrement, "+ COLUMN_NOMBRE +" text unique not null);");
 	}
 
 	/**
@@ -73,7 +78,7 @@ public class SqliteHelper extends SQLiteOpenHelper{
 				"Upgrading database from version " + oldVersion + " to "
 						+ newVersion + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS "+ TABLE_PARQUEADEROS + ";");
-		db.execSQL("DROP TABLE IF EXISTS "+ TABLE_ZONAS + ";");
+		db.execSQL("DROP TABLE IF EXISTS "+ TABLE_EMPRESAS + ";");
 		onCreate(db);
 	}
 

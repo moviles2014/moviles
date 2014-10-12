@@ -15,6 +15,7 @@
     <string name="calcularPrecio">Calculadora de Costo</string>
     <string name="consultarCupos">Consultar vía SMS</string>
     <string name="zonas">Zonas</string>
+    <string name="buscar_parqueaderos">Buscar Parqueaderos</string>
     <string name="parqueaderos">Parqueaderos</string>
     <string name="parqueadero_cupos">Cupos:</string>
     <string name="parqueadero_precio">Precio por minuto:</string>
@@ -29,6 +30,14 @@
     <string name="consultarPrecio">Consultar Precio</string>
     <string name="seleccionarParqueadero">Seleccionar Parqueadero</string>
     <string name="reiniciar_precio">Reiniciar información</string>
+    
+        <string-array name="busquedas_array">
+        <item>Zonas</item>
+        <item>Empresa</item>
+        <item>Dirección</item>
+        <item>Localización</item>       
+    </string-array>
+    
     
 
 </resources>

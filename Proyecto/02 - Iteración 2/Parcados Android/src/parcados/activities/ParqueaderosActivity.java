@@ -23,7 +23,7 @@ public class ParqueaderosActivity extends ListActivity {
 	/**
 	 * Id de la zona
 	 */
-	private int idzona;
+	private String idbusq;
 
 
 	//--------------------------------------------------------------------------------------
@@ -39,16 +39,30 @@ public class ParqueaderosActivity extends ListActivity {
 		setContentView(R.layout.activity_parqueaderos) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		Intent intent = getIntent() ; 
-		idzona  = Integer.parseInt(intent.getStringExtra("id"))  ; 
-
-		ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeZona(idzona) ; 
-		List<String> lista = new ArrayList<String>() ;
-		for ( int i = 0 ;i < parqueaderos.size() ; i ++ ){
-			lista.add(parqueaderos.get(i).darNombre()) ;
+		idbusq  = intent.getStringExtra("id")  ; 
+		String tipo = intent.getStringExtra("tipo")  ; 
+		
+		if (tipo.equals(BusquedaParqueaderosActivity.EMPRESA))
+		{
+			ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeEmpresa(idbusq) ; 
+			List<String> lista = new ArrayList<String>() ;
+			for ( int i = 0 ;i < parqueaderos.size() ; i ++ ){
+				lista.add(parqueaderos.get(i).darNombre()) ;
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
+			setListAdapter(adapter) ; 
 		}
-
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
-		setListAdapter(adapter) ; 
+		else if (tipo.equals(BusquedaParqueaderosActivity.ZONAS))
+		{
+			ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosZona(idbusq) ; 
+			List<String> lista = new ArrayList<String>() ;
+			for ( int i = 0 ;i < parqueaderos.size() ; i ++ ){
+				lista.add(parqueaderos.get(i).darNombre()) ;
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
+			setListAdapter(adapter) ; 
+		}
+		
 	}
 
 	/**
@@ -66,8 +80,7 @@ public class ParqueaderosActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
-		intent.putExtra("idparq", Long.toString(position) ) ;
-		intent.putExtra("idzona", Integer.toString(idzona) ) ;
+		intent.putExtra("idparq", l.getItemAtPosition((int) id).toString() ) ;
 		startActivity(intent) ;
 	}
 

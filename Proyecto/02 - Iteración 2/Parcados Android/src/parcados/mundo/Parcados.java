@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import parcados.sqlite.DAO;
 import android.content.Context;
 
@@ -21,9 +23,11 @@ public class Parcados {
 	private static Parcados instancia;
 
 	/**
-	 * ArrayList con las zonas donde se encuentran ubicados los parqueaderos
+	 * ArrayList con las empresas donde se encuentran ubicados los parqueaderos
 	 */
-	private ArrayList <Zona> zonas ; 
+	private ArrayList <Empresa> empresas ; 
+	
+	private ArrayList<String> zonas;
 
 	/**
 	 * Manejador de base de datos
@@ -58,8 +62,10 @@ public class Parcados {
 	public Parcados( Context context ) {
 		dao = new DAO(context);
 		dao.open();
-		zonas = dao.getAllZonas();
-
+		empresas = getAllempresas();
+		zonas = new ArrayList<String>();
+		llenarZonas();
+		sortEverything();
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -67,53 +73,56 @@ public class Parcados {
 	//--------------------------------------------------------------------------------------
 
 	/**
-	 * Da los parqueaderos dada una zona
-	 * @param i - el id de la zona
+	 * Da los parqueaderos dada una Empresa
+	 * @param i - el id de la Empresa
 	 * @return array con los parqueaderos buscados
 	 */
-	public ArrayList<Parqueadero> darParqueaderosDeZona ( int i ){
-		return zonas.get(i).darParqueaderos() ; 
+	public ArrayList<Parqueadero> darParqueaderosDeEmpresa ( String nombre ){
+		for(int i = 0; i < empresas.size(); i++)
+			if (empresas.get(i).darNombre().equals(nombre))
+				return empresas.get(i).darParqueaderos();
+		return null;
 	}
 
 
 	public void actualizarParqueadero ( String nombre , int precio , int cupos ){ 
-		Parqueadero parq = darParqueadero(nombre);
+		Parqueadero parq = darParqueaderoPorNombre(nombre);
 		parq.actualizarCupos(cupos);
 		parq.actualizarPrecio(precio);
 		dao.actualizarParqueadero(nombre, precio, cupos ) ; 
 	}
 	/**
-	 * Retorna todas las zonas
-	 * @return las zonas
+	 * Retorna todas las empresas
+	 * @return las empresas
 	 */
-	public ArrayList<Zona> darZonas ( ){ 
-		return zonas ; 
+	public ArrayList<Empresa> darEmpresas( ){ 
+		return empresas ; 
 	}
 
 
 	/**
-	 * Carga las zonas dado un archivo de entrada
+	 * Carga las empresas dado un archivo de entrada
 	 * @param in el archivo de entrada
 	 * @throws IOException si hubo problemas de lectura
 	 */
-	public void loadZonas (InputStream in) throws IOException
+	public void loadEmpresas (InputStream in) throws IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line;
 		while ((line = reader.readLine()) != null) {
-			Zona zona = new Zona(line);
-			zonas.add(zona);
-			dao.crearZona(zona);
+			Empresa Empresa = new Empresa(line);
+			empresas.add(Empresa);
+			dao.crearEmpresa(Empresa);
 		}
 		reader.close();
 	}
 
 	/**
-	 * Retorna todas las zonas en la base de datos
-	 * @return las zonas
+	 * Retorna todas las empresas en la base de datos
+	 * @return las empresas
 	 */
-	public ArrayList<Zona> getAllZonas ()  {
-		return dao.getAllZonas(); 
+	public ArrayList<Empresa> getAllempresas ()  {
+		return dao.getAllEmpresas(); 
 	}
 
 	/**
@@ -127,26 +136,116 @@ public class Parcados {
 		String line;
 		while ((line = reader.readLine()) != null) {
 			String[] datos = line.split(",");
-			Parqueadero parq = new Parqueadero(datos[0], datos[1], datos[2], datos[3] , -1 , -1  );
-			Zona zona = zonas.get(Integer.parseInt(datos[4]));
-			zona.agregarParqueadero(parq);			
-			dao.crearParqueadero(parq, zona);
+			Parqueadero parq = new Parqueadero(datos[0], datos[2], datos[3], datos[5] , datos[4], -1 , -1, Double.parseDouble(datos[6]), Double.parseDouble(datos[7]) );
+			Empresa empresa = empresas.get(Integer.parseInt(datos[1]));
+			empresa.agregarParqueadero(parq);	
+			dao.crearParqueadero(parq, empresa);
+			agregarZona(datos[2]);
 		}
 		reader.close();
+		sortEverything();
+	}	
+	
+	public void agregarZona(String zona)
+	{
+		boolean existe = false;
+		for (int i = 0; i < zonas.size(); i++)
+			if (zonas.get(i).equals(zona))
+				existe = true;
+		if (!existe)
+			zonas.add(zona);
+	}
+	
+	public Empresa darEmpresa(String nombre)
+	{
+		if (empresas == null)
+			empresas = new ArrayList<Empresa>();
+		for (int i = 0; i < empresas.size(); i++)
+			if (empresas.get(i).darNombre().equals(nombre))
+				return empresas.get(i);
+		return null;
 	}
 
-	/**
-	 * Da un parqueadero dado su nombre
-	 * @param nombre - el nombre del parqueadero
-	 * @return el parqueadero
-	 */
-	public Parqueadero darParqueadero(String nombre)
+	public void loadParEmpresa(Parqueadero parq)
 	{
-		for (int i = 0; i < zonas.size(); i++ )
+		String nEmpresa = parq.darNombre().split(" ")[0];
+		Empresa empr = darEmpresa(nEmpresa);
+		if (empr == null)
 		{
-			int actual = zonas.get(i).darParqueadero(nombre);
-			if ( actual != -1)
-				return zonas.get(i).darParqueaderos().get(actual);
+			empr = new Empresa(nEmpresa);
+			empresas.add(empr);			
+		}
+			
+		empr.agregarParqueadero(parq);		
+	}
+
+	public void sortEverything()
+	{
+		Collections.sort(empresas);	
+		for (int i = 0; i < empresas.size(); i++)
+			empresas.get(i).sortParq();
+		Collections.sort(zonas);
+	}
+
+
+	public ArrayList<String> filtrarPorEmpresa()
+	{
+		ArrayList<String> res = new ArrayList<String>();
+		for(int i = 0; i < empresas.size(); i++)
+		{
+			res.add(empresas.get(i).darNombre());
+		}
+		return res;
+	}
+	
+	public ArrayList<String> filtrarPorZonas()
+	{
+		return zonas;
+	}
+
+	public ArrayList<Parqueadero> darParqueaderosZona(String zona)
+	{
+		ArrayList<Parqueadero> res = new ArrayList<Parqueadero>();
+		for (int i = 0; i < empresas.size(); i++) 
+			res.addAll(empresas.get(i).darParqueaderosZona(zona));
+		return res;
+	}
+	
+	public ArrayList<Parqueadero> darTodosLosParqueaderos()
+	{
+		ArrayList<Parqueadero> res = new ArrayList<Parqueadero>();
+		for (int i = 0; i < empresas.size(); i++) 
+			res.addAll(empresas.get(i).darParqueaderos());
+		return res;
+	}
+	
+	public void llenarZonas()
+	{
+		for (int i = 0; i < empresas.size(); i++) 
+		{
+			ArrayList<Parqueadero> parqs = empresas.get(i).darParqueaderos();
+			for (int j = 0; j < parqs.size(); j++) {
+				agregarZona(parqs.get(j).darZona());				
+			}
+		}
+	}
+	
+	public Parqueadero darParqueaderoPorNombre(String nombre)
+	{
+		for (int i = 0; i < empresas.size(); i++) {
+			Parqueadero parq = empresas.get(i).darParqueaderoPorNombre(nombre);
+			if ( parq != null)
+				return parq;			
+		}
+		return null;
+	}
+	
+	public Parqueadero darParqueaderoPorDireccion(String direccion)
+	{
+		for (int i = 0; i < empresas.size(); i++) {
+			Parqueadero parq = empresas.get(i).darParqueaderoPorDireccion(direccion);
+			if ( parq != null)
+				return parq;			
 		}
 		return null;
 	}

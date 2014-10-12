@@ -1,6 +1,7 @@
 package parcados.mundo;
 
-public class Parqueadero {
+
+public class Parqueadero implements Comparable<Parqueadero>{
 
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -15,37 +16,45 @@ public class Parqueadero {
 	 * Precio del parqueadero
 	 */
 	private int precio  ;
-	
+
 	/**
 	 * Horario del parqueadero
 	 */
 	private String horario ; 
-	
+
 	/**
 	 * Características del parqueadero
 	 */
 	private String caracteristicas ; 
-	
+
 	/**
 	 * Dirección del parqueadero
 	 */
 	private String direccion ; 
-	
+
 	/**
 	 * Nombre del parqueadero
 	 */
 	private String nombre ; 
-	
+
+	/**
+	 * Nombre de la zona
+	 */
+	private String zona ; 
+
 	/**
 	 * Última actualización de los datos del parqueadero
 	 */
 	private String ultimaact;
 
+	private double latitud;	
+	private double longitud;
+
 
 	//--------------------------------------------------------------------------------------
 	// Constructor
 	//--------------------------------------------------------------------------------------
-	
+
 	/**
 	 * Método constructor del parqueadero
 	 * @param _nombre el nombre
@@ -55,13 +64,16 @@ public class Parqueadero {
 	 * @param _precio el precio
 	 * @param _cupos los cupos
 	 */
-	public Parqueadero( String _nombre , String _horario , String _caracteristicas , String _direccion , int _precio , int _cupos ) {
+	public Parqueadero( String _nombre , String _zona, String _horario , String _caracteristicas , String _direccion , int _precio , int _cupos, double _latitud, double _longitud ) {
 		precio = _precio  ; 
+		zona = _zona;
 		cupos = _cupos ;
 		nombre = _nombre ; 
 		horario = _horario ; 
 		caracteristicas = _caracteristicas ; 
 		direccion = _direccion ; 
+		latitud = _latitud;
+		longitud = _longitud;
 	}
 
 	//--------------------------------------------------------------------------------------
@@ -118,6 +130,24 @@ public class Parqueadero {
 	}
 
 	/**
+	 * Da la zona del parqueadero
+	 * @return la zona
+	 */
+	public String darZona()
+	{
+		return zona;
+	}
+
+	public double darLatitud()
+	{
+		return latitud;
+	}
+	public double darLongitud()
+	{
+		return longitud;
+	}
+
+	/**
 	 * Da la última actualización
 	 * @return la última actualización
 	 */
@@ -152,4 +182,11 @@ public class Parqueadero {
 	{
 		ultimaact = _ultimaact;
 	}
+
+	@Override
+	public int compareTo(Parqueadero another) {
+		return nombre.compareTo(another.darNombre());
+	}
+
+
 }
