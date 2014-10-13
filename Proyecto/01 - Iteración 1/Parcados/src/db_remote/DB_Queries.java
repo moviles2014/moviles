@@ -1,7 +1,11 @@
 package db_remote;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import android.util.Log;
 
 import com.pubnub.api.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,18 +20,11 @@ public class DB_Queries {
 	private static   String UUID;
 	private static   Boolean SSL = false;
 	
+	
 	public static String whereDidTheyAct () {
 		 String ret = ""  ; 
 		 
-		 System.out.println( " entro col o");
-		 
-		 Pubnub pubnub = new Pubnub(
-	                PUBLISH_KEY,
-	                SUBSCRIBE_KEY,
-	                SECRET_KEY,
-	                CIPHER_KEY,
-	                SSL
-	        );
+		 Pubnub pubnub = new Pubnub("pub-c-08e15781-225a-4935-a61f-bcafefa86481", "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe");
 
 		 // Subscribe to a channel
 		 try {
@@ -72,10 +69,33 @@ public class DB_Queries {
 
 
 
+		 Callback callback = new Callback() {
+		   public void successCallback(String channel, Object response) {
+		     Log.d("PUBNUB",response.toString());
+		   }
+		   public void errorCallback(String channel, PubnubError error) {
+		   Log.d("PUBNUB",error.toString());
+		   }
+		 };
+		 pubnub.publish("otro", "Free Gift, sign up now" , callback);
+		 
+		 
 
-		 
-		 
-		 
+
+		 // retrieve last 100 messages
+		 Callback callback2 = new Callback() {
+		   public void successCallback(String channel, Object response) {
+		     System.out.println(response.toString());
+		   }
+		   public void errorCallback(String channel, PubnubError error) {
+		   System.out.println(error.toString());
+		   }
+		 };
+		 pubnub.history("parcados_channel", 100, callback2);
+
+
+//		 Retrieve a "slice" of the time line by providing both a start and end time token.
+//		 pubnub.history(arg0, arg1, arg2, arg3)
 		
 		 String result = HttpHandler.cypher_query
 		 ( "match (a:Person) -[r:ACTED_IN]-> (movie:Movie) return a.name , " +
