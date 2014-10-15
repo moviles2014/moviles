@@ -45,7 +45,7 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 
 		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 
-		if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
+		if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{
 			new AlertDialog.Builder(this)
 			.setTitle("Active el GPS para una mejor experiencia")
@@ -93,9 +93,6 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 		Location locactual = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
-		waitForLoc();
-
-
 
 		// mapa
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
@@ -112,21 +109,8 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 			map.moveCamera(center);
 			map.animateCamera(zoom);
 		}
-		//		else
-		//		{
-		//			actual = new LatLng(locactual.getLatitude(), locactual.getLongitude());
-		//			zoom=CameraUpdateFactory.zoomTo(15);
-		//			map.addMarker((new MarkerOptions().position(actual)).title("Usted está aquí"));
-		//		}	
 
-
-
-
-
-
-
-
-
+		waitForLoc();
 
 		ArrayList<Parqueadero> parqs = Parcados.darInstancia(getApplicationContext()).darTodosLosParqueaderos();
 
@@ -155,7 +139,6 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 	@Override
 	protected void onResume() {
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
-		waitForLoc();
 		super.onResume();
 	}
 
@@ -167,9 +150,12 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
-		intent.putExtra("idparq", marker.getTitle() ) ;
-		startActivity(intent) ;
+		if (!marker.getTitle().equals("Usted está aquí"))
+		{
+			Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
+			intent.putExtra("idparq", marker.getTitle() ) ;
+			startActivity(intent) ;
+		}
 	}
 
 	/**
@@ -197,24 +183,37 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 		}  
 	}
 
+	public void mostrarDialogoAlerta(String titulo, String mensaje){
+		new AlertDialog.Builder(this)
+		.setTitle(titulo)
+		.setMessage(mensaje)
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+			}
+		})
+		.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+				// do nothing
+			}
+		})
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.show();
+	}
 	public void waitForLoc()
 	{
-		if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
+		if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER) || lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{
 			Toast toast = Toast.makeText(getApplicationContext(), "Esperando Localización", Toast.LENGTH_LONG);
 			toast.show();
-			
-
 			new Thread(new Runnable() {
 
 				@Override
 				public void run() {
 
-					while(lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)==null)
+					while(lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)==null && lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)==null)
 					{
 						try {
 							Thread.sleep(1000);
-							System.out.println("keka");
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -225,6 +224,11 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 						@Override
 						public void run() {
 							Location locactual = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+							if (locactual == null) 
+							{
+								locactual = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+								mostrarDialogoAlerta("El GPS está desactivado o en modo ahorro de energía", "Mostrando localización aproximada");
+							}
 							LatLng actual = new LatLng(locactual.getLatitude(), locactual.getLongitude());
 							CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
 							map.addMarker((new MarkerOptions().position(actual)).title("Usted está aquí"));
