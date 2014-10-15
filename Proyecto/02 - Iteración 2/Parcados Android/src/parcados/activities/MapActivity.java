@@ -17,7 +17,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parcados.R;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,6 +25,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MapActivity extends Activity implements OnInfoWindowClickListener{
 
@@ -201,7 +201,9 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 	{
 		if(lm.isProviderEnabled(LocationManager.GPS_PROVIDER))
 		{
-			final ProgressDialog dialogo = ProgressDialog.show(this, "Esperando Localización", "Por favor espere...", true);
+			Toast toast = Toast.makeText(getApplicationContext(), "Esperando Localización", Toast.LENGTH_LONG);
+			toast.show();
+			
 
 			new Thread(new Runnable() {
 
@@ -212,6 +214,7 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 					{
 						try {
 							Thread.sleep(1000);
+							System.out.println("keka");
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -229,8 +232,6 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 							CameraUpdate center= CameraUpdateFactory.newLatLng(actual);
 							map.moveCamera(center);
 							map.animateCamera(zoom);
-
-							dialogo.dismiss();	
 						}
 					});
 				}
