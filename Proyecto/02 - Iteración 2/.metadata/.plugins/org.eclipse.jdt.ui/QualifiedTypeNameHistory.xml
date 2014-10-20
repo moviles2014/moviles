@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="db_remote.HttpAsyncTask"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="parcados.activities.MainActivity"/>
+<fullyQualifiedTypeName name="android.app.Application"/>
+<fullyQualifiedTypeName name="db_remote.DB_Queries"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="parcados.activities.DetalleParqueaderoActivity"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="com.google.android.gms.common.ErrorDialogFragment"/>
+<fullyQualifiedTypeName name="android.app.Dialog"/>
+<fullyQualifiedTypeName name="com.parcados.R.drawable"/>
+<fullyQualifiedTypeName name="parcados.mundo.Empresa"/>
+<fullyQualifiedTypeName name="parcados.receivers.SmsReceiver"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
+<fullyQualifiedTypeName name="parcados.services.UpdaterServiceManager"/>
+<fullyQualifiedTypeName name="android.app.Service"/>
+<fullyQualifiedTypeName name="parcados.services.BackgroundService"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="parcados.mundo.Parcados"/>
+<fullyQualifiedTypeName name="parcados.activities.MyApplication"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="org.json.JSONObject"/>
+</qualifiedTypeNameHistroy>
