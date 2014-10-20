@@ -214,8 +214,8 @@ public class DetalleParqueaderoActivity extends Activity {
 		}
 
 		int id = item.getItemId();
-		if (id == R.id.consultar_cupos) {
-			consultarCupos() ; 
+		if (id == R.id.actualizar) {
+			actualizar(getWindow().getDecorView().findViewById(R.layout.activity_detalle_parqueadero)) ; 
 		}
 		else if (id == R.id.reiniciar_precio) {
 			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(actual.darNombre(), -1 , -1 ) ;
