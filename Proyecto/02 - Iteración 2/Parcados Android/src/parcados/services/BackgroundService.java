@@ -1,5 +1,7 @@
 package parcados.services;
 
+import java.util.HashMap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +20,9 @@ import android.os.IBinder;
 public class BackgroundService  extends Service { 
 	
 	public  static boolean running  ;
+	public static HashMap<String, Boolean > hm  = null; 
+
+	static  Pubnub pubnub = new Pubnub("pub-c-08e15781-225a-4935-a61f-bcafefa86481", "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe");
 	
 	public void onCreate() {
 		// code to execute when the service is first created
@@ -37,7 +42,9 @@ public class BackgroundService  extends Service {
 			nombre = obj.get("nombre").toString() ; 
 			precio = Integer.parseInt(obj.get("precio").toString()) ;
 			cupos  = Integer.parseInt(obj.get("cupos").toString()) ;
-			Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
+			if ( !hm.containsKey(nombre) )
+				Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
+			hm.put(nombre, true) ; 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,10 +52,10 @@ public class BackgroundService  extends Service {
 	}
 	
 	public static void subscribe ( ) { 
-		System.out.println( "subscribing...");
+		hm = new HashMap<String, Boolean>()	 ;
 		
-		final Pubnub pubnub = new Pubnub("pub-c-08e15781-225a-4935-a61f-bcafefa86481", "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe");
-		 
+		System.out.println( "subscribing...");
+		pubnub.unsubscribeAll() ; 
 		 // Subscribe to a channel
 		 try {
 		   pubnub.subscribe("parcados_channel", new Callback() {
@@ -58,27 +65,6 @@ public class BackgroundService  extends Service {
 		           System.out.println("SUBSCRIBE : CONNECT on channel:" + channel
 		                      + " : " + message.getClass() + " : "
 		                      + message.toString());
-		           
-		           // retrieve last 100 messages
-		  		 Callback callback2 = new Callback() {
-		  		   public void successCallback(String channel, Object response) {
-		  				String res = response.toString() ;
-		  				res = res.substring(2) ; 
-		  				res = res.split("],")[0] ;
-		  				String arr[] =  res.split("\\}") ; 
-		  				String tmp = arr[0] + "}";
-		  				actualizarParqueadero(tmp) ; 
-		  				for (int i = 1; i < arr.length; i++) {
-		  					tmp = arr[i].substring(1) + "}";
-		  					actualizarParqueadero(tmp) ; 
-		  				}
-		  		   }
-		  		   public void errorCallback(String channel, PubnubError error) {
-		  		   System.out.println(error.toString());
-		  		   }
-		  		 };
-		  		 pubnub.history("parcados_channel", 100 , callback2);
-		           
 		       }
 		 
 		       @Override
@@ -92,32 +78,24 @@ public class BackgroundService  extends Service {
 		           System.out.println("SUBSCRIBE : RECONNECT on channel:" + channel
 		                      + " : " + message.getClass() + " : "
 		                      + message.toString());
-		           
-//		           Callback callback2 = new Callback() {
-//			  		   public void successCallback(String channel, Object response) {
-//			  				String res = response.toString() ;
-//			  				res = res.substring(2) ; 
-//			  				res = res.split("],")[0] ;
-//			  				String arr[] =  res.split("\\}") ; 
-//			  				String tmp = arr[0] + "}";
-//			  				actualizarParqueadero(tmp) ; 
-//			  				for (int i = 1; i < arr.length; i++) {
-//			  					tmp = arr[i].substring(1) + "}";
-//			  					actualizarParqueadero(tmp) ; 
-//			  				}
-//			  				System.out.println(" entro en success");
-//			  		   }
-//			  		   public void errorCallback(String channel, PubnubError error) {
-//			  		   System.out.println(error.toString());
-//			  		   }
-//			  		 };
-//			  		 pubnub.history("parcados_channel", 100 , callback2);
-//			  		 System.out.println( " entro ");
 		       }
 		 
 		       @Override
 		       public void successCallback(String channel, Object message) {
-		          actualizarParqueadero(message.toString()) ;
+		    	   JSONObject obj;
+		          try {
+					obj = new JSONObject(message.toString());
+					String nombre = null; 
+					int precio = 0 , cupos = 0 ; 
+					nombre = obj.get("nombre").toString() ; 
+					precio = Integer.parseInt(obj.get("precio").toString()) ;
+					cupos  = Integer.parseInt(obj.get("cupos").toString()) ;
+					Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
 		       }
 		 
 		       @Override
@@ -130,6 +108,28 @@ public class BackgroundService  extends Service {
 		 } catch (PubnubException e) {
 		   System.out.println(e.toString());
 		 }
+		 
+		  
+		 // retrieve last 100 messages
+  		 Callback callback2 = new Callback() {
+  		   public void successCallback(String channel, Object response) {
+  				String res = response.toString() ;
+  				res = res.substring(2) ; 
+  				res = res.split("],")[0] ;
+  				String arr[] =  res.split("\\}") ; 
+  				String tmp = null; 
+  				for (int i = arr.length-1 ; i >= 1 ; i-- ) {
+  					tmp = arr[i].substring(1) + "}";
+  					actualizarParqueadero(tmp) ; 
+  				}
+  				tmp = arr[0] + "}";
+  				actualizarParqueadero(tmp) ;
+  		   }
+  		   public void errorCallback(String channel, PubnubError error) {
+  		   System.out.println(error.toString());
+  		   }
+  		 };
+  		 pubnub.history("parcados_channel", false , 100 , callback2);
 	}
 	
 	@Override

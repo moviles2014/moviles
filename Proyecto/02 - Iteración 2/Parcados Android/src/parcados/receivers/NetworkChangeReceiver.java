@@ -11,6 +11,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
         boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
         if ( !noConnectivity){
         	BackgroundService.subscribe() ; 
+        	System.out.println( "del receiver entro ");
         }
     } 
 }
