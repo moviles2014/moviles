@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import parcados.mundo.Parcados;
 import parcados.services.BackgroundService;
-import parcados.services.UpdaterServiceManager;
-
 import com.parcados.R;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;

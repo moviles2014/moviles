@@ -1,7 +1,6 @@
 package parcados.receivers;
 
 import parcados.services.BackgroundService;
-import parcados.services.UpdaterServiceManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
