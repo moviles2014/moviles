@@ -2,12 +2,12 @@ package parcados.activities;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
+import parcados.receivers.SmsReceiver;
 
 import com.google.android.gms.common.ErrorDialogFragment;
 import com.parcados.R;
 
 import db_remote.DB_Queries;
-import db_remote.HttpAsyncTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -202,10 +202,8 @@ public class DetalleParqueaderoActivity extends Activity {
 	}
 
 	public void actualizar ( View v ) {
-//		new HttpAsyncTask().execute( "2" , actual.darNombre()) ;
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Consultando parqueadero", "Por favor espere...", true);
-		
 		
 		try {
 
@@ -240,7 +238,6 @@ public class DetalleParqueaderoActivity extends Activity {
 								}
 								else
 								{
-									actual = Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(idparq);
 									setCuposYPrecio();
 								}										
 							}
@@ -248,8 +245,6 @@ public class DetalleParqueaderoActivity extends Activity {
 					} catch (Exception e) {
 						dialog.dismiss();
 						
-//						System.out.println( "llego 2");
-//						e.printStackTrace();
 						System.out.println( "parcados no se pudo conectar ");
 						try {
 							Thread.sleep(3000) ;
@@ -258,10 +253,6 @@ public class DetalleParqueaderoActivity extends Activity {
 							e1.printStackTrace();
 						} 
 						dialog2.dismiss() ; 
-						
-//						Toast toast = Toast.makeText(MyApplication.getAppContext(), "Parcados no se pudo conectar", Toast.LENGTH_LONG);
-//						toast.show();
-						
 					}		
 
 				}

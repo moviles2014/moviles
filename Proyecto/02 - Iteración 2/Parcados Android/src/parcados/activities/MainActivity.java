@@ -5,7 +5,6 @@ import java.io.InputStream;
 import parcados.mundo.Parcados;
 import com.parcados.R;
 
-import db_remote.HttpAsyncTask;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -94,11 +93,8 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void abrirCalculadora ( View v ) {
-//		Intent intent = new Intent(this, CalculadoraActivity.class) ;
-//		startActivity(intent) ;
-		new HttpAsyncTask().execute( "1") ;
-		
-
+		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		startActivity(intent) ;
 	}
 
 

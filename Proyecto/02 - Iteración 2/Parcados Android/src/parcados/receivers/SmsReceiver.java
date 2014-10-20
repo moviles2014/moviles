@@ -1,4 +1,4 @@
-package parcados.activities;
+package parcados.receivers;
 
 import parcados.mundo.Parcados;
 import android.content.BroadcastReceiver;

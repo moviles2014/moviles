@@ -3,6 +3,8 @@ package parcados.activities;
 import java.util.Timer;
 import java.util.TimerTask;
 import parcados.mundo.Parcados;
+import parcados.services.UpdaterServiceManager;
+
 import com.parcados.R;
 import android.app.Activity;
 import android.app.AlertDialog;

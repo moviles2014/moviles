@@ -1,7 +1,9 @@
-package parcados.activities;
+package parcados.services;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import parcados.activities.CalculadoraActivity;
 
 import android.R;
 import android.app.Notification;

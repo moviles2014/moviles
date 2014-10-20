@@ -54,7 +54,7 @@
         <activity android:name="parcados.activities.MapActivity" />
 
         <receiver
-            android:name="parcados.activities.SmsReceiver"
+            android:name="parcados.receivers.SmsReceiver"
             android:enabled="true" >
             <intent-filter android:priority="2147483647" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -62,7 +62,7 @@
         </receiver>
 
         <service
-            android:name="parcados.activities.UpdaterServiceManager"
+            android:name="parcados.services.UpdaterServiceManager"
             android:enabled="true"
             android:exported="false" />
     </application>
