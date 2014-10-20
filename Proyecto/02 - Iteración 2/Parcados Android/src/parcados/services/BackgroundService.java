@@ -52,22 +52,7 @@ public class BackgroundService  extends Service {
 		 
 		       @Override
 		       public void successCallback(String channel, Object message) {
-		           System.out.println("recieved message: " + message.toString());
-		           JSONObject obj;
-					String nombre = null; 
-					int precio = 0 , cupos = 0 ; 
-					try {
-						obj = new JSONObject(message.toString());
-						nombre = obj.get("nombre").toString() ; 
-						precio = Integer.parseInt(obj.get("precio").toString()) ;
-						cupos  = Integer.parseInt(obj.get("cupos").toString()) ;
-						Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					System.out.println( nombre + " " + precio + "  " + cupos  );
-					
+		          actualizarParqueadero(message.toString()) ;
 		       }
 		 
 		       @Override
@@ -80,7 +65,54 @@ public class BackgroundService  extends Service {
 		 } catch (PubnubException e) {
 		   System.out.println(e.toString());
 		 }
-		
+		 
+		 // retrieve last 100 messages
+		 Callback callback2 = new Callback() {
+		   public void successCallback(String channel, Object response) {
+			   	JSONObject obj;
+			   	String nombre = null; 
+				int precio = 0 , cupos = 0 ; 
+		   
+				System.out.println( " response " + response.toString());
+				System.out.println();
+				String res = response.toString() ;
+				res = res.substring(2) ; 
+				res = res.split("],")[0] ;
+				System.out.println( " antes " + res );
+				System.out.println( " dfaslfas ;df");
+				String arr[] =  res.split("\\}") ; 
+				
+				String tmp = arr[0] + "}";
+				actualizarParqueadero(tmp) ; 
+				
+				for (int i = 1; i < arr.length; i++) {
+					tmp = arr[i].substring(1) + "}";
+					actualizarParqueadero(tmp) ; 
+				}
+				
+		   }
+		   public void errorCallback(String channel, PubnubError error) {
+		   System.out.println(error.toString());
+		   }
+		 };
+		 pubnub.history("parcados_channel", 100 , callback2);
+	}
+	
+	
+	void actualizarParqueadero ( String json) {
+		JSONObject obj;
+		try {
+			obj = new JSONObject(json);
+			String nombre = null; 
+			int precio = 0 , cupos = 0 ; 
+			nombre = obj.get("nombre").toString() ; 
+			precio = Integer.parseInt(obj.get("precio").toString()) ;
+			cupos  = Integer.parseInt(obj.get("cupos").toString()) ;
+			Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
