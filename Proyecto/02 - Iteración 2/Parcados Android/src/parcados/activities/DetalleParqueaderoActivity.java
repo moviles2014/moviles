@@ -6,15 +6,10 @@ import java.util.TimerTask;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
-import parcados.services.UpdaterServiceManager;
-
-import com.google.android.gms.common.ErrorDialogFragment;
 import com.parcados.R;
-
 import db_remote.DB_Queries;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DetalleParqueaderoActivity extends Activity {
 
@@ -34,8 +28,6 @@ public class DetalleParqueaderoActivity extends Activity {
 
 	
 	private Timer myTimer;
-	
-	private DetalleParqueaderoActivity yo  = this  ;  
 	//--------------------------------------------------------------------------------------
 	// Atributos
 	//--------------------------------------------------------------------------------------
@@ -221,8 +213,8 @@ public class DetalleParqueaderoActivity extends Activity {
 		}
 
 		int id = item.getItemId();
-		if (id == R.id.consultar_cupos) {
-			consultarCupos() ; 
+		if (id == R.id.actualizar) {
+			actualizar(getWindow().getDecorView().findViewById(R.layout.activity_detalle_parqueadero)) ; 
 		}
 		else if (id == R.id.reiniciar_precio) {
 			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(actual.darNombre(), -1 , -1 ) ;

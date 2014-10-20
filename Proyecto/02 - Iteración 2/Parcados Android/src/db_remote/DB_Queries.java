@@ -1,30 +1,23 @@
 package db_remote;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import android.util.Log;
-
 import com.pubnub.api.*;
-
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import parcados.activities.MainActivity;
 import parcados.activities.MyApplication;
 import parcados.mundo.Parcados;
 
 public class DB_Queries {
 	
-	private static String PUBLISH_KEY = "";
-	private static  String SUBSCRIBE_KEY = "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe";
-	private static   String CIPHER_KEY = "";
-	private static   String SECRET_KEY = "";
-	private static String ORIGIN = "pubsub";
-	private static   String AUTH_KEY;
-	private static   String UUID;
-	private static   Boolean SSL = false;
+//	private static String PUBLISH_KEY = "";
+//	private static  String SUBSCRIBE_KEY = "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe";
+//	private static   String CIPHER_KEY = "";
+//	private static   String SECRET_KEY = "";
+//	private static String ORIGIN = "pubsub";
+//	private static   String AUTH_KEY;
+//	private static   String UUID;
+//	private static   Boolean SSL = false;
 	public static boolean  inRequest = false ; 
 	
 	
