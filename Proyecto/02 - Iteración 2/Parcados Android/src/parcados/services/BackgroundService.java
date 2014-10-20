@@ -82,20 +82,15 @@ public class BackgroundService  extends Service {
 		 
 		       @Override
 		       public void successCallback(String channel, Object message) {
-		    	   JSONObject obj;
-		          try {
-					obj = new JSONObject(message.toString());
+					String msg = message.toString() ;
+					String arr[] = msg.split(",") ; 
 					String nombre = null; 
 					int precio = 0 , cupos = 0 ; 
-					nombre = obj.get("nombre").toString() ; 
-					precio = Integer.parseInt(obj.get("precio").toString()) ;
-					cupos  = Integer.parseInt(obj.get("cupos").toString()) ;
+					nombre = arr[0] ; 
+					precio = Integer.parseInt(arr[1]) ; 
+					cupos  = Integer.parseInt(arr[2]) ;  
 					Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio, cupos) ;
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-					
+				
 		       }
 		 
 		       @Override

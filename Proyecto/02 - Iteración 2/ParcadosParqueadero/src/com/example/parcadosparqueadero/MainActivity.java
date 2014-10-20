@@ -5,15 +5,19 @@ import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
+import com.pubnub.api.Callback;
+import com.pubnub.api.Pubnub;
+import com.pubnub.api.PubnubError;
+
 
 import db_remote.DB_Queries;
-import db_remote.HttpAsyncTask;
 import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +71,9 @@ public class MainActivity extends Activity {
 						try
 						{
 							String res = DB_Queries.actualizarParqueadero(nombre, precio_s, cupos_s) ;
+							
+							
+							
 							int i = 0;
 							while ( i < 10 && DB_Queries.inRequest)
 							{
@@ -83,6 +90,18 @@ public class MainActivity extends Activity {
 								dialog4.dismiss() ; 
 							}
 							else { 
+								Pubnub pubnub = new Pubnub("pub-c-08e15781-225a-4935-a61f-bcafefa86481", "sub-c-414c745c-5273-11e4-a191-02ee2ddab7fe");
+								 
+								Callback callback = new Callback() {
+								   public void successCallback(String channel, Object response) {
+									   System.out.println("PUBNUB" + response.toString());
+								   }
+								   public void errorCallback(String channel, PubnubError error) {
+									   System.out.println("PUBNUB" + error.toString());
+								   }
+								};
+								pubnub.publish( "parcados_channel", nombre+","+precio_s+","+cupos_s, callback);
+								 
 								dialog.dismiss();	
 								dialog2.dismiss() ;
 								dialog4.dismiss()  ; 
