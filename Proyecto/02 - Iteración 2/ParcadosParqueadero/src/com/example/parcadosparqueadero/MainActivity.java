@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
 									   System.out.println("PUBNUB" + error.toString());
 								   }
 								};
-								pubnub.publish( "parcados_channel", nombre+","+precio_s+","+cupos_s, callback);
+								pubnub.publish( "parcados", nombre+";"+precio_s+";"+cupos_s, callback);
 								 
 								dialog.dismiss();	
 								dialog2.dismiss() ;

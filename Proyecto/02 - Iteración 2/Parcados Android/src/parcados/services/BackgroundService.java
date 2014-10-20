@@ -58,7 +58,7 @@ public class BackgroundService  extends Service {
 		pubnub.unsubscribeAll() ; 
 		 // Subscribe to a channel
 		 try {
-		   pubnub.subscribe("parcados_channel", new Callback() {
+		   pubnub.subscribe("parcados", new Callback() {
 		 
 		       @Override
 		       public void connectCallback(String channel, Object message) {
@@ -83,7 +83,7 @@ public class BackgroundService  extends Service {
 		       @Override
 		       public void successCallback(String channel, Object message) {
 					String msg = message.toString() ;
-					String arr[] = msg.split(",") ; 
+					String arr[] = msg.split(";") ; 
 					String nombre = null; 
 					int precio = 0 , cupos = 0 ; 
 					nombre = arr[0] ; 
@@ -111,20 +111,39 @@ public class BackgroundService  extends Service {
   				String res = response.toString() ;
   				res = res.substring(2) ; 
   				res = res.split("],")[0] ;
-  				String arr[] =  res.split("\\}") ; 
+  				System.out.println( res );
+  				
+  				String arr[] =  res.split(",") ; 
   				String tmp = null; 
   				for (int i = arr.length-1 ; i >= 1 ; i-- ) {
-  					tmp = arr[i].substring(1) + "}";
-  					actualizarParqueadero(tmp) ; 
+  					tmp = arr[i] ;
+  					tmp = tmp.substring(1 , tmp.length()-1) ;
+  					System.out.println( tmp );
+  					String arr2 [] = tmp.split ( ";" )  ; 
+  					
+  					if ( !hm.containsKey(arr2[0]) ) { 
+  						Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero
+  						(arr2[0], Integer.parseInt (arr2[1]), Integer.parseInt(arr2[2])) ;
+  						System.out.println( " actualizada " + arr2[0]+ " " + arr2[1]+ " " + arr2[2]+ " " );
+  					}
+  					hm.put(arr2[0], true) ; 
+//  					actualizarParqueadero(tmp) ; 
   				}
-  				tmp = arr[0] + "}";
-  				actualizarParqueadero(tmp) ;
+  				tmp = arr[0]  ; 
+  				tmp = tmp.substring(1 , tmp.length()-1 ) ;
+  				String arr2 [] = tmp.split ( ";" )  ; 
+  				if ( !hm.containsKey(arr2[0]) ) { 
+						Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero
+						(arr2[0], Integer.parseInt (arr2[1]), Integer.parseInt(arr2[2])) ;
+						System.out.println( " actualizada " + arr2[0]+ " " + arr2[1]+ " " + arr2[2]+ " " );
+					}
+					hm.put(arr2[0], true) ; 
   		   }
   		   public void errorCallback(String channel, PubnubError error) {
   		   System.out.println(error.toString());
   		   }
   		 };
-  		 pubnub.history("parcados_channel", false , 100 , callback2);
+  		 pubnub.history("parcados", false , 5 , callback2);
 	}
 	
 	@Override
