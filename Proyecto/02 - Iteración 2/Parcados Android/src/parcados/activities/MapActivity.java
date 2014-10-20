@@ -9,6 +9,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.LocationSource.OnLocationChangedListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,12 +28,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MapActivity extends Activity implements OnInfoWindowClickListener{
+public class MapActivity extends Activity implements OnInfoWindowClickListener, OnLocationChangedListener{
 
 	private LocationManager lm;
 	private LocationListener locationListener;
 
 	private GoogleMap map;
+
+	private MarkerOptions marker;
+
 
 
 	@Override
@@ -93,22 +97,26 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 		Location locactual = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 
-
-		// mapa
-		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
-
-		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-		CameraUpdate zoom;
-		LatLng actual;
-		if(locactual == null)
+		if (map == null)
 		{
-			actual = new LatLng(4.598056000000001, -74.075833);
-			zoom=CameraUpdateFactory.zoomTo(10);
-			CameraUpdate center= CameraUpdateFactory.newLatLng(actual);
-			map.moveCamera(center);
-			map.animateCamera(zoom);
+			// mapa
+			map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+					.getMap();
+
+			map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			CameraUpdate zoom;
+			LatLng actual;
+			if(locactual == null)
+			{
+				actual = new LatLng(4.598056000000001, -74.075833);
+				zoom=CameraUpdateFactory.zoomTo(10);
+				CameraUpdate center= CameraUpdateFactory.newLatLng(actual);
+				map.moveCamera(center);
+				map.animateCamera(zoom);
+			}
 		}
+
+
 
 		waitForLoc();
 
@@ -128,6 +136,8 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 		}
 
 		map.setOnInfoWindowClickListener(this);
+
+
 	}
 
 	@Override
@@ -141,6 +151,7 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
 		super.onResume();
 	}
+
 
 	@Override
 	protected void onDestroy() {
@@ -231,8 +242,12 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 							}
 							LatLng actual = new LatLng(locactual.getLatitude(), locactual.getLongitude());
 							CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
-							map.addMarker((new MarkerOptions().position(actual)).title("Usted está aquí"));
-
+							if (marker != null) marker.position(actual);
+							else
+							{
+								marker = (new MarkerOptions().position(actual)).title("Usted está aquí");
+								map.addMarker(marker);
+							}							
 							CameraUpdate center= CameraUpdateFactory.newLatLng(actual);
 							map.moveCamera(center);
 							map.animateCamera(zoom);
@@ -241,5 +256,11 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener{
 				}
 			}).start();
 		}
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		waitForLoc();
+
 	}
 }

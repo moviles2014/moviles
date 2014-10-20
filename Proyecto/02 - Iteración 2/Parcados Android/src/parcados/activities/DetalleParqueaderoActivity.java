@@ -6,11 +6,7 @@ import java.util.TimerTask;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
-import parcados.services.UpdaterServiceManager;
-
-import com.google.android.gms.common.ErrorDialogFragment;
 import com.parcados.R;
-
 import db_remote.DB_Queries;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DetalleParqueaderoActivity extends Activity {
 
@@ -34,8 +29,6 @@ public class DetalleParqueaderoActivity extends Activity {
 
 	
 	private Timer myTimer;
-	
-	private DetalleParqueaderoActivity yo  = this  ;  
 	//--------------------------------------------------------------------------------------
 	// Atributos
 	//--------------------------------------------------------------------------------------
