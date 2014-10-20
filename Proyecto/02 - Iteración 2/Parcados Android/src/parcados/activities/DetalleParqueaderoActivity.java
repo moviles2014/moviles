@@ -2,9 +2,15 @@ package parcados.activities;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
+
+import com.google.android.gms.common.ErrorDialogFragment;
 import com.parcados.R;
+
+import db_remote.DB_Queries;
+import db_remote.HttpAsyncTask;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DetalleParqueaderoActivity extends Activity {
 
 	//--------------------------------------------------------------------------------------
 	// Constantes
 	//--------------------------------------------------------------------------------------
-	public final static String NUMEROSMS = "3017786524";
+	public final static String NUMEROSMS = "3167443740";
 
+	
+	private DetalleParqueaderoActivity yo  = this  ;  
 	//--------------------------------------------------------------------------------------
 	// Atributos
 	//--------------------------------------------------------------------------------------
@@ -192,6 +201,81 @@ public class DetalleParqueaderoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void actualizar ( View v ) {
+//		new HttpAsyncTask().execute( "2" , actual.darNombre()) ;
+		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
+		final ProgressDialog dialog = ProgressDialog.show(this, "Consultando parqueadero", "Por favor espere...", true);
+		
+		
+		try {
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try
+					{
+						System.out.println( "llego ");
+						DB_Queries.consultarParqueadero( actual.darNombre() ) ;
+						int i = 0;
+						while ( i < 10 && DB_Queries.inRequest)
+						{
+							i++;
+							Thread.sleep(1000);
+							System.out.println( i );
+						}
+						
+						dialog.dismiss();	
+						dialog2.dismiss() ;
+						
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								if (DB_Queries.inRequest)
+								{
+									new AlertDialog.Builder(DetalleParqueaderoActivity.this).setTitle("Parcados Time Out")
+									.setMessage("No se pudo consultar el parqueadero") 
+									.setIcon(android.R.drawable.ic_dialog_alert)
+									.show();
+								}
+								else
+								{
+									actual = Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(idparq);
+									setCuposYPrecio();
+								}										
+							}
+						});
+					} catch (Exception e) {
+						dialog.dismiss();
+						
+//						System.out.println( "llego 2");
+//						e.printStackTrace();
+						System.out.println( "parcados no se pudo conectar ");
+						try {
+							Thread.sleep(3000) ;
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						dialog2.dismiss() ; 
+						
+//						Toast toast = Toast.makeText(MyApplication.getAppContext(), "Parcados no se pudo conectar", Toast.LENGTH_LONG);
+//						toast.show();
+						
+					}		
+
+				}
+			}).start();
+
+		} catch (Exception e) {
+			new AlertDialog.Builder(this)
+			.setTitle("Parcados")
+			.setMessage("Parcados no se pudo conectar") 
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.show();
+		}
+		
+	}
 	/**
 	 * Selecciona al parqueadero y llama a la calculadora
 	 * @param v el view

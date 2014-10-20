@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 import parcados.sqlite.DAO;
 import android.content.Context;
 
@@ -107,12 +108,14 @@ public class Parcados {
 	 */
 	public void loadEmpresas (InputStream in) throws IOException
 	{
+		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line;
 		while ((line = reader.readLine()) != null) {
 			Empresa Empresa = new Empresa(line);
 			empresas.add(Empresa);
 			dao.crearEmpresa(Empresa);
+//			DB_Queries.crearEmpresa(line) ; 
 		}
 		reader.close();
 	}
@@ -137,8 +140,12 @@ public class Parcados {
 		while ((line = reader.readLine()) != null) {
 			String[] datos = line.split(",");
 			Parqueadero parq = new Parqueadero(datos[0], datos[2], datos[3], datos[5] , datos[4], -1 , -1, Double.parseDouble(datos[6]), Double.parseDouble(datos[7]) );
+//			DB_Queries.crearParqueadero(datos[0], datos[2], datos[3], datos[5] , datos[4], -1 , -1, Double.parseDouble(datos[6]), Double.parseDouble(datos[7]) );
+			
 			Empresa empresa = empresas.get(Integer.parseInt(datos[1]));
-			empresa.agregarParqueadero(parq);	
+			empresa.agregarParqueadero(parq);
+//			DB_Queries.crearRelacion(empresa.darNombre(), parq.darNombre() ) ; 
+			
 			dao.crearParqueadero(parq, empresa);
 			agregarZona(datos[2]);
 		}

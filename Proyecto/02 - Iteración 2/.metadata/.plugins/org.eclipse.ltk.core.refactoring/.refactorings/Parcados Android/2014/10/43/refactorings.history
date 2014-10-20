@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;db_remote.DB_Queries.CreateParking(...)&apos; to &apos;createParking&apos;&#x0D;&#x0A;- Original project: &apos;Parcados Android&apos;&#x0D;&#x0A;- Original element: &apos;db_remote.DB_Queries.CreateParking(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;db_remote.DB_Queries.createParking(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;CreateParking&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;db_remote{DB_Queries.java[DB_Queries~CreateParking~QString;~QString;~QString;~QString;~QString;~I~I~D~D" name="createParking" references="true" stamp="1413768621834" version="1.0"/>
+</session>

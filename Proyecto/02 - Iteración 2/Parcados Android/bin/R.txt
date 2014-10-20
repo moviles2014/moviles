@@ -144,6 +144,7 @@ int layout activity_parqueaderos 0x7f030005
 int menu calculadora 0x7f0b0000
 int menu main 0x7f0b0001
 int menu parqueadero_detalle 0x7f0b0002
+int string Actualizar 0x7f05003f
 int string BParqueadero 0x7f05002d
 int string ImplicitViewURL 0x7f050028
 int string accept 0x7f050002
@@ -199,7 +200,7 @@ int string parqueadero_horario 0x7f050035
 int string parqueadero_precio 0x7f050034
 int string parqueaderos 0x7f050032
 int string precioActual 0x7f050038
-int string reiniciar_precio 0x7f05003f
+int string reiniciar_precio 0x7f050040
 int string seleccionarParqueadero 0x7f05003e
 int string store_picture_message 0x7f050001
 int string store_picture_title 0x7f050000
