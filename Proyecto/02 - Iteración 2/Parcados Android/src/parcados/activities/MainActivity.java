@@ -3,6 +3,9 @@ package parcados.activities;
 import java.io.IOException;
 import java.io.InputStream;
 import parcados.mundo.Parcados;
+import parcados.services.BackgroundService;
+import parcados.services.UpdaterServiceManager;
+
 import com.parcados.R;
 
 import android.app.Activity;
@@ -25,6 +28,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		if ( !BackgroundService.running )
+			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
 	}
 
 	@Override
@@ -95,6 +100,7 @@ public class MainActivity extends Activity {
 	public void abrirCalculadora ( View v ) {
 		Intent intent = new Intent(this, CalculadoraActivity.class) ;
 		startActivity(intent) ;
+
 	}
 
 

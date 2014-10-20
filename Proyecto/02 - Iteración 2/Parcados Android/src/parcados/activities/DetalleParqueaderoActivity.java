@@ -1,8 +1,12 @@
 package parcados.activities;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
+import parcados.services.UpdaterServiceManager;
 
 import com.google.android.gms.common.ErrorDialogFragment;
 import com.parcados.R;
@@ -28,6 +32,8 @@ public class DetalleParqueaderoActivity extends Activity {
 	//--------------------------------------------------------------------------------------
 	public final static String NUMEROSMS = "3167443740";
 
+	
+	private Timer myTimer;
 	
 	private DetalleParqueaderoActivity yo  = this  ;  
 	//--------------------------------------------------------------------------------------
@@ -69,8 +75,33 @@ public class DetalleParqueaderoActivity extends Activity {
 		tx5.setText(actual.darCaracteristicas()) ; 
 		TextView tx6 = (TextView) findViewById(R.id.textView6) ;
 		tx6.setText(actual.darDireccion()) ; 
+		
+		myTimer = new Timer();
+		
+		myTimer.schedule(new TimerTask() {          
+			@Override
+			public void run() {
+				TimerMethod();
+			}
+
+		}, 0, 1000);
+	}
+
+	private void TimerMethod()
+	{
+		this.runOnUiThread(Timer_Tick);
 
 	}
+
+
+	/**
+	 * Runnable con el tick del timer
+	 */
+	private Runnable Timer_Tick = new Runnable() {
+		public void run() {
+			setCuposYPrecio()  ; 
+		}
+	};
 
 	/**
 	 * Método que agrega items al action bar si se encuentran
