@@ -16,12 +16,16 @@
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.content.BroadcastReceiver"/>
-<fullyQualifiedTypeName name="parcados.services.UpdaterServiceManager"/>
 <fullyQualifiedTypeName name="android.app.Service"/>
-<fullyQualifiedTypeName name="parcados.services.BackgroundService"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="parcados.mundo.Parcados"/>
 <fullyQualifiedTypeName name="parcados.activities.MyApplication"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="com.pubnub.api.Pubnub"/>
+<fullyQualifiedTypeName name="android.net.ConnectivityManager"/>
+<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
+<fullyQualifiedTypeName name="parcados.services.UpdaterServiceManager"/>
+<fullyQualifiedTypeName name="parcados.services.BackgroundService"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 </qualifiedTypeNameHistroy>
