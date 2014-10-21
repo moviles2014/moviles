@@ -36,20 +36,20 @@ static NSMutableArray *parqueaderos ;
         
         
        
-        Parqueadero *parq = [[Parqueadero alloc] initConNombre:@"testp11" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        Parqueadero *parq = [[Parqueadero alloc] initConNombre:@"Aparcar Carrera 61" conZona:@"test" conHorario:@"L-V 9:00 a 5:00pm" conCaracteristicas:@"Descubierto" conDireccion:@"Carrera 61 No. 19-88" conEmpresa:@"Aparcar" conPrecio:@"no hay informacion disponible"  conCupos:@"no hay informacion disponible" conLatitud:@"34.1" conLongitud:@"34.2"];
         
         [self agregarParqueadero:parq] ;
         
-        parq = [[Parqueadero alloc] initConNombre:@"testp12" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        parq = [[Parqueadero alloc] initConNombre:@"IPark Calle 70" conZona:@"dfa" conHorario:@"L-D 8:00am a 8:00pm" conCaracteristicas:@"Descubierto" conDireccion:@"Calle 70 No.79-73" conEmpresa:@"IPark" conPrecio:@"no hay informacion disponible" conCupos:@"no hay informacion disponible" conLatitud:@"34" conLongitud:@"34"];
         
         [self agregarParqueadero:parq] ;
         
-        parq = [[Parqueadero alloc] initConNombre:@"testp13" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        parq = [[Parqueadero alloc] initConNombre:@"testp13" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"calle 4 " conEmpresa:@"test" conPrecio:@"34" conCupos:@"34" conLatitud:@"34" conLongitud:@"34"];
         
         [self agregarParqueadero:parq] ;
         
 
-        parq = [[Parqueadero alloc] initConNombre:@"testp14" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        parq = [[Parqueadero alloc] initConNombre:@"testp14" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"por ahi" conEmpresa:@"test" conPrecio:@"34" conCupos:@"34" conLatitud:@"34" conLongitud:@"34"];
         
         [self agregarParqueadero:parq] ;
         

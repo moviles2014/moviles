@@ -27,12 +27,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
     self.nombre.text = self.DetailModal[0]  ;
     self.categoria.text = self.DetailModal[1]  ;
     self.marca.text = self.DetailModal[2]  ;
     self.precio.text = self.DetailModal[3]  ;
     self.fecha.text = self.DetailModal[4]  ;
+  //  self.title.text = self.DetailModal[5] ;
     NSLog (@"pilla coletieri  %@" , self.DetailModal[3]  ) ;
 
 }

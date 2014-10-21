@@ -14,5 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *categoria;
 @property (weak, nonatomic) IBOutlet UILabel *precio;
 @property (weak, nonatomic) IBOutlet UILabel *fecha;
+
 @property (strong, nonatomic) NSArray *DetailModal ;
+
+
 @end

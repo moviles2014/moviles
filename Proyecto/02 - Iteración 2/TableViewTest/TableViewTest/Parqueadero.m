@@ -10,17 +10,16 @@
 
 @implementation Parqueadero
 
-
 -(id)initConNombre: (NSString *) nomb
            conZona: (NSString *) zona
         conHorario: (NSString *) hor
 conCaracteristicas: (NSString *) car
       conDireccion: (NSString *) direccion
         conEmpresa: (NSString *) empresa
-         conPrecio: (int) prec
-          conCupos: (int) cupos
-        conLatitud: (double) latitud
-       conLongitud: (double) longitud {
+         conPrecio: (NSString *) prec
+          conCupos: (NSString *) cup
+        conLatitud: (NSString *) latitud
+       conLongitud: (NSString *) longitud {
     
     
     self = [super init];
@@ -34,7 +33,7 @@ conCaracteristicas: (NSString *) car
         _caracteristicas = car ;
         _direccion = direccion ;
         _precio = prec ;
-        _cupos = cupos ;
+        _cupos = cup ;
         _latitud = latitud ;
         _longitud = longitud ;
     }
