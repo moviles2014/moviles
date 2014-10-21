@@ -52,7 +52,7 @@ static NSMutableArray *empresas ;
         [self agregarEmpresa:emp] ;
 
     }
-    return productos ;
+    return empresas ;
 }
 
 +(NSMutableArray*) getEmpresas {
@@ -86,7 +86,7 @@ static NSMutableArray *empresas ;
 }
 
 +(NSMutableArray*) getArray {
-    return productos ;
+    return empresas ;
 }
 
 +(void) addProdLista: (int ) pos {

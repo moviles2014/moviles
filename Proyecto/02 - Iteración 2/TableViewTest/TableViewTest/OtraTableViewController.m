@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     
-    _Producto = [Data getArray];
+    _Empresas = [Data getArray];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -56,7 +56,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _Producto.count ;
+    return _Empresas.count ;
 }
 
 
@@ -65,7 +65,7 @@
     OtraTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtraCell" forIndexPath:indexPath];
     
     int row = [indexPath row]    ;
-    cell.TitleLabel.text = [_Producto[row] nombre] ;
+    cell.TitleLabel.text = [_Empresas[row] nombre] ;
     
     return cell;
 }
@@ -80,20 +80,19 @@
         //detailviewcontroller.DetailModal = @[[_Producto[row] nombre]  ];
         
         
-        Producto *prod = _Producto[row] ;
-        NSString *str = [NSString stringWithFormat:@"%f", [prod  precio]] ;
-        NSLog(@"men %@" , str ) ;
+        Empresa *emp = _Empresas[row] ;
+        NSString *str = [emp  nombre] ;
+//        NSString *str = [NSString stringWithFormat:@"%f", [prod  precio]] ;
+  //      NSLog(@"men %@" , str ) ;
 
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-MM-yyyy"];
+    //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+      //  [formatter setDateFormat:@"dd-MM-yyyy"];
         
-        NSString *stringFromDate = [formatter stringFromDate: [prod fecha]];
-        
-       
-        
+        NSString *stringFromDate = [emp nombre] ;
         
         NSString* strRow = [@(row) stringValue];
-                                                     detailviewcontroller.DetailModal = @[[_Producto[row] nombre] , [_Producto[row] categoria] , [_Producto[row] marca] , str , stringFromDate , strRow ] ;
+        
+        detailviewcontroller.DetailModal = @[[_Empresas[row] nombre] , [_Empresas[row] nombre] , [_Empresas[row] nombre] , str , stringFromDate , strRow ] ;
     }
 }
 
