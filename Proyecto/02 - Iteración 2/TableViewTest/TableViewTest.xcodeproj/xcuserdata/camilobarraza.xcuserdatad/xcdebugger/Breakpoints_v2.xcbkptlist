@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TableViewTest/Empresa.m"
-            timestampString = "435598315.787629"
+            timestampString = "435602441.573943"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "-initConNombre:"
             landmarkType = "5">
          </BreakpointContent>

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parqueadero.h"
 
 @interface Empresa : NSObject
 
@@ -14,6 +15,7 @@
 @property (nonatomic, copy) NSMutableArray *parqueaderos ;
 
 
--(id)initConNombre: (NSString *) nomb ; 
+-(id)initConNombre: (NSString *) nomb ;
+-(void) agregarParqueadero:(Parqueadero *)parq  ; 
 
 @end

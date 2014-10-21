@@ -17,9 +17,23 @@
     
     if(self)
     {
+        _parqueaderos = [[NSMutableArray alloc] init] ;
         _nombre = nomb;
     }
     
     return self;
 }
+
+-(void) agregarParqueadero:(Parqueadero *)parq {
+    [_parqueaderos addObject:parq ] ;
+    return ;
+}
+
+
+-(NSMutableArray*) getArrayParqueaderos2 {
+    return _parqueaderos ;
+}
+
+
+
 @end
