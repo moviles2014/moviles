@@ -16,6 +16,7 @@
         conHorario: (NSString *) hor
 conCaracteristicas: (NSString *) car
       conDireccion: (NSString *) direccion
+        conEmpresa: (NSString *) empresa
          conPrecio: (int) prec
           conCupos: (int) cupos
         conLatitud: (double) latitud
@@ -28,6 +29,7 @@ conCaracteristicas: (NSString *) car
     {
         _nombre = nomb;
         _zona = zona ;
+        _empresa = empresa ;
         _horario = hor ;
         _caracteristicas = car ;
         _direccion = direccion ;

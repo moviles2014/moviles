@@ -23,6 +23,8 @@
  */
 @property (nonatomic, copy) NSString * horario ;
 
+@property (nonatomic, copy) NSString * empresa ;
+
 /**
  * Características del parqueadero
  */
@@ -52,6 +54,7 @@
       conHorario: (NSString *) hor
           conCaracteristicas: (NSString *) car
          conDireccion: (NSString *) direccion
+        conEmpresa: (NSString *) empresa
          conPrecio: (int) prec
           conCupos: (int) cupos
         conLatitud: (double) latitud

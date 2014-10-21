@@ -30,7 +30,7 @@
 {
     [super viewDidLoad];
     
-    _Empresas = [Data getArray];
+    _parqueaderos = [Data getArray];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -56,7 +56,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return _Empresas.count ;
+    return _parqueaderos.count ;
 }
 
 
@@ -65,7 +65,7 @@
     OtraTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OtraCell" forIndexPath:indexPath];
     
     int row = [indexPath row]    ;
-    cell.TitleLabel.text = [_Empresas[row] nombre] ;
+    cell.TitleLabel.text = [_parqueaderos[row] nombre] ;
     
     return cell;
 }
@@ -80,19 +80,19 @@
         //detailviewcontroller.DetailModal = @[[_Producto[row] nombre]  ];
         
         
-        Empresa *emp = _Empresas[row] ;
-        NSString *str = [emp  nombre] ;
+        Parqueadero *parq = _parqueaderos[row] ;
+        NSString *str = [parq  nombre] ;
 //        NSString *str = [NSString stringWithFormat:@"%f", [prod  precio]] ;
   //      NSLog(@"men %@" , str ) ;
 
     //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
       //  [formatter setDateFormat:@"dd-MM-yyyy"];
         
-        NSString *stringFromDate = [emp nombre] ;
+        NSString *stringFromDate = [parq nombre] ;
         
         NSString* strRow = [@(row) stringValue];
         
-        detailviewcontroller.DetailModal = @[[_Empresas[row] nombre] , [_Empresas[row] nombre] , [_Empresas[row] nombre] , str , stringFromDate , strRow ] ;
+        detailviewcontroller.DetailModal = @[[_parqueaderos[row] nombre] , [_parqueaderos[row] nombre] , [_parqueaderos[row] nombre] , str , stringFromDate , strRow ] ;
     }
 }
 

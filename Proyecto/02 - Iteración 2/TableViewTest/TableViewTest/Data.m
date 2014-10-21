@@ -12,7 +12,7 @@
 
 static NSMutableArray *productos ;
 static NSMutableArray *lista ;
-static NSMutableArray *empresas ;
+static NSMutableArray *parqueaderos ;
 
 +(NSMutableArray*) getAllData {
     if ( productos == nil ){
@@ -31,28 +31,31 @@ static NSMutableArray *empresas ;
     if ( lista == nil ){
         lista = [[NSMutableArray alloc] init] ;
     }
-    if ( empresas == nil ){
-        empresas = [[NSMutableArray alloc] init] ;
+    if ( parqueaderos == nil ){
+        parqueaderos = [[NSMutableArray alloc] init] ;
         
         
-        Empresa *emp = [[Empresa alloc] initConNombre:@"teste1" ] ;
-        Parqueadero *parq = [[Parqueadero alloc] initConNombre:@"testp11" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
-        [emp agregarParqueadero:parq]  ;
+       
+        Parqueadero *parq = [[Parqueadero alloc] initConNombre:@"testp11" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        
+        [self agregarParqueadero:parq] ;
+        
+        parq = [[Parqueadero alloc] initConNombre:@"testp12" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        
+        [self agregarParqueadero:parq] ;
+        
+        parq = [[Parqueadero alloc] initConNombre:@"testp13" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
+        
+        [self agregarParqueadero:parq] ;
+        
 
-        parq = [[Parqueadero alloc] initConNombre:@"testp12" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
-        [emp agregarParqueadero:parq]  ;
+        parq = [[Parqueadero alloc] initConNombre:@"testp14" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conEmpresa:@"test" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
         
-        [self agregarEmpresa:emp] ;
-        
+        [self agregarParqueadero:parq] ;
         
         
-        emp = [[Empresa alloc] initConNombre:@"teste2" ] ;
-        parq = [[Parqueadero alloc] initConNombre:@"testp21" conZona:@"dfa" conHorario:@"fdasfads" conCaracteristicas:@"fdasfda" conDireccion:@"fdasfads" conPrecio:34 conCupos:24 conLatitud:43.3 conLongitud:343.3];
-        [emp agregarParqueadero:parq]  ;
-        [self agregarEmpresa:emp] ;
-
     }
-    return empresas ;
+    return parqueaderos ;
 }
 
 +(NSMutableArray*) getEmpresas {
@@ -62,10 +65,10 @@ static NSMutableArray *empresas ;
     if ( lista == nil ){
         lista = [[NSMutableArray alloc] init] ;
     }
-    if ( empresas == nil ){
-        empresas = [[NSMutableArray alloc] init] ;
+    if ( parqueaderos == nil ){
+        parqueaderos = [[NSMutableArray alloc] init] ;
     }
-    return empresas ;
+    return parqueaderos ;
 }
 
 +(void) addName:(NSString *)name{
@@ -73,8 +76,8 @@ static NSMutableArray *empresas ;
     return ;
 }
 
-+(void) agregarEmpresa:(Empresa *) emp {
-    [empresas addObject:emp ] ;
++(void) agregarParqueadero:(Parqueadero *)parq {
+    [parqueaderos addObject:parq ] ;
     return ;
 }
 
@@ -86,7 +89,7 @@ static NSMutableArray *empresas ;
 }
 
 +(NSMutableArray*) getArray {
-    return empresas ;
+    return parqueaderos ;
 }
 
 +(void) addProdLista: (int ) pos {

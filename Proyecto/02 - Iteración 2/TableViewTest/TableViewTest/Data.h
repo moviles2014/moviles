@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Producto.h"
-#import "Empresa.h"
+#import "Parqueadero.h"
 
 @interface Data : NSObject
 
@@ -16,7 +16,7 @@
 
 
 +(void) agregarProducto: (Producto *) prod ;
-+(void) agregarEmpresa: (Empresa *) emp ;
++(void) agregarParqueadero: (Parqueadero *) parq ;
 +(NSMutableArray*) getArray  ;
 +(void) addName: (NSString *) namde ;
 

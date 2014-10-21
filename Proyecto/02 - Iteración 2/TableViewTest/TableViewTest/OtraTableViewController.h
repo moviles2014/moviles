@@ -10,6 +10,6 @@
 
 @interface OtraTableViewController : UITableViewController
 
-@property (nonatomic , strong) NSArray *Empresas ;
+@property (nonatomic , strong) NSArray *parqueaderos ;
 
 @end

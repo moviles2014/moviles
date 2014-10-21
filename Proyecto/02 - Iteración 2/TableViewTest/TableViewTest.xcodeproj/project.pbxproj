@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		65860ABF19F6A8E100E36BC5 /* Empresa.m in Sources */ = {isa = PBXBuildFile; fileRef = 65860ABE19F6A8E100E36BC5 /* Empresa.m */; };
 		65860AC219F6B75900E36BC5 /* Parqueadero.m in Sources */ = {isa = PBXBuildFile; fileRef = 65860AC119F6B75900E36BC5 /* Parqueadero.m */; };
 		6591DC5919B57C780075C711 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6591DC5819B57C780075C711 /* Foundation.framework */; };
 		6591DC5B19B57C780075C711 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6591DC5A19B57C780075C711 /* CoreGraphics.framework */; };
@@ -44,8 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		65860ABD19F6A8E100E36BC5 /* Empresa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Empresa.h; sourceTree = "<group>"; };
-		65860ABE19F6A8E100E36BC5 /* Empresa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Empresa.m; sourceTree = "<group>"; };
 		65860AC019F6B75900E36BC5 /* Parqueadero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parqueadero.h; sourceTree = "<group>"; };
 		65860AC119F6B75900E36BC5 /* Parqueadero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parqueadero.m; sourceTree = "<group>"; };
 		6591DC5519B57C780075C711 /* TableViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,8 +214,6 @@
 				88E7D2F619B66EA700B6D2F1 /* Producto.m */,
 				65CD343219B59D7D009846CF /* Data.h */,
 				65CD343319B59D7D009846CF /* Data.m */,
-				65860ABD19F6A8E100E36BC5 /* Empresa.h */,
-				65860ABE19F6A8E100E36BC5 /* Empresa.m */,
 				65860AC019F6B75900E36BC5 /* Parqueadero.h */,
 				65860AC119F6B75900E36BC5 /* Parqueadero.m */,
 			);
@@ -340,7 +335,6 @@
 				6591DC8F19B57CCE0075C711 /* TableViewController.m in Sources */,
 				6591DC6519B57C780075C711 /* main.m in Sources */,
 				65CD342B19B59792009846CF /* OtraTableViewCell.m in Sources */,
-				65860ABF19F6A8E100E36BC5 /* Empresa.m in Sources */,
 				65860AC219F6B75900E36BC5 /* Parqueadero.m in Sources */,
 				88E7D2F419B666DA00B6D2F1 /* AgregarProductoViewController.m in Sources */,
 				65CD343419B59D7D009846CF /* Data.m in Sources */,
