@@ -12,6 +12,7 @@
 
 static NSMutableArray *productos ;
 static NSMutableArray *lista ;
+static NSMutableArray *empresas ;
 
 +(NSMutableArray*) getAllData {
     if ( productos == nil ){
@@ -20,11 +21,32 @@ static NSMutableArray *lista ;
     if ( lista == nil ){
         lista = [[NSMutableArray alloc] init] ;
     }
+    if ( empresas == nil ){
+        empresas = [[NSMutableArray alloc] init] ;
+    }
     return productos ;
+}
+
++(NSMutableArray*) getEmpresas {
+    if ( productos == nil ){
+        productos = [[NSMutableArray alloc] init] ;
+    }
+    if ( lista == nil ){
+        lista = [[NSMutableArray alloc] init] ;
+    }
+    if ( empresas == nil ){
+        empresas = [[NSMutableArray alloc] init] ;
+    }
+    return empresas ;
 }
 
 +(void) addName:(NSString *)name{
 
+    return ;
+}
+
++(void) agregarEmpresa:(Empresa *) emp {
+    [empresas addObject:emp ] ;
     return ;
 }
 

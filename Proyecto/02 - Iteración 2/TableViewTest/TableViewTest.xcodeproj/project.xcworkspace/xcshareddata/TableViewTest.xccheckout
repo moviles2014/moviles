@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>98B09E1D-1453-48A9-89B5-5C2FB4EE457A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TableViewTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1CD8C5B1-4FA2-4FA9-9607-5D01661F1B27</key>
+		<string>https://github.com/moviles2014/moviles.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Proyecto/02 - Iteración 2/TableViewTest/TableViewTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1CD8C5B1-4FA2-4FA9-9607-5D01661F1B27</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/moviles2014/moviles.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1CD8C5B1-4FA2-4FA9-9607-5D01661F1B27</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1CD8C5B1-4FA2-4FA9-9607-5D01661F1B27</string>
+			<key>IDESourceControlWCCName</key>
+			<string>moviles</string>
+		</dict>
+	</array>
+</dict>
+</plist>
