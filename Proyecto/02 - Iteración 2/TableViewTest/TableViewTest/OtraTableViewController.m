@@ -96,7 +96,7 @@
         
         
         //el precio y el cupo no los esta cogiendo como properties con getters y setters
-        detailviewcontroller.DetailModal = @[ [_parqueaderos[row] horario] , [_parqueaderos[row] caracteristicas] , [_parqueaderos[row] direccion] , str1 , str2 ,strRow ] ;
+        detailviewcontroller.DetailModal = @[ [_parqueaderos[row] horario] , [_parqueaderos[row] caracteristicas] , [_parqueaderos[row] direccion] , str1 , str2 , str3 , strRow ] ;
     }
 }
 

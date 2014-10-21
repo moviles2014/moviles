@@ -34,7 +34,7 @@
     self.marca.text = self.DetailModal[2]  ;
     self.precio.text = self.DetailModal[3]  ;
     self.fecha.text = self.DetailModal[4]  ;
-  //  self.title.text = self.DetailModal[5] ;
+    self.title1.text = self.DetailModal[5] ;
     NSLog (@"pilla coletieri  %@" , self.DetailModal[3]  ) ;
 
 }
