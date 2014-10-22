@@ -13,11 +13,11 @@
  * Cupos del parqueadero
  */
 
-@property (assign) int cupos;
+@property (nonatomic, copy) NSString * cupos;
 /**
  * Precio del parqueadero
  */
-@property (assign) int precio;
+@property (nonatomic, copy) NSString * precio;
 /**
  * Horario del parqueadero
  */
@@ -45,8 +45,11 @@
  */
 @property (nonatomic, copy) NSString * zona ;
 
-@property (assign) double latitud;
-@property (assign) double longitud;
+
+@property (nonatomic, copy) NSString * latitud ;
+
+@property (nonatomic, copy) NSString * longitud ;
+
 
 
 -(id)initConNombre: (NSString *) nomb
@@ -55,8 +58,9 @@
           conCaracteristicas: (NSString *) car
          conDireccion: (NSString *) direccion
         conEmpresa: (NSString *) empresa
-         conPrecio: (int) prec
-          conCupos: (int) cupos
-        conLatitud: (double) latitud
-       conLongitud: (double) longitud;
+         conPrecio: (NSString *)  prec
+          conCupos: (NSString *)  cupos
+        conLatitud: (NSString *)  latitud
+       conLongitud: (NSString *)  longitud;
+
 @end
