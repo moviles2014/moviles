@@ -7,13 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "PNImports.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
+    [PubNub setDelegate:self  ] ;
     // Override point for customization after application launch.
     return YES;
+}
+
+-(void) pubnubClient: (PubNub *) client didReceiveMessage:(PNMessage *)message {
+    NSLog ( @"%@" , [NSString stringWithFormat:@"received %@" , message.message])   ; 
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
