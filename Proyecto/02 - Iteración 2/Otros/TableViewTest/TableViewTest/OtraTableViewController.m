@@ -81,18 +81,22 @@
         
         
         Parqueadero *parq = _parqueaderos[row] ;
-        NSString *str = [parq  nombre] ;
+
 //        NSString *str = [NSString stringWithFormat:@"%f", [prod  precio]] ;
   //      NSLog(@"men %@" , str ) ;
 
     //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
       //  [formatter setDateFormat:@"dd-MM-yyyy"];
         
-        NSString *stringFromDate = [parq nombre] ;
+        NSString *str1 = [parq precio] ;
+        NSString *str2 = [parq cupos] ;
+        NSString *str3 = [parq nombre] ;
         
-        NSString* strRow = [@(row) stringValue];
+        NSString * strRow = [@(row) stringValue];
         
-        detailviewcontroller.DetailModal = @[[_parqueaderos[row] nombre] , [_parqueaderos[row] nombre] , [_parqueaderos[row] nombre] , str , stringFromDate , strRow ] ;
+        
+        //el precio y el cupo no los esta cogiendo como properties con getters y setters
+        detailviewcontroller.DetailModal = @[ [_parqueaderos[row] horario] , [_parqueaderos[row] caracteristicas] , [_parqueaderos[row] direccion] , str1 , str2 , str3 , strRow ] ;
     }
 }
 
