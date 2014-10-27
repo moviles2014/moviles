@@ -303,18 +303,19 @@ public class MapActivity extends Activity implements OnInfoWindowClickListener, 
 
 	@Override
 	public boolean onMyLocationButtonClick() {
+
+
 		if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{
 			Toast toast = Toast.makeText(getApplicationContext(), "GPS Desactivado", Toast.LENGTH_SHORT);
 			toast.show();
 
 		}
-		else if (lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)== null && lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
+		else if (map.getMyLocation() == null)
 		{
 			Toast toast = Toast.makeText(getApplicationContext(), "Esperando Localización...", Toast.LENGTH_SHORT);
 			toast.show();
 		}
-
 		return false;
 	}
 
