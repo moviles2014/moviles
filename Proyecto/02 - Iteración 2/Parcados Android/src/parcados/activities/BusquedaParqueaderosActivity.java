@@ -8,7 +8,6 @@ import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,8 +33,6 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 	private ArrayList<String> listaActual;
 
 	private Spinner spinner;
-
-	private ProgressDialog dialogo;
 
 	//--------------------------------------------------------------------------------------
 	// Métodos
@@ -90,9 +87,6 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-
-		if (spinner.getSelectedItem().toString().equals(LOCALIZACION))
-			dialogo.dismiss();
 	}
 
 	@Override
@@ -184,7 +178,6 @@ public class BusquedaParqueaderosActivity extends ListActivity implements OnItem
 		}
 		else if(parent.getItemAtPosition(position).toString().equals(LOCALIZACION))
 		{
-			dialogo = ProgressDialog.show(this, "Cargando", "Por favor espere...", true);
 			Intent intent = new Intent(this, MapActivity.class) ;			
 			startActivity(intent) ;
 
