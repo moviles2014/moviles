@@ -74,7 +74,9 @@ public class MainActivity extends DrawerActivity {
 //	                lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , results)) ;
 	          }
 	          super.onActivityResult(requestCode, resultCode, data);
-	          BackgroundService.inSpeechRecognition = false ;         
+	         
+	          BackgroundService.inSpeechRecognition = false ;       
+	          BackgroundService.startAccelerometer() ;
 	    }
 	
 	/**

@@ -24,42 +24,72 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 
 public class BackgroundService  extends Service { 
-	 private SensorManager mSensorManager;
+	 private static SensorManager mSensorManager;
 	  private float mAccel; // acceleration apart from gravity
 	  private float mAccelCurrent; // current acceleration including gravity
 	  private float mAccelLast; // last acceleration including gravity
 	  public static boolean inSpeechRecognition = false ; 
+	  private static int cont = 0 ; 
 	  
-	  private final SensorEventListener mSensorListener = new SensorEventListener() {
+	  private static long lastUpdate = -1;
+	    private static float x;
+		private static float y;
+		private static float z;
+	    private static float last_x;
+		private static float last_y;
+		private static float last_z;
+	    private static final int SHAKE_THRESHOLD = 1000;
+	    private final static SensorEventListener mSensorListener = new SensorEventListener() {
 
-	    public void onSensorChanged(SensorEvent se) {
-	      float x = se.values[0];
-	      float y = se.values[1];
-	      float z = se.values[2];
-	      mAccelLast = mAccelCurrent;
-	      mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
-	      float delta = mAccelCurrent - mAccelLast;
-	      mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-	      
-	      System.out.println( " entro bs");
-	      if (mAccel > 18) {
-	    	 System.out.println( "entro en shake desde background");
+		public void onSensorChanged(SensorEvent se) {
+			if (!inSpeechRecognition) {
+				long curTime = System.currentTimeMillis();
+				// only allow one update every 100ms.
+				if ((curTime - lastUpdate) > 100) {
+					long diffTime = (curTime - lastUpdate);
+					lastUpdate = curTime;
 
-	    	 if ( !inSpeechRecognition ) {
-	    		 inSpeechRecognition = true ; 
-	    		 Intent dialogIntent = new Intent(getBaseContext(), MainActivity.class);
-	    		 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	    		 getApplication().startActivity(dialogIntent);
-	    	 }
+					x = se.values[0];
+					y = se.values[1];
+					z = se.values[2];
 
-	    	}
-	      
-	    }
+					float speed = Math
+							.abs(x + y + z - last_x - last_y - last_z)
+							/ diffTime * 10000;
+					if (speed > SHAKE_THRESHOLD) {
+						pauseAccelerometer();
+						// yes, this is a shake action! Do something about it!
+
+						inSpeechRecognition = true;
+						cont = 0;
+						Intent dialogIntent = new Intent(
+								MyApplication.getAppContext(),
+								MainActivity.class);
+						dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						MyApplication.getAppContext().startActivity(
+								dialogIntent);
+
+					}
+					last_x = x;
+					last_y = y;
+					last_z = z;
+				}
+			}
+		}
 
 	    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	    }
 	  };
 	
+	  
+	  public static void startAccelerometer () { 
+		  mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	  }
+	  
+	  public static void pauseAccelerometer (  ) { 
+	    	mSensorManager.unregisterListener(mSensorListener);
+	    }
+	  
 	public  static boolean running  ;
 	public static HashMap<String, Boolean > hm  = null; 
 
@@ -67,6 +97,7 @@ public class BackgroundService  extends Service {
 	
 	public void onCreate() {
 		// code to execute when the service is first created
+		inSpeechRecognition = false ;
 		running = true ;
 		System.out.println( "created service");
 		subscribe() ;
