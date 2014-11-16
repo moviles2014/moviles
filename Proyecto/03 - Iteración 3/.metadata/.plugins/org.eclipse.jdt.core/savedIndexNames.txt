@@ -1,0 +1,10 @@
+INDEX VERSION 1.126+C:\Users\hp pc\Documents\moviles\Proyecto\03 - Iteración 3\.metadata\.plugins\org.eclipse.jdt.core
+1688682138.index
+3330124055.index
+2753798370.index
+3447530928.index
+848856923.index
+2366720246.index
+1016833447.index
+510109147.index
+300925867.index
