@@ -5,15 +5,19 @@ import java.util.Locale;
 
 import parcados.services.BackgroundService;
 import com.parcados.R;
+
+import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 
 public class MainActivity extends DrawerActivity {
-
 
 	TextToSpeech tts ; 
        static final int check = 111 ;
@@ -26,6 +30,9 @@ public class MainActivity extends DrawerActivity {
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+	
+		
 		setContentView(R.layout.activity_main_con);	
 		getActionBar().setTitle("Parcados");
 		
@@ -53,10 +60,11 @@ public class MainActivity extends DrawerActivity {
 			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
 	}
 
-	@Override
+	
+	    @Override
 	protected void onResume() {
-		super.onResume();
-
+	    // TODO Auto-generated method stub
+	    super.onResume();
 	}
 
 	   @Override
@@ -112,5 +120,14 @@ public class MainActivity extends DrawerActivity {
 	 */
 	public void abrirCalculadora ( View v ) {
 		super.abrirCalculadora(v);
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		
+		super.onDestroy();
+		 BackgroundService.inSpeechRecognition = false ;       
+         BackgroundService.startAccelerometer() ;
+         System.out.println( "entro en destroy ");
 	}
 }

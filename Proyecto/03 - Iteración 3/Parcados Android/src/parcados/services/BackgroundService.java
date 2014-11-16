@@ -39,7 +39,10 @@ public class BackgroundService  extends Service {
 		private static float last_y;
 		private static float last_z;
 	    private static final int SHAKE_THRESHOLD = 1000;
-	    private final static SensorEventListener mSensorListener = new SensorEventListener() {
+	  
+	   
+	    
+	private final static SensorEventListener mSensorListener = new SensorEventListener() {
 
 		public void onSensorChanged(SensorEvent se) {
 			if (!inSpeechRecognition) {
@@ -57,7 +60,7 @@ public class BackgroundService  extends Service {
 							.abs(x + y + z - last_x - last_y - last_z)
 							/ diffTime * 10000;
 					if (speed > SHAKE_THRESHOLD) {
-						pauseAccelerometer();
+						
 						// yes, this is a shake action! Do something about it!
 
 						inSpeechRecognition = true;
@@ -68,6 +71,7 @@ public class BackgroundService  extends Service {
 						dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						MyApplication.getAppContext().startActivity(
 								dialogIntent);
+						pauseAccelerometer();
 
 					}
 					last_x = x;
