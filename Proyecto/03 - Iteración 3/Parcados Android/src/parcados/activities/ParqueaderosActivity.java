@@ -5,15 +5,16 @@ import java.util.List;
 import com.parcados.R;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ParqueaderosActivity extends ListActivity {
+public class ParqueaderosActivity extends DrawerActivity implements OnItemClickListener {
 
 
 	//--------------------------------------------------------------------------------------
@@ -25,6 +26,7 @@ public class ParqueaderosActivity extends ListActivity {
 	 */
 	private String idbusq;
 
+	private ListView mListView;
 
 	//--------------------------------------------------------------------------------------
 	// Métodos
@@ -38,10 +40,14 @@ public class ParqueaderosActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_parqueaderos) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
+		getActionBar().setTitle("Parqueaderos");
+		mListView = (ListView) findViewById(R.id.listParqueaderosActivity);
+		mListView.setOnItemClickListener(this);
+
 		Intent intent = getIntent() ; 
 		idbusq  = intent.getStringExtra("id")  ; 
 		String tipo = intent.getStringExtra("tipo")  ; 
-		
+
 		if (tipo.equals(BusquedaParqueaderosActivity.EMPRESA))
 		{
 			ArrayList<Parqueadero> parqueaderos = Parcados.darInstancia(getApplicationContext()).darParqueaderosDeEmpresa(idbusq) ; 
@@ -50,7 +56,7 @@ public class ParqueaderosActivity extends ListActivity {
 				lista.add(parqueaderos.get(i).darNombre()) ;
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
-			setListAdapter(adapter) ; 
+			mListView.setAdapter(adapter) ; 
 		}
 		else if (tipo.equals(BusquedaParqueaderosActivity.ZONAS))
 		{
@@ -60,9 +66,9 @@ public class ParqueaderosActivity extends ListActivity {
 				lista.add(parqueaderos.get(i).darNombre()) ;
 			}
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
-			setListAdapter(adapter) ; 
+			mListView.setAdapter(adapter) ; 
 		}
-		
+
 	}
 
 	/**
@@ -73,16 +79,7 @@ public class ParqueaderosActivity extends ListActivity {
 		super.onResume();
 	}
 
-	/**
-	 * Maneja la selección de un elemento de la lista
-	 */
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
-		intent.putExtra("idparq", l.getItemAtPosition((int) id).toString() ) ;
-		startActivity(intent) ;
-	}
+
 
 
 	/**
@@ -97,6 +94,18 @@ public class ParqueaderosActivity extends ListActivity {
 			finish() ; 
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Maneja la selección de un elemento de la lista
+	 */
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
+		intent.putExtra("idparq", mListView.getItemAtPosition((int) id).toString() ) ;
+		startActivity(intent) ;
+
 	}
 
 }

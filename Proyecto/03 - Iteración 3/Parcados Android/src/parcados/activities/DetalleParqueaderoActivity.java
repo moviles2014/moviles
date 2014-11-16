@@ -8,7 +8,6 @@ import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
 import com.parcados.R;
 import db_remote.DB_Queries;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,7 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class DetalleParqueaderoActivity extends Activity {
+public class DetalleParqueaderoActivity extends DrawerActivity {
 
 	//--------------------------------------------------------------------------------------
 	// Constantes
@@ -53,6 +52,7 @@ public class DetalleParqueaderoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalle_parqueadero) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
+		getActionBar().setTitle("Detalle Parqueadero");
 		Intent intent = getIntent(); 		
 		idparq = intent.getStringExtra("idparq");
 

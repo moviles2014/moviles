@@ -6,7 +6,6 @@ import parcados.mundo.Parcados;
 import parcados.services.UpdaterServiceManager;
 
 import com.parcados.R;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class CalculadoraActivity extends Activity {
+public class CalculadoraActivity extends DrawerActivity {
 
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -78,6 +77,7 @@ public class CalculadoraActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calculadora);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
+		getActionBar().setTitle("Calculadora");
 
 		Intent intent = getIntent() ;
 		precio = intent.getIntExtra("precio" , -1 ) ;

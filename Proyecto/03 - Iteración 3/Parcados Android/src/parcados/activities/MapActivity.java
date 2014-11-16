@@ -15,7 +15,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.parcados.R;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +26,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MapActivity extends Activity implements com.androidmapsextensions.GoogleMap.OnInfoWindowClickListener, com.androidmapsextensions.GoogleMap.OnMyLocationButtonClickListener{
+public class MapActivity extends DrawerActivity implements com.androidmapsextensions.GoogleMap.OnInfoWindowClickListener, com.androidmapsextensions.GoogleMap.OnMyLocationButtonClickListener{
 
 	private LocationManager lm;
 	private LocationListener locationListener;
@@ -40,6 +39,7 @@ public class MapActivity extends Activity implements com.androidmapsextensions.G
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapa);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
+		getActionBar().setTitle("Mapa");
 
 
 		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
@@ -78,7 +78,7 @@ public class MapActivity extends Activity implements com.androidmapsextensions.G
 		.enabled(true)
 		.addMarkersDynamically(true)
 		.clusterSize(96)
-		);
+				);
 
 		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);		
 
@@ -106,7 +106,6 @@ public class MapActivity extends Activity implements com.androidmapsextensions.G
 			marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 			marker.title(act.darNombre());
 			marker.snippet("Click para más informacion...");
-
 
 			map.addMarker(marker);				
 		}
@@ -261,7 +260,6 @@ public class MapActivity extends Activity implements com.androidmapsextensions.G
 
 	@Override
 	public boolean onMyLocationButtonClick() {
-
 
 		if(!lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && !lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
 		{

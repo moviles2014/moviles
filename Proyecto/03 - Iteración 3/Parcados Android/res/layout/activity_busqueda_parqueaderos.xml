@@ -15,29 +15,29 @@
         android:text="@string/buscar_parqueaderos"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <GridLayout 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
         android:id="@+id/textoBusqueda"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="38dp"
         android:ems="10"
-        android:inputType="text" >
-
-        <requestFocus />
+        android:inputType="text"
+        android:layout_weight=".65" >
     </EditText>
 
     <Spinner
         android:id="@+id/spinner_busqueda"
         android:layout_height="38dp" 
-        android:layout_width="120dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_width="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight=".35"/>
     
-    </GridLayout>
+    </LinearLayout>
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/listBusquedaParqueaderos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

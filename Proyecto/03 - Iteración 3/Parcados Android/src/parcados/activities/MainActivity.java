@@ -1,19 +1,15 @@
 package parcados.activities;
 
-import java.io.IOException;
-import java.io.InputStream;
-import parcados.mundo.Parcados;
 import parcados.services.BackgroundService;
 import com.parcados.R;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class MainActivity extends DrawerActivity {
+
+
 
 	//--------------------------------------------------------------------------------------
 	// Métodos
@@ -24,7 +20,8 @@ public class MainActivity extends Activity {
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main_con);	
+		getActionBar().setTitle("Parcados");
 		if ( !BackgroundService.running )
 			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
 	}
@@ -38,11 +35,11 @@ public class MainActivity extends Activity {
 	/**
 	 * Método que agrega items al action bar si se encuentran
 	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		getMenuInflater().inflate(R.menu.main, menu);
+//		return true;
+//	}
 
 
 	/**
@@ -58,35 +55,7 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void buscarParqueadero ( View v ) { 
-		final Intent intent = new Intent(this, BusquedaParqueaderosActivity.class) ;
-
-
-		final ProgressDialog dialog = ProgressDialog.show(this, "Cargando Información", "Por favor espere...", true);
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Parcados actual = Parcados.darInstancia(getApplicationContext());
-					if ( actual.darEmpresas().isEmpty()){
-						InputStream inputStream = getResources().getAssets().open("empresas");			
-						actual.loadEmpresas(inputStream);
-						inputStream = getResources().getAssets().open("parqueaderos");			
-						actual.loadParq(inputStream);
-						inputStream.close();	
-
-					}					
-
-					dialog.dismiss();
-					startActivity(intent) ;
-				} catch (IOException e) {
-
-					e.printStackTrace();
-				}		
-
-			}
-		}).start();
+		super.buscarParqueadero(v);
 
 	}
 
@@ -95,10 +64,6 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void abrirCalculadora ( View v ) {
-		Intent intent = new Intent(this, CalculadoraActivity.class) ;
-		startActivity(intent) ;
-
+		super.abrirCalculadora(v);
 	}
-
-
 }

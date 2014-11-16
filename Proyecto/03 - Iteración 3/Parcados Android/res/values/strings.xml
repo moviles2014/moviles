@@ -31,14 +31,20 @@
     <string name="seleccionarParqueadero">Seleccionar Parqueadero</string>
     <string name="Actualizar">Actualizar</string>
     <string name="reiniciar_precio">Reiniciar información</string>
-    
-        <string-array name="busquedas_array">
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string-array name="busquedas_array">
         <item>Zonas</item>
         <item>Empresa</item>
         <item>Dirección</item>
-        <item>Localización</item>       
+        <item>Localización</item>
     </string-array>
-    
-    
+    <string-array name="opciones_array">
+        <item>Mi Actividad</item>
+        <item>Buscar Parqueadero</item>
+        <item>Calculadora de Costos</item>
+        <item>Mapa</item>        
+    </string-array>
 
 </resources>
