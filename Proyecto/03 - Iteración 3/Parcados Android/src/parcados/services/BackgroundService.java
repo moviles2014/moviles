@@ -42,7 +42,7 @@ public class BackgroundService  extends Service {
 	      mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 	      
 	      System.out.println( " entro bs");
-	      if (mAccel > 12) {
+	      if (mAccel > 18) {
 	    	 System.out.println( "entro en shake desde background");
 
 	    	 if ( !inSpeechRecognition ) {

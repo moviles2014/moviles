@@ -35,18 +35,19 @@ public class MainActivity extends DrawerActivity {
 	          i.putExtra(RecognizerIntent.EXTRA_PROMPT, "¿Qué quieres hacer?" )  ;
 	          startActivityForResult(i, check ) ;
 		}
-		tts = new TextToSpeech( this , new TextToSpeech.OnInitListener( ) { 
-			
-			@Override
-			public void onInit(int status) {
-				// TODO Auto-generated method stub
-				if  ( status != TextToSpeech.ERROR ) { 
-					Locale locSpanish = new Locale("spa", "MEX");
-					tts.setLanguage(locSpanish) ; 
-					
-				}
-			}
-		}) ; 
+		
+		 tts = new TextToSpeech( this , new TextToSpeech.OnInitListener( ) { 
+ 			
+ 			@Override
+ 			public void onInit(int status) {
+ 				// TODO Auto-generated method stub
+ 				if  ( status != TextToSpeech.ERROR ) { 
+ 					Locale locSpanish = new Locale("spa", "MEX");
+ 					tts.setLanguage(locSpanish) ; 
+ 					
+ 				}
+ 			}
+ 		}) ; 
 		
 		if ( !BackgroundService.running )
 			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
