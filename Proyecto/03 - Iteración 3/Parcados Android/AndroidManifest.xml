@@ -49,6 +49,8 @@
             </intent-filter>
         </activity>
         <activity android:name="parcados.activities.TestActivity" />
+        <activity android:name="parcados.activities.VoiceActivity" />
+        <activity android:name="parcados.activities.TextVoice" />
         <activity android:name="parcados.activities.BusquedaParqueaderosActivity" />
         <activity android:name="parcados.activities.ParqueaderosActivity" />
         <activity android:name="parcados.activities.DetalleParqueaderoActivity" />

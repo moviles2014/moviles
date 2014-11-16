@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 	 * @param v - el view
 	 */
 	public void abrirCalculadora ( View v ) {
-		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		Intent intent = new Intent(this, VoiceActivity.class) ;
 		startActivity(intent) ;
 
 	}
