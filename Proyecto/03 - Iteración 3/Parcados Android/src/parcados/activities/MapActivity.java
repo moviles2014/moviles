@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
+import parcados.sensors.Compass;
 
 import com.androidmapsextensions.ClusteringSettings;
 import com.androidmapsextensions.GoogleMap;
@@ -13,12 +14,15 @@ import com.androidmapsextensions.MarkerOptions;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.parcados.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.GeomagneticField;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +37,9 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 
 	private GoogleMap map;
 
+	private GeomagneticField geoField;	
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -41,13 +48,49 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		getActionBar().setTitle("Mapa");
 
+		Compass.startCompass((SensorManager) getSystemService(Context.SENSOR_SERVICE));
+
 
 		lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
 
 
 
 		locationListener = new LocationListener() {
+
 			public void onLocationChanged(Location location) {
+				if (location == null)
+					return;
+
+				float heading = Compass.getAzimuth();
+				float bearing = location.getBearing();
+
+				geoField = new GeomagneticField(
+						Double.valueOf(location.getLatitude()).floatValue(),
+						Double.valueOf(location.getLongitude()).floatValue(),
+						Double.valueOf(location.getAltitude()).floatValue(),
+						System.currentTimeMillis()
+						);
+
+				heading -= geoField.getDeclination();
+
+
+				heading = bearing - heading;
+
+				if (heading < 0) {
+					heading = heading + 360;
+				}
+
+				Toast toast = Toast.makeText(getApplicationContext(), heading+"", Toast.LENGTH_SHORT);
+				toast.show();
+				updateCamera(heading, location.getLatitude(), location.getLongitude());
+
+			}
+
+			public void updateCamera(float bearing, double latitude, double longitude) {
+				CameraPosition currentPlace = new CameraPosition.Builder()
+				.target(new LatLng(latitude, longitude))
+				.bearing(bearing).zoom(18f).build();
+				map.moveCamera(CameraUpdateFactory.newCameraPosition(currentPlace));
 			}
 			@Override
 			public void onStatusChanged(String provider, int status,
@@ -142,6 +185,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 	@Override
 	protected void onResume() {
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+		Compass.startCompass((SensorManager) getSystemService(Context.SENSOR_SERVICE));
 		super.onResume();
 
 	}
@@ -149,6 +193,8 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		lm.removeUpdates(locationListener);
+		Compass.pauseCompass();
 		super.onPause();
 
 	}
@@ -157,6 +203,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 	@Override
 	protected void onDestroy() {
 		lm.removeUpdates(locationListener);
+		Compass.pauseCompass();
 		super.onDestroy();
 	}
 
