@@ -41,10 +41,12 @@
         <item>Localización</item>
     </string-array>
     <string-array name="opciones_array">
-        <item>Mi Actividad</item>
+        <item>Mis Reservas</item>
         <item>Buscar Parqueadero</item>
         <item>Calculadora de Costos</item>
-        <item>Mapa</item>        
+        <item>Mapa</item>
+        <item>Historial</item>
+        <item>Parqueaderos Favoritos</item>        
     </string-array>
 
 </resources>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:columnCount="1"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/cuposFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="top"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="8dp"
+            android:layout_row="1"
+            android:text="5 cupos"
+            android:textColor="#7A5229" />
+
+        <TextView
+            android:id="@+id/precioFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="left|center_vertical"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="35dp"
+            android:layout_row="1"
+            android:text="$70/min"
+            android:textColor="#006600" />
+
+        <TextView
+            android:id="@+id/textView121"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="right|top"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_row="1"
+            android:maxLines="2"
+            android:text="Parqueolito de la calle 65 con nombre mas largo "
+            android:textSize="20sp" />
+
+      
+    </GridLayout>
+
+</LinearLayout>
+

@@ -4,5 +4,4 @@ INDEX VERSION 1.126+C:\Users\hp pc\Documents\moviles\Proyecto\03 - Iteración 3\.
 2366720246.index
 1688682138.index
 848856923.index
-510109147.index
 300925867.index

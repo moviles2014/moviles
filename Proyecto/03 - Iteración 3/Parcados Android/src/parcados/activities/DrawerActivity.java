@@ -21,10 +21,12 @@ public class DrawerActivity extends Activity {
 	private String[] listaOpciones;
 	private ListView mDrawerList;
 
-	private final static int ACTIVIDAD = 0;
+	private final static int MIS_RESERVAS = 0;
 	private final static int BUSCAR_PARQUEADERO = 1;
 	private final static int CALCULADORA = 2;
 	private final static int MAPA = 3;
+	private final static int HISTORIAL = 4;
+	private final static int FAVORITOS = 5;
 
 
 	protected DrawerLayout fullLayout;
@@ -56,9 +58,9 @@ public class DrawerActivity extends Activity {
 	}
 
 	private void selectItem(int position, View view){
-		if (position == ACTIVIDAD)
+		if (position == MIS_RESERVAS)
 		{
-
+			abrirReservas(view) ;
 		}
 		else if (position == BUSCAR_PARQUEADERO)
 		{
@@ -71,7 +73,15 @@ public class DrawerActivity extends Activity {
 		else if (position == MAPA)
 		{
 			abrirMapa(view);
-		}				
+		}	
+		else if (position == FAVORITOS)
+		{
+			abrirFavoritos(view);
+		}	
+		else if (position == HISTORIAL)
+		{
+			abrirHistorial(view);
+		}	
 	}
 
 	public void buscarParqueadero ( View view )
@@ -117,5 +127,24 @@ public class DrawerActivity extends Activity {
 		Intent intent = new Intent(this, MapActivity.class) ;			
 		startActivity(intent) ;
 	}
-
+	
+	public void abrirHistorial( View view )
+	{
+		Intent intent = new Intent(this, HistorialActivity.class) ;			
+		startActivity(intent) ;
+	}
+	
+	public void abrirFavoritos( View view )
+	{
+		Intent intent = new Intent(this, FavoritosActivity.class) ;			
+		startActivity(intent) ;
+		System.out.println(" entro abrir favs ");
+	}
+	public void abrirReservas( View view )
+	{
+		Intent intent = new Intent(this, MisReservasActivity.class) ;			
+		startActivity(intent) ;
+	}
+	
+	
 }

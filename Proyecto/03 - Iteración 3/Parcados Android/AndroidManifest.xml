@@ -52,6 +52,9 @@
             </intent-filter>
         </activity>
         <activity android:name="parcados.activities.TestActivity" />
+        <activity android:name="parcados.activities.HistorialActivity" />
+        <activity android:name="parcados.activities.MisReservasActivity" />
+        <activity android:name="parcados.activities.FavoritosActivity" />
         <activity android:name="parcados.activities.BusquedaParqueaderosActivity" />
         <activity android:name="parcados.activities.ParqueaderosActivity" />
         <activity android:name="parcados.activities.DetalleParqueaderoActivity" />
