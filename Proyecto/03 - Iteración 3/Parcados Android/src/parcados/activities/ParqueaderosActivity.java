@@ -6,9 +6,11 @@ import com.parcados.R;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -68,6 +70,11 @@ public class ParqueaderosActivity extends DrawerActivity implements OnItemClickL
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1 , lista) ; 
 			mListView.setAdapter(adapter) ; 
 		}
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+		"fonts/Oxygen-Regular.ttf"); 
+		final ViewGroup mContainer = (ViewGroup) findViewById(
+		android.R.id.content).getRootView();
+		MyApplication.setAppFont(mContainer, mFont ,true );
 
 	}
 

@@ -47,6 +47,11 @@ public class HistorialActivity extends DrawerActivity implements OnItemSelectedL
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		getActionBar().setTitle("Mis Reservas");
 		
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+				"fonts/Oxygen-Regular.ttf"); 
+				final ViewGroup mContainer = (ViewGroup) findViewById(
+				android.R.id.content).getRootView();
+				MyApplication.setAppFont(mContainer, mFont ,true );
 	}
 	
 	@Override
@@ -166,6 +171,18 @@ public class HistorialActivity extends DrawerActivity implements OnItemSelectedL
 		}
 		
 		
+		if ( parqueaderos.size() == 0 ) { 
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("No tiene registros!")
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
 		
 		mListView = (ListView) findViewById(R.id.mi_historial);
 		mListView.setOnItemClickListener(this);

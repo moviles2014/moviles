@@ -52,6 +52,11 @@ public class FavoritosActivity extends DrawerActivity implements OnItemSelectedL
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		getActionBar().setTitle("Parqueaderos Favoritos");
 		
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+				"fonts/Oxygen-Regular.ttf"); 
+				final ViewGroup mContainer = (ViewGroup) findViewById(
+				android.R.id.content).getRootView();
+				MyApplication.setAppFont(mContainer, mFont ,true );
 	}
 
 	/**

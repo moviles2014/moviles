@@ -9,11 +9,13 @@ import com.parcados.R;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -104,6 +106,12 @@ public class CalculadoraActivity extends DrawerActivity {
 			}
 
 		}, 0, 1000);
+		
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+				"fonts/Oxygen-Regular.ttf"); 
+				final ViewGroup mContainer = (ViewGroup) findViewById(
+				android.R.id.content).getRootView();
+				MyApplication.setAppFont(mContainer, mFont ,true );
 	}
 
 	private void TimerMethod()

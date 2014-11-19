@@ -47,6 +47,11 @@ public class MisReservasActivity extends DrawerActivity implements OnItemSelecte
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		getActionBar().setTitle("Mis Reservas");
 		
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+				"fonts/Oxygen-Regular.ttf"); 
+				final ViewGroup mContainer = (ViewGroup) findViewById(
+				android.R.id.content).getRootView();
+				MyApplication.setAppFont(mContainer, mFont ,true );
 	}
 	
 	@Override
@@ -167,7 +172,19 @@ public class MisReservasActivity extends DrawerActivity implements OnItemSelecte
 		
 		
 		
-		
+		if ( parqueaderos.size() == 0 ) { 
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("No tiene reservas!")
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+			
 		
 		
 		mListView = (ListView) findViewById(R.id.mis_reservas);

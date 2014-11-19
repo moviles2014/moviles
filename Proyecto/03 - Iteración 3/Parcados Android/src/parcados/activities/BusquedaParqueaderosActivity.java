@@ -8,11 +8,13 @@ import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -84,6 +86,12 @@ public class BusquedaParqueaderosActivity extends DrawerActivity implements OnIt
 		});
 
 		listaActual = new ArrayList<String>();
+		
+		final Typeface mFont = Typeface.createFromAsset(getAssets(),
+		"fonts/Oxygen-Regular.ttf"); 
+		final ViewGroup mContainer = (ViewGroup) findViewById(
+		android.R.id.content).getRootView();
+		MyApplication.setAppFont(mContainer, mFont ,true );
 	}
 
 	@Override
