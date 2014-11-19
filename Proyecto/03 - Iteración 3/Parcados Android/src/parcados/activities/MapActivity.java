@@ -1,6 +1,7 @@
 package parcados.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
@@ -28,6 +29,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 public class MapActivity extends DrawerActivity implements com.androidmapsextensions.GoogleMap.OnInfoWindowClickListener, com.androidmapsextensions.GoogleMap.OnMyLocationButtonClickListener{
@@ -45,6 +47,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mapa);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
 		getActionBar().setTitle("Mapa");
 
@@ -56,6 +59,8 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 
 
 		locationListener = new LocationListener() {
+
+			private ArrayList<String> asked = new ArrayList<String>();
 
 			public void onLocationChanged(Location location) {
 				if (location == null)
@@ -80,10 +85,36 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 					heading = heading + 360;
 				}
 
-				Toast toast = Toast.makeText(getApplicationContext(), heading+"", Toast.LENGTH_SHORT);
-				toast.show();
 				updateCamera(heading, location.getLatitude(), location.getLongitude());
+				//
+				//				MarkerOptions marker = new MarkerOptions();
+				//
+				//				marker.position(new LatLng(location.getLatitude(), location.getLongitude()));			
+				//				marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+				//				marker.title("Impark Carrera 35");
+				//				marker.snippet("Click para más informacion...");
+				//				map.addMarker(marker);	
 
+				List<Marker> markers = map.getDisplayedMarkers();
+				for (int i = 0; i < markers.size(); i++)
+				{
+					Marker actual = markers.get(i);
+					if (actual.getTitle() != null)
+					{
+						Location loc = new Location("actual");
+						loc.setLatitude(actual.getPosition().latitude);
+						loc.setLongitude(actual.getPosition().longitude);
+						if (location.distanceTo(loc) < 20)
+						{
+							if (!asked.contains(actual.getTitle()))
+							{
+								asked.add(actual.getTitle());
+								dialogoIngresoParqueadero(actual.getTitle());
+							}
+						}
+
+					}
+				}
 			}
 
 			public void updateCamera(float bearing, double latitude, double longitude) {
@@ -112,7 +143,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 
 		};
 
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300, 10, locationListener);
 
 
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getExtendedMap();
@@ -124,6 +155,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 				);
 
 		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);		
+		map.setTrafficEnabled(true);
 
 
 		map.setMyLocationEnabled(true);
@@ -184,7 +216,8 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 
 	@Override
 	protected void onResume() {
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300, 10, locationListener);
 		Compass.startCompass((SensorManager) getSystemService(Context.SENSOR_SERVICE));
 		super.onResume();
 
@@ -193,6 +226,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		lm.removeUpdates(locationListener);
 		Compass.pauseCompass();
 		super.onPause();
@@ -202,6 +236,7 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 
 	@Override
 	protected void onDestroy() {
+		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		lm.removeUpdates(locationListener);
 		Compass.pauseCompass();
 		super.onDestroy();
@@ -321,5 +356,32 @@ public class MapActivity extends DrawerActivity implements com.androidmapsextens
 		}
 		return false;
 	}
+
+	public void dialogoIngresoParqueadero(final String nombre){
+		new AlertDialog.Builder(this)
+		.setTitle("Ingreso a parqueadero")
+		.setMessage("¿Ingresó al paqueadero: " + nombre + "?")
+		.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+				Parqueadero parq = Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(nombre);
+				seleccionarParqueadero(parq.darPrecio(), nombre);
+			}
+		})
+		.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) { 
+
+
+			}
+		})
+		.setIcon(android.R.drawable.ic_dialog_map)
+		.show();
+	}
+
+	public void seleccionarParqueadero (int precio, String nombre ) {
+		Intent intent = new Intent(this, CalculadoraActivity.class) ;
+		intent.putExtra("precio",  precio) ;
+		intent.putExtra("NombreParqueadero", nombre ) ;
+		startActivity(intent) ; 
+	} 
 
 }

@@ -1,6 +1,5 @@
 package parcados.activities;
 
-import java.lang.reflect.Method;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,8 +9,6 @@ import com.parcados.R;
 
 import db_remote.DB_Queries;
 import db_remote.RespuestaFavs;
-
-import android.R.integer;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -27,22 +24,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class MainActivity extends DrawerActivity {
 
 	TextToSpeech tts ; 
 	static final int check = 111 ;
-	
+
 	private static Object cola  ;  
-	
+
 	private static boolean flag  ; 
 	private static String parqueaderoInput ;
 	private static String parqueaderoInput2 ; 
 	private static String nombreParqueadero ; 
 	private static String fecha_reserva ; 
 	private static boolean reservando ;
-	
+
 	//--------------------------------------------------------------------------------------
 	// Métodos
 	//--------------------------------------------------------------------------------------
@@ -51,20 +47,20 @@ public class MainActivity extends DrawerActivity {
 	 */
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
-		
+
 		reservando = false ; 
 		flag =false ; 
 		setContentView(R.layout.activity_main_con);	
 		getActionBar().setTitle("Parcados");
 
-		
+
 		Typeface tf = Typeface.createFromAsset(MyApplication.getAppContext().getAssets(), "fonts/Oxygen-Regular.ttf");
 		Button btn = (Button) findViewById(R.id.button1) ; 
 		btn.setTypeface(tf)  ; 
-		
-		
+
+
 		tts = new TextToSpeech( this , new TextToSpeech.OnInitListener( ) { 
 
 			@Override
@@ -80,20 +76,20 @@ public class MainActivity extends DrawerActivity {
 
 		if ( !BackgroundService.running )
 			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
-		
-		
+
+
 		final Typeface mFont = Typeface.createFromAsset(getAssets(),
-		"fonts/Oxygen-Regular.ttf"); 
+				"fonts/Oxygen-Regular.ttf"); 
 		final ViewGroup mContainer = (ViewGroup) findViewById(
-		android.R.id.content).getRootView();
+				android.R.id.content).getRootView();
 		MyApplication.setAppFont(mContainer, mFont ,true );
-		
-		
+
+
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -113,8 +109,8 @@ public class MainActivity extends DrawerActivity {
 		}
 
 	}
-	
-	
+
+
 
 
 	@Override
@@ -133,36 +129,36 @@ public class MainActivity extends DrawerActivity {
 			else if (results.get(0).startsWith("reservar parqueadero")) { 
 				reservando = true ; 
 				try {
-					
+
 					parqueaderoInput2 = results.get(0).substring(20).trim() ;
 					String inputs[] = parqueaderoInput2.split(" a las ") ;
 					String nombreFav = inputs[0] ; 
 					String inputs2[] = inputs[1].split(" ") ;
-					
+
 					int hour  = Integer.parseInt(inputs2[0]) ; 
 					int min = Integer.parseInt(inputs2[1]) ; 
 					if (inputs2[2].equals("pm") ){ 
 						hour +=12 ;  
 					}
-					
+
 					Date ref  = new Date ( System.currentTimeMillis() ) ;
-			    	Calendar cal = Calendar.getInstance(); // locale-specific
-			    	cal.setTime(ref);
-			    	cal.set(Calendar.HOUR_OF_DAY, hour);
-			    	cal.set(Calendar.MINUTE, min);
-			    	long time = cal.getTimeInMillis();
-			    	Date d2 = new Date ( time ) ;
-			    	cal.setTime (d2) ; 
-			    	
-			    	fecha_reserva = Long.toString(time ) ; 
-					
-			    	
-			    	parqueaderoInput = nombreFav ;
-			    	
-			    	consultarParqueadero() ; 
-			    	
+					Calendar cal = Calendar.getInstance(); // locale-specific
+					cal.setTime(ref);
+					cal.set(Calendar.HOUR_OF_DAY, hour);
+					cal.set(Calendar.MINUTE, min);
+					long time = cal.getTimeInMillis();
+					Date d2 = new Date ( time ) ;
+					cal.setTime (d2) ; 
+
+					fecha_reserva = Long.toString(time ) ; 
+
+
+					parqueaderoInput = nombreFav ;
+
+					consultarParqueadero() ; 
+
 					agregarReserva() ; 
-					
+
 					tts.speak( "reservado parqueadero"+ parqueaderoInput + " a las " + hour + " " + min , TextToSpeech.QUEUE_FLUSH, null);
 					reservando = false ; 
 				}
@@ -192,16 +188,16 @@ public class MainActivity extends DrawerActivity {
 			BackgroundService.startAccelerometer() ;
 		}
 	}
-	
-	
+
+
 	private void consultarParqueadero () { 
-		
+
 		cola = new Object() ; 
-		
-		
+
+
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Consultando parqueadero", "Por favor espere...", true);
-		
+
 		try {
 
 			new Thread(new Runnable() {
@@ -228,11 +224,11 @@ public class MainActivity extends DrawerActivity {
 								}
 							}
 						}
-						
+
 						synchronized (MainActivity.cola) {
 							MainActivity.cola.notifyAll() ;	
 						}
-//						 
+						//						 
 						int i = 0;
 						while ( i < 10 && DB_Queries.inRequest)
 						{
@@ -240,10 +236,10 @@ public class MainActivity extends DrawerActivity {
 							Thread.sleep(1000);
 							System.out.println( i );
 						}
-						
+
 						dialog.dismiss();	
 						dialog2.dismiss() ;
-						
+
 						runOnUiThread(new Runnable() {
 
 							@Override
@@ -260,7 +256,7 @@ public class MainActivity extends DrawerActivity {
 								}
 								else
 								{
-//									setCuposYPrecio();
+									//									setCuposYPrecio();
 								}										
 							}
 						});
@@ -269,7 +265,7 @@ public class MainActivity extends DrawerActivity {
 							MainActivity.cola.notifyAll() ;	
 						}
 						dialog.dismiss();
-						
+
 						System.out.println( "parcados no se pudo conectar ");
 						try {
 							Thread.sleep(3000) ;
@@ -293,9 +289,9 @@ public class MainActivity extends DrawerActivity {
 			.setIcon(android.R.drawable.ic_dialog_alert)
 			.show();
 		}
-		
-		
-		
+
+
+
 		synchronized (cola) {
 			try {
 				cola.wait() ;
@@ -305,7 +301,7 @@ public class MainActivity extends DrawerActivity {
 			} 
 		}
 	}
-	
+
 
 	/**
 	 * Método que agrega items al action bar si se encuentran
@@ -319,7 +315,7 @@ public class MainActivity extends DrawerActivity {
 	public void agregarReserva ()	 { 
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Creando Reserva", "Por favor espere...", true);
-		
+
 		try {
 
 			new Thread(new Runnable() {
@@ -335,10 +331,10 @@ public class MainActivity extends DrawerActivity {
 							Thread.sleep(1000);
 							System.out.println( i );
 						}
-						
+
 						dialog.dismiss();	
 						dialog2.dismiss() ;
-						
+
 						runOnUiThread(new Runnable() {
 
 							@Override
@@ -357,7 +353,7 @@ public class MainActivity extends DrawerActivity {
 						});
 					} catch (Exception e) {
 						dialog.dismiss();
-						
+
 						System.out.println( "parcados no se pudo conectar ");
 						try {
 							Thread.sleep(3000) ;
@@ -386,7 +382,7 @@ public class MainActivity extends DrawerActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.comandoDeVoz) {
-			
+
 			flag = true ; 
 			Intent i = new Intent ( RecognizerIntent.ACTION_RECOGNIZE_SPEECH ) ;
 			i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) ;
@@ -424,7 +420,7 @@ public class MainActivity extends DrawerActivity {
 			});
 
 			builder.show();
-			
+
 		}
 		return super.onOptionsItemSelected(item);
 	}

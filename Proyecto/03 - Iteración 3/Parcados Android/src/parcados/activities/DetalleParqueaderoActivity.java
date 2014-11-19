@@ -1,20 +1,14 @@
 package parcados.activities;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
-import parcados.services.UpdaterServiceManager;
-
 import com.parcados.R;
 import db_remote.DB_Queries;
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -497,7 +491,6 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	} 
 	
 
-	@SuppressWarnings("deprecation")
 	public void reservar ( View v ) {
 	    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llayout);
 	    if(linearLayout.getMeasuredHeight() <= scroll.getScrollY() +
@@ -518,8 +511,8 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	    	agregarReserva() ;  
 	    	
 	    	
-	    	String fechaF = ""+cal.get (cal.YEAR) + "-" + (cal.get( cal.MONTH )+1)  +  "-" + 
-	    			 cal.get( cal.DAY_OF_MONTH) + "  " +  cal.get( cal.HOUR_OF_DAY )  + ":" + cal.get(cal.MINUTE) ;   
+//	    	String fechaF = ""+cal.get (Calendar.YEAR) + "-" + (cal.get( Calendar.MONTH )+1)  +  "-" + 
+//	    			 cal.get( Calendar.DAY_OF_MONTH) + "  " +  cal.get( Calendar.HOUR_OF_DAY )  + ":" + cal.get(Calendar.MINUTE) ;   
 	    	
 //	    	System.out.println( fechaF ) ;
 	    	

@@ -26,7 +26,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.parcados.R;
 
 import db_remote.DB_Queries;
-import db_remote.RespuestaFavs;
 import db_remote.RespuestaReservas;
 
 public class MisReservasActivity extends DrawerActivity implements OnItemSelectedListener, OnItemClickListener , OnItemLongClickListener  { 
@@ -87,8 +86,8 @@ public class MisReservasActivity extends DrawerActivity implements OnItemSelecte
 						    	Date d2 = new Date ( time ) ;
 						    	cal.setTime (d2) ; 
 						    	
-						    	String fechaF = ""+cal.get (cal.YEAR) + "-" + (cal.get( cal.MONTH )+1)  +  "-" + 
-						    			 cal.get( cal.DAY_OF_MONTH) + "  " +  cal.get( cal.HOUR_OF_DAY )  + ":" + cal.get(cal.MINUTE) ;
+						    	String fechaF = ""+cal.get (Calendar.YEAR) + "-" + (cal.get( Calendar.MONTH )+1)  +  "-" + 
+						    			 cal.get( Calendar.DAY_OF_MONTH) + "  " +  cal.get( Calendar.HOUR_OF_DAY )  + ":" + cal.get(Calendar.MINUTE) ;
 								fecha.add ( fechaF)  ;
 								fechaLong.add(res.get(i).fecha) ;
 							}

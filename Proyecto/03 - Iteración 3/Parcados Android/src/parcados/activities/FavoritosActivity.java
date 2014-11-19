@@ -1,12 +1,5 @@
 package parcados.activities;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
- 
-import parcados.mundo.Parcados;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
