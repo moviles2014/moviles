@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -290,9 +291,10 @@ public class HistorialActivity extends DrawerActivity implements OnItemSelectedL
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
-		
+		Intent intent = new Intent(this, DetalleParqueaderoActivity.class) ;
+		intent.putExtra("idparq", parqueaderos.get(position) ) ;  
+		startActivity(intent) ;
 	}
-
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {

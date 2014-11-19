@@ -2,4 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.parcados.MainActivity" >
 
+    
+    <item
+        android:id="@+id/comandoDeVoz"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/comandosDeVoz"/>
+    
+        <item
+        android:id="@+id/habilitarAcc"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/habilitarAcc"/>
+        
+		<item
+        android:id="@+id/deshabilitarAcc"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/deshabilitarAcc"/>
+		
+			<item
+        android:id="@+id/ajustarAcc"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/ajustarAcc"/>
 </menu>

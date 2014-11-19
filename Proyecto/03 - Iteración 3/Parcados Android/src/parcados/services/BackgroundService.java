@@ -43,10 +43,13 @@ public class BackgroundService  extends Service {
 	private static float last_x;
 	private static float last_y;
 	private static float last_z;
-	private static final int SHAKE_THRESHOLD = 1000;
+	private static int SHAKE_THRESHOLD = 3000;
 
 
-
+	public static void setSHAKE_THRESHOLD ( int i ) { 
+		SHAKE_THRESHOLD = i ; 
+	}
+	
 	private final static SensorEventListener mSensorListener = new SensorEventListener() {
 
 		public void onSensorChanged(SensorEvent se) {
@@ -115,6 +118,8 @@ public class BackgroundService  extends Service {
 		mAccel = 0.00f;
 		mAccelCurrent = SensorManager.GRAVITY_EARTH;
 		mAccelLast = SensorManager.GRAVITY_EARTH;
+		
+		pauseAccelerometer() ;
 	}
 
 

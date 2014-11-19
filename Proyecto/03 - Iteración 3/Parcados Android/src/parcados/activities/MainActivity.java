@@ -4,17 +4,25 @@ import java.util.ArrayList;
 import java.util.Locale;
 import parcados.services.BackgroundService;
 import com.parcados.R;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+import android.text.InputType;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends DrawerActivity {
 
 	TextToSpeech tts ; 
 	static final int check = 111 ;
+	
+	private static boolean flag  ; 
 	//--------------------------------------------------------------------------------------
 	// Métodos
 	//--------------------------------------------------------------------------------------
@@ -25,17 +33,9 @@ public class MainActivity extends DrawerActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
-
+		flag =false ; 
 		setContentView(R.layout.activity_main_con);	
 		getActionBar().setTitle("Parcados");
-
-		if ( BackgroundService.inSpeechRecognition ) { 
-			Intent i = new Intent ( RecognizerIntent.ACTION_RECOGNIZE_SPEECH ) ;
-			i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) ;
-			i.putExtra(RecognizerIntent.EXTRA_PROMPT, "¿Qué quieres hacer?" )  ;
-			startActivityForResult(i, check ) ;
-		}
 
 		tts = new TextToSpeech( this , new TextToSpeech.OnInitListener( ) { 
 
@@ -50,15 +50,30 @@ public class MainActivity extends DrawerActivity {
 			}
 		}) ; 
 
-		//		if ( !BackgroundService.running )
-		//			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
+		if ( !BackgroundService.running )
+			MyApplication.getAppContext().startService(new Intent(MyApplication.getAppContext(), BackgroundService.class));
+		
 	}
 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		if ( BackgroundService.inSpeechRecognition ) { 
+			Intent i = new Intent ( RecognizerIntent.ACTION_RECOGNIZE_SPEECH ) ;
+			i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) ;
+			i.putExtra(RecognizerIntent.EXTRA_PROMPT, "¿Qué quieres hacer?" )  ;
+			startActivityForResult(i, check ) ;
+		}
+
 	}
 
 	@Override
@@ -83,8 +98,10 @@ public class MainActivity extends DrawerActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 
-		BackgroundService.inSpeechRecognition = false ;       
-		BackgroundService.startAccelerometer() ;
+		if ( !flag ) { 
+			BackgroundService.inSpeechRecognition = false ;       
+			BackgroundService.startAccelerometer() ;
+		}
 	}
 
 	/**
@@ -102,6 +119,48 @@ public class MainActivity extends DrawerActivity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.comandoDeVoz) {
+			
+			flag = true ; 
+			Intent i = new Intent ( RecognizerIntent.ACTION_RECOGNIZE_SPEECH ) ;
+			i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM) ;
+			i.putExtra(RecognizerIntent.EXTRA_PROMPT, "¿Qué quieres hacer?" )  ;
+			startActivityForResult(i, check ) ;
+		}
+		else if ( id == R.id.habilitarAcc) { 
+			BackgroundService.startAccelerometer() ;  
+		}
+		else if ( id == R.id.deshabilitarAcc) {
+			BackgroundService.pauseAccelerometer() ; 
+		}
+		else if ( id == R.id.ajustarAcc) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Ingresar sensibilidad:");
+
+			// Set up the input
+			final EditText input = new EditText(this);
+			// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+			input.setInputType(InputType.TYPE_CLASS_NUMBER);
+			builder.setView(input);
+
+			// Set up the buttons
+			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					int thresh = Integer.parseInt(input.getText().toString() ) ; 
+					BackgroundService.setSHAKE_THRESHOLD(thresh) ; 
+				}
+			});
+			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
+
+			builder.show();
+			
+		}
 		return super.onOptionsItemSelected(item);
 	}
 

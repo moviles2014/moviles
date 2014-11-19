@@ -32,6 +32,10 @@
     <string name="Actualizar">Actualizar</string>
     <string name="Reservar">Reservar</string>
     <string name="AgregarAFavoritos">Agregar a Favoritos</string>
+    <string name="comandosDeVoz">Comandos de Voz</string>
+    <string name="habilitarAcc">Habilitar acelerometro</string>
+    <string name="deshabilitarAcc">Deshabilitar acelerometro</string>
+    <string name="ajustarAcc">Ajustar acelerometro </string>
     <string name="reiniciar_precio">Reiniciar información</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
