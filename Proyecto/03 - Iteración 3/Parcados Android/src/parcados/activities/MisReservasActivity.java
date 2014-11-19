@@ -72,17 +72,20 @@ public class MisReservasActivity extends DrawerActivity implements OnItemSelecte
 						ArrayList<RespuestaReservas> res =  DB_Queries.consultarReservas() ;
 						System.out.println( "size de res "  + res.size () );
 						for ( int i = 0 ;i < res.size() ; i ++ ) { 
-							parqueaderos.add ( res.get(i).parqueadero) ;
+							
 //							
-					    	Calendar cal = Calendar.getInstance(); // locale-specific
-					    	long time = Long.parseLong(res.get(i).fecha ) ;  
-					    	Date d2 = new Date ( time ) ;
-					    	cal.setTime (d2) ; 
-					    	
-					    	String fechaF = ""+cal.get (cal.YEAR) + "-" + (cal.get( cal.MONTH )+1)  +  "-" + 
-					    			 cal.get( cal.DAY_OF_MONTH) + "  " +  cal.get( cal.HOUR_OF_DAY )  + ":" + cal.get(cal.MINUTE) ;
-							fecha.add ( fechaF)  ;
-							fechaLong.add(res.get(i).fecha) ; 
+							long time = Long.parseLong(res.get(i).fecha) ; 
+							if ( time > System.currentTimeMillis() ) { 
+								parqueaderos.add ( res.get(i).parqueadero) ;
+						    	Calendar cal = Calendar.getInstance(); // locale-specific
+						    	Date d2 = new Date ( time ) ;
+						    	cal.setTime (d2) ; 
+						    	
+						    	String fechaF = ""+cal.get (cal.YEAR) + "-" + (cal.get( cal.MONTH )+1)  +  "-" + 
+						    			 cal.get( cal.DAY_OF_MONTH) + "  " +  cal.get( cal.HOUR_OF_DAY )  + ":" + cal.get(cal.MINUTE) ;
+								fecha.add ( fechaF)  ;
+								fechaLong.add(res.get(i).fecha) ;
+							}
 						}
 						
 						synchronized (MisReservasActivity.cola) {
