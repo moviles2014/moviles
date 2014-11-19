@@ -115,7 +115,8 @@ int drawable parcados 0x7f020022
 int drawable posind 0x7f020023
 int drawable powered_by_google_dark 0x7f020024
 int drawable powered_by_google_light 0x7f020025
-int id actualizar 0x7f0b0034
+int id Reservar 0x7f0b0035
+int id agregarAFavoritos 0x7f0b0034
 int id book_now 0x7f0b000e
 int id button1 0x7f0b0023
 int id button2 0x7f0b001a
@@ -186,8 +187,10 @@ int menu calculadora 0x7f0a0000
 int menu main 0x7f0a0001
 int menu parqueadero_detalle 0x7f0a0002
 int string Actualizar 0x7f05003f
+int string AgregarAFavoritos 0x7f050041
 int string BParqueadero 0x7f05002d
 int string ImplicitViewURL 0x7f050028
+int string Reservar 0x7f050040
 int string accept 0x7f050002
 int string action_about 0x7f050024
 int string app_name 0x7f050023
@@ -227,8 +230,8 @@ int string consultarPrecio 0x7f05003d
 int string create_calendar_message 0x7f050005
 int string create_calendar_title 0x7f050004
 int string decline 0x7f050003
-int string drawer_close 0x7f050042
-int string drawer_open 0x7f050041
+int string drawer_close 0x7f050044
+int string drawer_open 0x7f050043
 int string finalizarTiempo 0x7f05003a
 int string inciarTiempo 0x7f050039
 int string ingresarHoraInicio 0x7f05003b
@@ -243,7 +246,7 @@ int string parqueadero_horario 0x7f050035
 int string parqueadero_precio 0x7f050034
 int string parqueaderos 0x7f050032
 int string precioActual 0x7f050038
-int string reiniciar_precio 0x7f050040
+int string reiniciar_precio 0x7f050042
 int string seleccionarParqueadero 0x7f05003e
 int string store_picture_message 0x7f050001
 int string store_picture_title 0x7f050000

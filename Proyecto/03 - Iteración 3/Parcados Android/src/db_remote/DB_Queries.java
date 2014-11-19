@@ -1,5 +1,7 @@
 package db_remote;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import android.util.Log;
 import com.pubnub.api.*;
 import org.apache.http.client.ClientProtocolException;
@@ -183,8 +185,79 @@ public class DB_Queries {
 				 
 
 	}
+	
+	public static void eliminarFavorito  ( String nombre ) throws JSONException, ClientProtocolException, IOException {
+		 inRequest = true ; 
+		 String result = HttpHandler.cypher_query
+	        		
+				 ( "match (u:User {nombre:'test'})-[r:FAVORITO {nombre:'"+nombre+"'}]->(b) delete r" );
+		 
+		 
+		 System.out.println( "resultado de eliminar  " + result);
+			inRequest = false ; 
+	}
+	
+	public static void agregarAFavoritos  ( String nombreFavorito , String parqueadero ) throws JSONException, ClientProtocolException, IOException {
+		 inRequest = true ; 
+		 String result = HttpHandler.cypher_query
+	        		
+				 ( "match (a:User { nombre:'test' } ) , (b:Parqueadero {nombre:'"+parqueadero+ "'})" +
+				 		" create unique (a)-[:FAVORITO {nombre:'"+nombreFavorito+"'} ]->(b) return a ,b" );
+		 
+		 
+		 System.out.println( "resultado de agregar favorito  " + result);
+			inRequest = false ; 
+	}
 	 
 	
-	
+	public static ArrayList<RespuestaFavs> consultarFavoritos  () throws JSONException, ClientProtocolException, IOException {
+		
+		 inRequest = true ; 
+
+		 
+		 ArrayList<RespuestaFavs> res = new ArrayList<RespuestaFavs>() ; 
+		 String count = HttpHandler.cypher_query
+	        		
+				  
+				 ( "MATCH (a:User { nombre: 'test' })-[:FAVORITO]->(x) RETURN count(x)" );
+		 
+		 
+		 System.out.println( count );
+			JSONObject obj;
+				obj = new JSONObject(count);
+				int n  = Integer.parseInt(obj.getJSONArray("data").getJSONArray(0)
+						.get(0).toString()) ;
+		
+				
+		 
+		 String result = HttpHandler.cypher_query
+	        		
+				  
+				 ( "match (a:User {nombre:'test'})-[r:FAVORITO]->(b) return r.nombre , b.nombre , b.cupos , b.precio" );
+		 
+		 System.out.println( result );
+		 
+		 for (  int i = 0  ;i < n  ; i ++ ) { 
+			 String favorito , parqueadero , precio , cupos ; 
+		 	obj = new JSONObject(result);
+			favorito  = obj.getJSONArray("data").getJSONArray(i).get(0).toString() ;
+			parqueadero  = obj.getJSONArray("data").getJSONArray(i).get(1).toString() ;
+			cupos  = obj.getJSONArray("data").getJSONArray(i).get(2).toString() ;
+			precio  = obj.getJSONArray("data").getJSONArray(i).get(3).toString() ;
+			res.add ( new RespuestaFavs(precio, cupos, parqueadero, favorito)) ; 
+		 }
+//		 	int precio = 0  , cupos = 0 ; 
+//			
+//			
+//				// TODO Auto-generated catch block
+			
+//			Parcados.darInstancia(MyApplication.getAppContext()).actualizarParqueadero(nombre, precio,cupos) ;
+			inRequest = false ; 
+		 return res ;
+				 
+
+	}
 	
 }
+
+

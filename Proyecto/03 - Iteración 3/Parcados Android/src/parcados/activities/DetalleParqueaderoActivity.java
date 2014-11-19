@@ -6,16 +6,21 @@ import java.util.TimerTask;
 import parcados.mundo.Parcados;
 import parcados.mundo.Parqueadero;
 import parcados.receivers.SmsReceiver;
+import parcados.services.UpdaterServiceManager;
+
 import com.parcados.R;
 import db_remote.DB_Queries;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class DetalleParqueaderoActivity extends DrawerActivity {
@@ -25,7 +30,7 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	//--------------------------------------------------------------------------------------
 	public final static String NUMEROSMS = "3167443740";
 
-	
+	private static String nombreFavorito ; 
 	private Timer myTimer;
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -213,17 +218,113 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 		}
 
 		int id = item.getItemId();
-		if (id == R.id.actualizar) {
-			actualizar(getWindow().getDecorView().findViewById(R.layout.activity_detalle_parqueadero)) ; 
+		if (id == R.id.agregarAFavoritos) {
+//			actualizar(getWindow().getDecorView().findViewById(R.layout.activity_detalle_parqueadero)) ;
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("Ingresar referencia:");
+
+			// Set up the input
+			final EditText input = new EditText(this);
+			// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+			input.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+			builder.setView(input);
+
+			// Set up the buttons
+			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					nombreFavorito = input.getText().toString();
+					agregarAFavoritos() ;  
+				}
+			});
+			builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
+
+			builder.show();
+			
+			
 		}
 		else if (id == R.id.reiniciar_precio) {
 			Parcados.darInstancia(getApplicationContext()).actualizarParqueadero(actual.darNombre(), -1 , -1 ) ;
 			setCuposYPrecio();
 			return true;
 		}
+		else if ( id == R.id.Reservar) {
+			System.out.println( "entro a reservar ");
+		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void agregarAFavoritos ( ) {  
+		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
+		final ProgressDialog dialog = ProgressDialog.show(this, "Agregando a favoritos", "Por favor espere...", true);
+		
+		try {
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try
+					{
+						DB_Queries.agregarAFavoritos( nombreFavorito , actual.darNombre()  ) ;
+						int i = 0;
+						while ( i < 10 && DB_Queries.inRequest)
+						{
+							i++;
+							Thread.sleep(1000);
+							System.out.println( i );
+						}
+						
+						dialog.dismiss();	
+						dialog2.dismiss() ;
+						
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								if (DB_Queries.inRequest)
+								{
+									new AlertDialog.Builder(DetalleParqueaderoActivity.this).setTitle("Parcados Time Out")
+									.setMessage("No se pudo consultar el parqueadero") 
+									.setIcon(android.R.drawable.ic_dialog_alert)
+									.show();
+								}
+								else
+								{
+									setCuposYPrecio();
+								}										
+							}
+						});
+					} catch (Exception e) {
+						dialog.dismiss();
+						
+						System.out.println( "parcados no se pudo conectar ");
+						try {
+							Thread.sleep(3000) ;
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						dialog2.dismiss() ; 
+					}		
+
+				}
+			}).start();
+
+		} catch (Exception e) {
+			new AlertDialog.Builder(this)
+			.setTitle("Parcados")
+			.setMessage("Parcados no se pudo conectar") 
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.show();
+		}
+	}
+	
+	
 	public void actualizar ( View v ) {
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Consultando parqueadero", "Por favor espere...", true);

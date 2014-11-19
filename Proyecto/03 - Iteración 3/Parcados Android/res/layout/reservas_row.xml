@@ -11,6 +11,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="Parqueolito Calle 21"
+        android:textColor="#161DDB"
         android:maxLines="1" 
         android:textSize="20sp" />
 
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:textColor="#F26D13" 
         android:text="1/12/2014 - 8:00 am" />
 
 </LinearLayout>

@@ -20,7 +20,7 @@
             android:layout_marginTop="8dp"
             android:layout_row="1"
             android:text="5 cupos"
-            android:textColor="#7A5229" />
+            android:textColor="#F26D13" />
 
         <TextView
             android:id="@+id/precioFav"
@@ -32,7 +32,7 @@
             android:layout_marginTop="35dp"
             android:layout_row="1"
             android:text="$70/min"
-            android:textColor="#006600" />
+            android:textColor="#161DDB" />
 
         <TextView
             android:id="@+id/textView121"
