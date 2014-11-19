@@ -45,7 +45,7 @@ public class HistorialActivity extends DrawerActivity implements OnItemSelectedL
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_historial) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
-		getActionBar().setTitle("Mis Reservas");
+		getActionBar().setTitle("Historial de Reservas");
 		
 		final Typeface mFont = Typeface.createFromAsset(getAssets(),
 				"fonts/Oxygen-Regular.ttf"); 
