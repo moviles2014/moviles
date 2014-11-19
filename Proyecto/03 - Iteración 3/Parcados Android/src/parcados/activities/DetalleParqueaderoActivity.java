@@ -1,5 +1,9 @@
 package parcados.activities;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,6 +14,8 @@ import parcados.services.UpdaterServiceManager;
 
 import com.parcados.R;
 import db_remote.DB_Queries;
+import android.R.integer;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -21,8 +27,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
+@SuppressLint("NewApi")
 public class DetalleParqueaderoActivity extends DrawerActivity {
 
 	//--------------------------------------------------------------------------------------
@@ -30,7 +40,8 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	//--------------------------------------------------------------------------------------
 	public final static String NUMEROSMS = "3167443740";
 
-	private static String nombreFavorito ; 
+	private static String nombreFavorito ;
+	private static String fecha_reserva ;
 	private Timer myTimer;
 	//--------------------------------------------------------------------------------------
 	// Atributos
@@ -47,8 +58,11 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	//--------------------------------------------------------------------------------------
 	// Métodos
 	//--------------------------------------------------------------------------------------
+	
+	private ScrollView scroll ; 
 
-
+	
+	private TimePicker tpicker ; 
 	/**
 	 * Cuando se crea la aplicación
 	 */
@@ -57,14 +71,17 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalle_parqueadero) ;
 		getActionBar().setDisplayHomeAsUpEnabled(true) ;
-		getActionBar().setTitle("Detalle Parqueadero");
+		
 		Intent intent = getIntent(); 		
 		idparq = intent.getStringExtra("idparq");
 
 		actual = Parcados.darInstancia(getApplicationContext()).darParqueaderoPorNombre(idparq);
 
-		TextView tx1 = (TextView) findViewById(R.id.textView1) ;
-		tx1.setText(actual.darNombre()) ;		
+		getActionBar().setTitle(actual.darNombre());
+		
+		tpicker= (TimePicker) findViewById(R.id.timePicker1) ; 
+		scroll = (ScrollView) findViewById(R.id.scroll) ;
+		
 		setCuposYPrecio();
 		TextView tx4 = (TextView) findViewById(R.id.textView4) ;
 		tx4.setText(actual.darHorario()) ; 
@@ -253,12 +270,80 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 			setCuposYPrecio();
 			return true;
 		}
-		else if ( id == R.id.Reservar) {
-			System.out.println( "entro a reservar ");
+		else if (id == R.id.actulizar) {
+			actualizar() ; 
+			return true;
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void agregarReserva ()	 { 
+		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
+		final ProgressDialog dialog = ProgressDialog.show(this, "Creando Reserva", "Por favor espere...", true);
+		
+		try {
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try
+					{
+						DB_Queries.agregarReserva( fecha_reserva , actual.darNombre()  ) ;
+						int i = 0;
+						while ( i < 10 && DB_Queries.inRequest)
+						{
+							i++;
+							Thread.sleep(1000);
+							System.out.println( i );
+						}
+						
+						dialog.dismiss();	
+						dialog2.dismiss() ;
+						
+						runOnUiThread(new Runnable() {
+
+							@Override
+							public void run() {
+								if (DB_Queries.inRequest)
+								{
+									new AlertDialog.Builder(DetalleParqueaderoActivity.this).setTitle("Parcados Time Out")
+									.setMessage("No se pudo consultar el parqueadero") 
+									.setIcon(android.R.drawable.ic_dialog_alert)
+									.show();
+								}
+								else
+								{
+									setCuposYPrecio();
+								}										
+							}
+						});
+					} catch (Exception e) {
+						dialog.dismiss();
+						
+						System.out.println( "parcados no se pudo conectar ");
+						try {
+							Thread.sleep(3000) ;
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} 
+						dialog2.dismiss() ; 
+					}		
+
+				}
+			}).start();
+
+		} catch (Exception e) {
+			new AlertDialog.Builder(this)
+			.setTitle("Parcados")
+			.setMessage("Parcados no se pudo conectar") 
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.show();
+		}
+	}
+	
+	
 	public void agregarAFavoritos ( ) {  
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Agregando a favoritos", "Por favor espere...", true);
@@ -325,7 +410,7 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 	}
 	
 	
-	public void actualizar ( View v ) {
+	public void actualizar ( ) {
 		final AlertDialog dialog2 = new AlertDialog.Builder(this).setTitle("Parcados no se pudo conectar").setMessage("Asegúrese de tener una conexión a internet").setIcon(android.R.drawable.ic_dialog_alert).show();
 		final ProgressDialog dialog = ProgressDialog.show(this, "Consultando parqueadero", "Por favor espere...", true);
 		
@@ -400,6 +485,52 @@ public class DetalleParqueaderoActivity extends DrawerActivity {
 		intent.putExtra("precio", actual.darPrecio()) ;
 		intent.putExtra("NombreParqueadero", actual.darNombre() ) ;
 		startActivity(intent) ; 
+	} 
+	
+
+	@SuppressWarnings("deprecation")
+	public void reservar ( View v ) {
+	    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.llayout);
+	    if(linearLayout.getMeasuredHeight() <= scroll.getScrollY() +
+	           scroll.getHeight()) {
+	    	int hour = tpicker.getCurrentHour() ;
+	    	int min = tpicker.getCurrentMinute() ;
+	    	
+	    	Date ref  = new Date ( System.currentTimeMillis() ) ;
+	    	Calendar cal = Calendar.getInstance(); // locale-specific
+	    	cal.setTime(ref);
+	    	cal.set(Calendar.HOUR_OF_DAY, hour);
+	    	cal.set(Calendar.MINUTE, min);
+	    	long time = cal.getTimeInMillis();
+	    	Date d2 = new Date ( time ) ;
+	    	cal.setTime (d2) ; 
+	    	
+	    	fecha_reserva = Long.toString(time ) ; 
+	    	agregarReserva() ;  
+	    	
+	    	
+	    	String fechaF = ""+cal.get (cal.YEAR) + "-" + (cal.get( cal.MONTH )+1)  +  "-" + 
+	    			 cal.get( cal.DAY_OF_MONTH) + "  " +  cal.get( cal.HOUR_OF_DAY )  + ":" + cal.get(cal.MINUTE) ;   
+	    	
+//	    	System.out.println( fechaF ) ;
+	    	
+	    	
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Se ha creado una nueva reserva")
+			       .setCancelable(false)
+			       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+			
+	    }
+	    else {
+	    	scroll.fullScroll(View.FOCUS_DOWN) ; 
+	    }
+		
 	} 
 
 }

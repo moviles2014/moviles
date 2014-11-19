@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -53,7 +54,19 @@ public class FavoritosActivity extends DrawerActivity implements OnItemSelectedL
 		
 	}
 
-	
+	/**
+	 * Maneja el evento si de si selencciona un item en el action bar
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		if ( item.getItemId() == android.R.id.home ){
+			finish() ; 
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -369,17 +382,17 @@ class MyAdapter extends BaseAdapter {
 		else { 
 			row = convertView ; 
 		}
-		TextView titleTextView =  (TextView) row.findViewById(R.id.textView121) ;
+		TextView titleTextView =  (TextView) row.findViewById(R.id.precioFav) ;
 		titleTextView.setTypeface(tf) ;
-		titleTextView.setText(FavoritosActivity.favoritos.get (position) ) ;
+		titleTextView.setText(FavoritosActivity.precios.get (position) ) ;
 		
 		TextView cupo =  (TextView) row.findViewById(R.id.cuposFav) ;
 		cupo.setTypeface(tf2) ;
 		cupo.setText(FavoritosActivity.cupos.get (position)) ;
 		
-		TextView precio =  (TextView) row.findViewById(R.id.precioFav) ;
+		TextView precio =  (TextView) row.findViewById(R.id.textView121) ;
 		precio.setTypeface(tf2) ;
-		precio.setText(FavoritosActivity.precios.get (position)) ;
+		precio.setText(FavoritosActivity.favoritos.get (position)) ;
 		return row;
 	} 
 	

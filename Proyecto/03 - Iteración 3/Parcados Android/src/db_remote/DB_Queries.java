@@ -197,6 +197,20 @@ public class DB_Queries {
 			inRequest = false ; 
 	}
 	
+	public static void eliminarReserva ( String parqueadero , String fecha ) throws JSONException, ClientProtocolException, IOException {
+		 inRequest = true ;
+		 
+		 System.out.println( "a eliminar " + parqueadero + " " + fecha );
+		 
+		 String result = HttpHandler.cypher_query
+	        		
+				 ( "match (u:User {nombre:'test'})-[r:RESERVA {fecha:'"+fecha+"'}]->(b:Parqueadero {nombre:'"+parqueadero+"'} ) delete r" );
+		 
+		 
+		 System.out.println( "resultado de eliminar  " + result);
+			inRequest = false ; 
+	}
+	
 	public static void agregarAFavoritos  ( String nombreFavorito , String parqueadero ) throws JSONException, ClientProtocolException, IOException {
 		 inRequest = true ; 
 		 String result = HttpHandler.cypher_query
@@ -206,6 +220,18 @@ public class DB_Queries {
 		 
 		 
 		 System.out.println( "resultado de agregar favorito  " + result);
+			inRequest = false ; 
+	}
+	
+	public static void agregarReserva  ( String fecha , String parqueadero ) throws JSONException, ClientProtocolException, IOException {
+		 inRequest = true ; 
+		 String result = HttpHandler.cypher_query
+	        		
+				 ( "match (a:User { nombre:'test' } ) , (b:Parqueadero {nombre:'"+parqueadero+"'}) " +
+				 		"create unique (a)-[:RESERVA {fecha:'"+ fecha + "'} ]->(b) return a ,b "  ) ; 
+		 
+		 
+		 System.out.println( "resultado de agregar reserva  " + result);
 			inRequest = false ; 
 	}
 	 
@@ -256,6 +282,45 @@ public class DB_Queries {
 		 return res ;
 				 
 
+	}
+	
+	public static ArrayList<RespuestaReservas> consultarReservas  () throws JSONException, ClientProtocolException, IOException {
+		
+		 inRequest = true ; 
+
+		 
+		 ArrayList<RespuestaReservas> res = new ArrayList<RespuestaReservas>() ; 
+		 String count = HttpHandler.cypher_query
+	        		
+				  
+				 ( "MATCH (a:User { nombre: 'test' })-[:RESERVA]->(x) RETURN count(x)" );
+		 
+		 
+		 System.out.println( count );
+			JSONObject obj;
+				obj = new JSONObject(count);
+				int n  = Integer.parseInt(obj.getJSONArray("data").getJSONArray(0)
+						.get(0).toString()) ;
+		
+				
+		 
+		 String result = HttpHandler.cypher_query
+	        		
+				  
+				 ( "match (a:User {nombre:'test'})-[r:RESERVA]->(b) return r.fecha, b.nombre" );
+		 
+		 System.out.println( result );
+		 
+		 for (  int i = 0  ;i < n  ; i ++ ) { 
+			 String fecha , parqueadero ;  
+		 	obj = new JSONObject(result);
+		 	fecha  = obj.getJSONArray("data").getJSONArray(i).get(0).toString() ;
+			parqueadero  = obj.getJSONArray("data").getJSONArray(i).get(1).toString() ;
+			res.add(new RespuestaReservas(parqueadero, fecha)) ; 
+		 }
+		inRequest = false ;
+		
+		 return res ;
 	}
 	
 }
